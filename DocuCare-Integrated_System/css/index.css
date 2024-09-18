@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family:sans-serif;
+}
+.navbar{
+    width: 100%;
+    height: auto;
+    background-color: #2fe7ce;
+
+}
+
+.navbar ul {
+    display: flex;
+    padding: 20px;
+}
+
+.navbar li {
+    list-style: none;
+    padding: 20px;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: white;
+}
+
+.navbar button {
+    margin-left: auto;
+    width: 6pc;
+    height: 3pc;
+    border: none;
+    background-color: white;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.navbar button:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+.vid-bg {
+    width: 100%; 
+    height: 88.4vh;
+    background-color: black;
+}
+
+.vid-bg video {
+    width: 100%; 
+}
