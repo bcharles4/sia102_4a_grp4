@@ -84,7 +84,7 @@ document.getElementById('hide').addEventListener('click', function() {
         const tl = gsap.timeline();
         tl.to([".sidebar", "#hide", "#menu"],{
             x: -300,
-            duration: 1,
+            duration: 0.5,
             opacity: 1,
             onComplete: function() {
                 
@@ -100,7 +100,7 @@ document.getElementById('hide').addEventListener('click', function() {
         const tl = gsap.timeline();
         tl.to([".sidebar", "#hide", "#menu"], {
             x: 0,
-            duration: 1,
+            duration: 0.5,
             opacity: 1
         });
     }
