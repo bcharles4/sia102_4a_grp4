@@ -31,7 +31,7 @@
     background-color: white;
     border-radius: 20px;
     font-weight: bold;
-    margin-top: 5px;
+ 
 }
 
 .navbar button:hover {
@@ -40,6 +40,11 @@
     cursor: pointer;
 }
 
+.navbar img {
+    height: 50px;
+    width: 50px;
+    
+}
 
 
 .vid-bg {

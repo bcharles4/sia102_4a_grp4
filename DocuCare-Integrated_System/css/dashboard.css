@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+.content-con {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.sidebar {
+    height: 100vh;
+    width: 18%;
+    background-color: #2fe7ce;
+    border-radius: 10px ;
+    filter: drop-shadow(10px 10px 5px gray);    
+    position: relative;
+    
+}
+
+#close-icons:hover {
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+
+.logo img {
+    width: 270px;
+  
+  
+}
+
+.side-pages p {
+    font-size: 20px;
+    font-weight: bold; 
+}
+
+.side-pages {
+    margin: 20px;
+}
+
+
+.page-con{
+    background-color: whitesmoke;
+    margin: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.close-icon {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end; /* Pushes the icon to the right */
+}
+
+
+#icons{
+    margin: 20px;
+    font-size: 20px;
+}
+
+#pages{
+    margin-left: 20px;
+}
+
+.side-bottom {
+   width: 100%;
+   height: 7.5vh;
+   background-color: whitesmoke;
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   right: 0;
+
+   border-top-left-radius: 20px;
+   border-top-right-radius: 20px;
+   display: flex;
+   justify-content:space-between;
+   align-items: center;
+   
+   
+}
+
+.bottom-con {
+    padding: 20px;
+    
+}
+
+.bottom-con ion-icon:hover {
+    color: #2fe7ce;
+    cursor: pointer;
+}
+.menu {
+    z-index: 1;
+}
+
+.menu button {
+    margin-top: 12px ;
+    width: 30px;
+    height: 5pc;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    background-color: #2fe7ce;
+    transition: all .3 ease-in;
+    cursor: pointer;
+}
