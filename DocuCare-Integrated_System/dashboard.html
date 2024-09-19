@@ -61,7 +61,7 @@
 
         </div>
 
-        </div>
+</div>
 
         <div class="menu">
             <button id="hide"><span> H<br>I<br>D<br>E </span></button>
@@ -76,26 +76,26 @@ document.getElementById('hide').addEventListener('click', function() {
     const spanText = button.querySelector('span');
 
     if (button.id === 'hide') {
-        // Change the button ID to 'menu' and update the text to 'MENU'
+      
         button.id = 'menu';
         spanText.innerHTML = "M<br>E<br>N<br>U";
 
-        // Animate sidebar out or hide logic
+  
         const tl = gsap.timeline();
         tl.to([".sidebar", "#hide", "#menu"],{
             x: -300,
             duration: 0.5,
             opacity: 1,
             onComplete: function() {
-                
+                // document.querySelector(".sidebar").style.display = "none";
             }
         });
     } else {
-        // Change the button ID back to 'hide' and update the text to 'HIDE'
+      
         button.id = 'hide';
         spanText.innerHTML = "H<br>I<br>D<br>E";
 
-        // Animate sidebar back in or show logic
+        
         document.querySelector(".sidebar").style.display = "block";
         const tl = gsap.timeline();
         tl.to([".sidebar", "#hide", "#menu"], {
