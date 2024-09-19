@@ -17,7 +17,7 @@ body {
     width: 18%;
     background-color: #2fe7ce;
     border-radius: 10px ;
-    filter: drop-shadow(10px 10px 5px gray);    
+    filter: drop-shadow(10px 10px 10px #999);    
     position: relative;
     
     
@@ -125,4 +125,71 @@ body {
     border-bottom-right-radius: 20px;
 }
 
+.dashboard {
+    width: 90%;
+    margin: 50px;
+   
+}
 
+.dashboard h1 {
+    color: white;
+    font-size: 50px;
+}
+
+.dashboard-elements {
+    width: 90%;
+    height: 70vh;
+    
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.container-dE {
+    width: 40%;
+    height: 30vh;
+    background-color: white;
+    margin: 20px;
+    border-radius: 20px;
+    filter: drop-shadow(10px 10px 2px #999);
+    display: flex;
+    justify-content: flex-start;
+ 
+}
+
+.left-line {
+    height: 22vh;
+    width: 15px;
+    background-color: #2fe7ce;
+    border-bottom-right-radius: 50px;
+    
+}
+
+.dE-description {
+    
+    padding: 50px;
+    margin-top: 20px;
+    
+
+}
+
+.dE-description h1 {
+    color: #333;
+}
+
+.dE-count {
+    background-color: #2fe7ce;
+    width: 200px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.dE-count h1 {
+    color: white;
+    margin: 0 auto;
+    font-size: 100px;
+}
