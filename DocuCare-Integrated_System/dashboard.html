@@ -80,16 +80,25 @@ document.getElementById('hide').addEventListener('click', function() {
         button.id = 'menu';
         spanText.innerHTML = "M<br>E<br>N<br>U";
 
-  
+        
         const tl = gsap.timeline();
-        tl.to([".sidebar", "#hide", "#menu"],{
+        tl.to([".sidebar", "#menu"],{
             x: -300,
             duration: 0.5,
             opacity: 1,
             onComplete: function() {
-                // document.querySelector(".sidebar").style.display = "none";
+                document.querySelector(".sidebar").style.display = "none";
             }
         });
+
+        tl.to("#menu", {
+            x: 0,
+            duration: 0.5,
+            opacity: 1,
+        });
+
+       
+
     } else {
       
         button.id = 'hide';
@@ -98,7 +107,14 @@ document.getElementById('hide').addEventListener('click', function() {
         
         document.querySelector(".sidebar").style.display = "block";
         const tl = gsap.timeline();
-        tl.to([".sidebar", "#hide", "#menu"], {
+        tl.from([".sidebar", "#hide"], {
+            x: -500,
+            duration: 0.5,
+            opacity: 0
+        });
+
+
+        tl.to([".sidebar", "#hide" ], {
             x: 0,
             duration: 0.5,
             opacity: 1
