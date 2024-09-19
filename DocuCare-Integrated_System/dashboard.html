@@ -64,42 +64,47 @@
         </div>
 
         <div class="menu">
-            <button id="hide"> H<br>I<br>D<br>E</button>
-            <button id="menu" style="display: none;"> M<br>E<br>N<br>U</button>
+            <button id="hide"><span> H<br>I<br>D<br>E </span></button>
         </div>
 
         
 
 <script>
 
-    document.getElementById('hide').addEventListener('click', function() {
+document.getElementById('hide').addEventListener('click', function() {
+    const button = document.querySelector('.menu button');
+    const spanText = button.querySelector('span');
+
+    if (button.id === 'hide') {
+        // Change the button ID to 'menu' and update the text to 'MENU'
+        button.id = 'menu';
+        spanText.innerHTML = "M<br>E<br>N<br>U";
+
+        // Animate sidebar out or hide logic
         const tl = gsap.timeline();
-        tl.to([".sidebar", "#hide"], {
-            x: -550,               
-            duration: 1,          
-            opacity: 0,            
+        tl.to([".sidebar", "#hide", "#menu"],{
+            x: -300,
+            duration: 1,
+            opacity: 1,
             onComplete: function() {
-                document.querySelector(".sidebar").style.display = "none";
-                document.getElementById("hide").style.display = "none";
-                document.getElementById("menu").style.display = "block" ;
+                
             }
         });
-    });
+    } else {
+        // Change the button ID back to 'hide' and update the text to 'HIDE'
+        button.id = 'hide';
+        spanText.innerHTML = "H<br>I<br>D<br>E";
 
-    document.getElementById('menu').addEventListener('click', function() {
+        // Animate sidebar back in or show logic
         document.querySelector(".sidebar").style.display = "block";
-        document.getElementById("hide").style.display = "block";
-
         const tl = gsap.timeline();
-        tl.to([".sidebar", "#hide"], {
-            x: 0,                 
-            duration: 1,          
-            opacity: 1,           
+        tl.to([".sidebar", "#hide", "#menu"], {
+            x: 0,
+            duration: 1,
+            opacity: 1
         });
-
-        document.getElementById("menu").style.display = "none";
-    });
-
+    }
+});
 
 
 
