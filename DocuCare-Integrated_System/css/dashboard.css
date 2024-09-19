@@ -20,6 +20,7 @@ body {
     filter: drop-shadow(10px 10px 5px gray);    
     position: relative;
     
+    
 }
 
 #close-icons:hover {
@@ -50,7 +51,14 @@ body {
     border-radius: 10px;
     display: flex;
     align-items: center;
+    cursor: pointer;
     
+}
+
+.page-con:focus {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
 }
 
 .close-icon {
@@ -110,9 +118,11 @@ body {
     border-top: 2px solid white;
     border-right: 2px solid white;
     border-bottom: 2px solid white;
-    background-color: #2fe7ce;
+    background-color: #333;
     transition: all .3 ease-in;
     cursor: pointer;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
+
+
