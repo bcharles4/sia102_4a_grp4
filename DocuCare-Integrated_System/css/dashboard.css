@@ -17,7 +17,7 @@ body {
     width: 18%;
     background-color: #2fe7ce;
     border-radius: 10px ;
-    filter: drop-shadow(10px 10px 10px #999);    
+    filter: drop-shadow(10px 10px 2px #999);    
     position: relative;
     
     
@@ -168,7 +168,7 @@ body {
 }
 
 .dE-description {
-    
+    width: 200px;
     padding: 50px;
     margin-top: 20px;
     

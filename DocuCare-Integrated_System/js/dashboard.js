@@ -78,13 +78,65 @@ function setActivePage(page) {
 const pages = document.querySelectorAll(".page");
 
 // Set the first page as active by default
-if (pages.length > 0) {
-    setActivePage(pages[0]);
-}
+// if (pages.length > 0) {
+//     setActivePage(pages[0]);
+// }
 
 // Add click event listeners to all .page elements
-pages.forEach(page => {
-    page.addEventListener("click", function() {
-        setActivePage(page);
+// pages.forEach(page => {
+//     page.addEventListener("click", function() {
+//         setActivePage(page);
+//     });
+// });
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+const dashB = document.getElementById("dashB");
+
+const tl = gsap.timeline();
+
+
+
+tl.from("#dashB",{
+    y: -500,
+    duration: .8,
+    opacity: 0
+});
+
+tl.to ("#dashB", {
+    x: 0,
+    duration: .8,
+    opacity: 1
+});
+
+
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const tl = gsap.timeline();
+
+    tl.from(".dbE-bot",{
+        y: 500,
+        duration: .8,
+        opacity: 0
+    }) 
+
+
+
+    
+    
+});
+
+
+addEventListener("DOMContentLoaded", (event) => {
+    const tl = gsap.timeline();
+    
+    tl.from(".dbE-top",{
+        y: -1000,
+        duration: .8,
+        opacity: 0
     });
 });
