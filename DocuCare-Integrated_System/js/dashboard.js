@@ -100,16 +100,12 @@ const tl = gsap.timeline();
 
 
 tl.from("#dashB",{
-    y: -500,
+    x: -1700,
     duration: .8,
     opacity: 0
 });
 
-tl.to ("#dashB", {
-    x: 0,
-    duration: .8,
-    opacity: 1
-});
+
 
 
 
@@ -117,26 +113,40 @@ tl.to ("#dashB", {
 
 document.addEventListener("DOMContentLoaded", () => {
     const tl = gsap.timeline();
-
-    tl.from(".dbE-bot",{
-        y: 500,
-        duration: .8,
-        opacity: 0
-    }) 
-
-
-
-    
-    
-});
-
-
-addEventListener("DOMContentLoaded", (event) => {
-    const tl = gsap.timeline();
     
     tl.from(".dbE-top",{
-        y: -1000,
-        duration: .8,
+        x: 1700,
+        duration: 1,
         opacity: 0
     });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const tl = gsap.timeline();
+
+    tl.from(".dbE-top-right",{
+        y: -1700,
+        duration: 1,
+        opacity: 0
+    }) 
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const tl = gsap.timeline();
+
+    tl.from(".dbE-bot-right",{
+        x: 1700,
+        duration: 1,
+        opacity: 0
+    }) 
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const tl = gsap.timeline();
+
+    tl.from(".dbE-bot",{
+        y: 1700,
+        duration: 1,
+        opacity: 0
+    }) 
 });
