@@ -17,7 +17,8 @@ document.getElementById('hide').addEventListener('click', function() {
                 document.querySelector(".sidebar").style.display = "none";
             }
         });
-
+        
+        
         tl.to("#menu", {
             x: 0,
             duration: 0.5,
@@ -34,12 +35,11 @@ document.getElementById('hide').addEventListener('click', function() {
         
         document.querySelector(".sidebar").style.display = "block";
         const tl = gsap.timeline();
-        tl.from([".sidebar", "#hide"], {
+        tl.from(".sidebar", {
             x: -500,
             duration: 0.2,
             opacity: 0
         });
-
 
         tl.to([".sidebar"], {
             x: 0,
@@ -47,17 +47,20 @@ document.getElementById('hide').addEventListener('click', function() {
             opacity: 1
         });
 
-        tl.from([".page"], {
-            x: -300,
-            duration: 0.2,
-            opacity: 1
+        tl.from("#hide", {
+            x: -0,
+            duration: .3,
+            opacity: 0
         });
 
-        tl.to([".page"], {
-            x: -0,
-            duration: 0.2,
-            opacity: 1
+
+        tl.from([".page"], {
+            x: -300,
+            duration: 0.1,
+            opacity: 0
         });
+
+       
     }
 });
 
