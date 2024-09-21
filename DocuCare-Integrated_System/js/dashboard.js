@@ -86,11 +86,11 @@ const pages = document.querySelectorAll(".page");
 // }
 
 // Add click event listeners to all .page elements
-// pages.forEach(page => {
-//     page.addEventListener("click", function() {
-//         setActivePage(page);
-//     });
-// });
+pages.forEach(page => {
+    page.addEventListener("click", function() {
+        setActivePage(page);
+    });
+});
 
 
 

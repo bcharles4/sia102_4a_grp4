@@ -55,10 +55,11 @@ body {
     
 }
 
-.page-con:focus {
+.page-con:hover {
     background-color: #333;
     color: white;
     cursor: pointer;
+    transition: all ease .3s;
 }
 
 .close-icon {
@@ -76,6 +77,7 @@ body {
 #pages{
     margin-left: 20px;
 }
+
 
 .side-bottom {
    width: 100%;
@@ -104,6 +106,7 @@ body {
     color: #2fe7ce;
     cursor: pointer;
 }
+
 .menu {
     z-index: 1;
 }
