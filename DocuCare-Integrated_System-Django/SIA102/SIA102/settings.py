@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['.github.dev', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'SIA102',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
