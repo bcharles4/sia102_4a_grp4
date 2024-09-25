@@ -63,39 +63,132 @@
             <div class="header">
                 <center><h1>Room Status List</h1></center>
             </div>
-   <div class="main-content">
-            <!-- Table to display room data -->
-            <table id="room-table">
-                <thead>
-                    <tr>
-                        <th>Room Number</th>
-                        <th>Condition</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="room-table-body">
-                    <!-- Rows will be generated dynamically by JavaScript -->
-                </tbody>
-            </table>
+            <div class="main-content">
+                <!-- Table to display room data -->
+                <table id="room-table">
+                    <thead>
+                        <tr>
+                            <th>Room Number</th>
+                            <th>Condition</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="room-table-body">
+                        <tr>
+                            <td>1</td>
+                            <td>undefined</td>
+                            <td>
+                                <select>
+                                    <option>Available</option>
+                                    <option>Occupied</option>
+                                    <option>Cleaning</option>
+                                    <option>Under Maintenance</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>undefined</td>
+                            <td>
+                                <select>
+                                    <option>Available</option>
+                                    <option>Occupied</option>
+                                    <option>Cleaning</option>
+                                    <option>Under Maintenance</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>undefined</td>
+                            <td>
+                                <select>
+                                    <option>Available</option>
+                                    <option>Occupied</option>
+                                    <option>Cleaning</option>
+                                    <option>Under Maintenance</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>undefined</td>
+                            <td>
+                                <select>
+                                    <option>Available</option>
+                                    <option>Occupied</option>
+                                    <option>Cleaning</option>
+                                    <option>Under Maintenance</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>undefined</td>
+                            <td>
+                                <select>
+                                    <option>Available</option>
+                                    <option>Occupied</option>
+                                    <option>Cleaning</option>
+                                    <option>Under Maintenance</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>undefined</td>
+                            <td>
+                                <select>
+                                    <option>Available</option>
+                                    <option>Occupied</option>
+                                    <option>Cleaning</option>
+                                    <option>Under Maintenance</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>s</td>
+                            <td>
+                                <select>
+                                    <option>Available</option>
+                                    <option>Occupied</option>
+                                    <option>Cleaning</option>
+                                    <option>Under Maintenance</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Occupied</td>
+                            <td>
+                                <select>
+                                    <option>Available</option>
+                                    <option>Occupied</option>
+                                    <option>Cleaning</option>
+                                    <option>Under Maintenance</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <!-- Form to add new room -->
-            <div class="add-room-form">
-                <h3>Add New Room</h3>
-                <input type="number" id="room-number" placeholder="Room Number" required>
-                <input type="text" id="room-condition" placeholder="Room Condition" required>
-                <select id="room-status">
-                    <option value="occupied">Occupied</option>
-                    <option value="available">Available</option>
-                    <option value="cleaning">Cleaning</option>
-                    <option value="maintenance">Under Maintenance</option>
-                </select>
-                <button onclick="addNewRoom()">Add Room</button>
+                <!-- Add New Room Form -->
+                <div class="add-room-form">
+                    <input type="number" placeholder="Room Number" required>
+                    <input type="text" placeholder="Room Condition" required>
+                    <select>
+                        <option>Occupied</option>
+                        <option>Available</option>
+                        <option>Cleaning</option>
+                        <option>Under Maintenance</option>
+                    </select>
+                    <button>Add Room</button>
+                </div>
             </div>
         </div>
     </div>
-	</div>
-	
-
+    
     <!-- DASHBOARD.JS -->
     <script src="./js/dashboard.js"></script>
 
@@ -107,6 +200,7 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- ROOM STATUS SCRIPT -->
-    <script src="./js/Room.js"></script>
+ 
 </body>
 </html>
+
