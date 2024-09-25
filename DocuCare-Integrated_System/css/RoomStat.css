@@ -1,0 +1,114 @@
+/* Reset margin and padding for all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set background color for the body */
+body {
+    background-color: whitesmoke;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Style for header */
+.header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.header h1 {
+    color: #333;
+    font-size: 36px;
+    margin-top: 20px;
+}
+
+/* Styling for the table */
+table {
+    width: 100%; /* Fix to ensure it fits the page */
+    max-width: 100%; /* Keeps the table within screen bounds */
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    overflow-x: auto; /* Enables scrolling on smaller screens */
+}
+
+/* Styling for table headers and table cells */
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+table th {
+    background-color: #2fe7ce;
+    color: white;
+}
+
+/* Zebra striping for even table rows */
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect on rows */
+table tr:hover {
+    background-color: #ddd;
+}
+
+/* Form styling */
+.add-room-form {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Input, select, and button styling within the form */
+.add-room-form input,
+.add-room-form select,
+.add-room-form button {
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc; /* Add border for consistency */
+    border-radius: 5px;
+    outline: none; /* Remove input focus outline */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Adds subtle shadow */
+}
+
+/* Button-specific styling */
+.add-room-form button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.add-room-form button:hover {
+    background-color: #2980b9;
+}
+
+/* Main content area styling */
+.main-content {
+    padding: 150px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 20px;
+	width: 1500px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1); /* Adds shadow to the container */
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    table {
+        width: 100%;
+        display: block;
+        overflow-x: auto; /* Allows scrolling if table overflows */
+    }
+    
+    .add-room-form input, .add-room-form select, .add-room-form button {
+        width: 100%; /* Full-width inputs for smaller screens */
+        margin: 10px 0;
+    }
+}
