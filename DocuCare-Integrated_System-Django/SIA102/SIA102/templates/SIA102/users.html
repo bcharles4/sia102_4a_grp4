@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+</head>
+<body>
+    <h1>Users List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>Contact Number</th>
+                <th>Department</th>
+                <th>Position</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.User_ID }}</td>
+                <td>{{ user.User_FName }}</td>
+                <td>{{ user.User_MName }}</td>
+                <td>{{ user.User_LName }}</td>
+                <td>{{ user.Contact_Num }}</td>
+                <td>{{ user.Department }}</td>
+                <td>{{ user.Position }}</td>
+                <td>{{ user.Email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
