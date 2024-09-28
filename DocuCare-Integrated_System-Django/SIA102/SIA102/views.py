@@ -9,7 +9,7 @@ import requests
 
 
 def index(request):
-    return render(request, "SIA102/dashboard.html")
+    return render(request, "SIA102/index.html")
 
 # Define a view to fetch and display users from the DocuCare API
 def users(request):
@@ -30,3 +30,15 @@ def users(request):
     return render(request, 'SIA102/users.html', {
         'users': users_data
     })
+
+def dashboard(request):
+    return render(request, "SIA102/dashboard.html")
+
+def dischargeRecords(request):
+    return render(request, "SIA102/dischargeRecords.html")
+
+def patientList(request):
+    return render(request, "SIA102/patientList.html")
+
+def roomStatus(request):
+    return render(request, "SIA102/roomStatus.html")

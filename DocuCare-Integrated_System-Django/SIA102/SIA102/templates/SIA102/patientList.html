@@ -1,0 +1,43 @@
+{% extends "SIA102/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <title>Discharge Records</title>
+    <link rel="stylesheet" href="{% static 'SIA102/patientList.css' %}">
+
+    <div class="main-content">
+        <h2>Patient List</h2>
+        <table class="patient-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Condition</th>
+                    <th>Discharge Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>John Doe</td>
+                    <td>45</td>
+                    <td>Stable</td>
+                    <td>2024-09-24</td>
+                    <td>Discharged</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jane Smith</td>
+                    <td>32</td>
+                    <td>Improving</td>
+                    <td>2024-09-25</td>
+                    <td>Not Yet Discharged</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

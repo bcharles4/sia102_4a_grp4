@@ -1,0 +1,54 @@
+{% extends "SIA102/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <title>Discharge Records</title>
+    <link rel="stylesheet" href="{% static 'SIA102/dischargeRecords.css' %}">
+
+    <div class="main-content">
+        <span class="headerDiv">
+            <h2>Discharge Records</h2>
+            &ensp;&ensp;&ensp;
+            <div>
+                <span>Filter: </span>
+                <span>
+                    <select name="filter" id="filter">
+                        <option value="latest">latest</option>
+                        <option value="oldest">oldest</option>
+                        <option value="nameAsc">name (ascending)</option>
+                        <option value="nameDesc">name (descending)</option>
+                      </select>
+                </span>
+            </div>
+        </span>
+        
+        <table class="patient-table" >
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Patient Name</th>
+                    <th>Discharge Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-href="discharge-summary.html">
+                    <td>1</td>
+                    <td>Klein Moretti</td>
+                    <td>25/09/2024</td>
+                </tr>
+                <tr data-href="discharge-summary.html">
+                    <td>2</td>
+                    <td>Kevin Kaslana</td>
+                    <td>23/09/2024</td>
+                </tr>
+                <tr data-href="discharge-summary.html">
+                    <td>3</td>
+                    <td>Ruby Rose</td>
+                    <td>20/09/2024</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

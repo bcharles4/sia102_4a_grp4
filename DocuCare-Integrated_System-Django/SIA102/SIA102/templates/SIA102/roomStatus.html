@@ -1,0 +1,137 @@
+{% extends "SIA102/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <title>Room Status</title>
+    <link rel="stylesheet" href="{% static 'SIA102/roomStatus.css' %}">
+
+    <div class="room-status-content">
+        <div class="header">
+            <center><h1>Room Status List</h1></center>
+        </div>
+        <div class="main-content">
+            <!-- Table to display room data -->
+            <table id="room-table">
+                <thead>
+                    <tr>
+                        <th>Room Number</th>
+                        <th>Condition</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="room-table-body">
+                    <tr>
+                        <td>1</td>
+                        <td>undefined</td>
+                        <td>
+                            <select>
+                                <option>Available</option>
+                                <option>Occupied</option>
+                                <option>Cleaning</option>
+                                <option>Under Maintenance</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>undefined</td>
+                        <td>
+                            <select>
+                                <option>Available</option>
+                                <option>Occupied</option>
+                                <option>Cleaning</option>
+                                <option>Under Maintenance</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>undefined</td>
+                        <td>
+                            <select>
+                                <option>Available</option>
+                                <option>Occupied</option>
+                                <option>Cleaning</option>
+                                <option>Under Maintenance</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>undefined</td>
+                        <td>
+                            <select>
+                                <option>Available</option>
+                                <option>Occupied</option>
+                                <option>Cleaning</option>
+                                <option>Under Maintenance</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>undefined</td>
+                        <td>
+                            <select>
+                                <option>Available</option>
+                                <option>Occupied</option>
+                                <option>Cleaning</option>
+                                <option>Under Maintenance</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>undefined</td>
+                        <td>
+                            <select>
+                                <option>Available</option>
+                                <option>Occupied</option>
+                                <option>Cleaning</option>
+                                <option>Under Maintenance</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>s</td>
+                        <td>
+                            <select>
+                                <option>Available</option>
+                                <option>Occupied</option>
+                                <option>Cleaning</option>
+                                <option>Under Maintenance</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Occupied</td>
+                        <td>
+                            <select>
+                                <option>Available</option>
+                                <option>Occupied</option>
+                                <option>Cleaning</option>
+                                <option>Under Maintenance</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Add New Room Form -->
+            <div class="add-room-form">
+                <input type="number" placeholder="Room Number" required>
+                <input type="text" placeholder="Room Condition" required>
+                <select>
+                    <option>Occupied</option>
+                    <option>Available</option>
+                    <option>Cleaning</option>
+                    <option>Under Maintenance</option>
+                </select>
+                <button>Add Room</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

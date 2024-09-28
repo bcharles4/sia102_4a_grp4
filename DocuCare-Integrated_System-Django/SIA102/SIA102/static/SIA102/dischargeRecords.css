@@ -1,0 +1,54 @@
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 20px;
+    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.1));
+}
+
+h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.patient-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.patient-table thead {
+    background-color: #2fe7ce;
+    color: white;
+}
+
+.patient-table th,
+.patient-table td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.patient-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.patient-table tbody tr:hover {
+    background-color: #ddd;
+}
+
+.patient-table th, .patient-table td {
+    border-collapse: collapse;
+    border: none;
+}
+.main-content span.headerDiv {
+    display: block; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
