@@ -150,29 +150,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }) 
 });
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     const tl = gsap.timeline();
+document.addEventListener("DOMContentLoaded", () => {
+    const tl = gsap.timeline();
 
-//     tl.from(".main-content",{
-//         y: 1500,
-//         duration: 1,
-//         opacity: 0
-//     }) 
+    tl.from(".main-content",{
+        y: 1500,
+        duration: 1,
+        opacity: 0
+    }) 
 
-// });
+});
 
 
 document.querySelectorAll('.page-con').forEach(function(page) {
     page.addEventListener('click', function() {
         // Check for different data-url attributes
-        const patientListUrl = page.getAttribute('data-url');
+        const dashboard = page.getAttribute('data-url-dashboard');
+        const patientListUrl = page.getAttribute('data-url-patientList');
         const roomStatusUrl = page.getAttribute('data-url-roomStatus');
         const dischargeRecordsUrl = page.getAttribute('data-url-dischargeRecords');
 
         // Redirect based on the attribute that exists
-        if (patientListUrl) {
+
+         if (dashboard) {
+            window.location.href = dashboard;
+        }
+        else if (patientListUrl) {
             window.location.href = patientListUrl;
-        } else if (roomStatusUrl) {
+        } 
+
+        else if (roomStatusUrl) {
             window.location.href = roomStatusUrl;
         } else if (dischargeRecordsUrl) {
             window.location.href = dischargeRecordsUrl;
