@@ -1,16 +1,179 @@
-/* Reset margin and padding for all elements */
 * {
     margin: 0;
     padding: 0;
-    font-family:sans-serif;
 }
 
-/* Set background color for the body */
 body {
     background-color: whitesmoke;
-    line-height: 1.6;
+}
+.content-con {
+    display: flex;
+    justify-content: flex-start;
 }
 
+.sidebar {
+    height: 100vh;
+    width: 18%;
+    background-color: #2fe7ce;
+    border-radius: 10px;
+    filter: drop-shadow(10px 10px 2px #999);
+    position: relative;
+
+
+}
+
+#close-icons:hover {
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+
+.logo img {
+    width: 270px;
+
+
+}
+
+.side-pages p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.side-pages {
+    margin: 20px;
+}
+
+
+.page-con {
+    background-color: whitesmoke;
+    margin: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+.page-con:hover {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    transition: all ease .3s;
+}
+
+.close-icon {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    /* Pushes the icon to the right */
+}
+
+
+#icons {
+    margin: 20px;
+    font-size: 20px;
+}
+
+#pages {
+    margin-left: 20px;
+}
+
+
+.side-bottom {
+    width: 100%;
+    height: 7.5vh;
+    background-color: whitesmoke;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+
+.bottom-con {
+    padding: 20px;
+
+}
+
+.bottom-con ion-icon:hover {
+    color: #2fe7ce;
+    cursor: pointer;
+}
+
+.menu {
+    z-index: 1;
+}
+
+.menu button {
+    margin-top: 12px;
+    width: 50px;
+    height: 7pc;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    background-color: #333;
+    transition: all .3 ease-in;
+    cursor: pointer;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.container-dE {
+    width: 40%;
+    height: 30vh;
+    background-color: white;
+    margin: 20px;
+    border-radius: 20px;
+    filter: drop-shadow(10px 10px 2px #999);
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+.left-line {
+    height: 22vh;
+    width: 15px;
+    background-color: #2fe7ce;
+    border-bottom-right-radius: 50px;
+
+}
+
+.dE-description {
+    width: 200px;
+    padding: 50px;
+    margin-top: 20px;
+
+
+}
+
+.dE-description h1 {
+    color: #333;
+}
+
+.dE-count {
+    background-color: #2fe7ce;
+    width: 200px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+
+}
+
+.dE-count h1 {
+    color: white;
+    margin: 0 auto;
+    font-size: 100px;
+}
 /* Style for header */
 .header {
     margin-bottom: 20px;
@@ -25,11 +188,11 @@ body {
 
 /* Styling for the table */
 table {
-    width: 100%; /* Fix to ensure it fits the page */
-    max-width: 100%; /* Keeps the table within screen bounds */
+    width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    overflow-x: auto; /* Enables scrolling on smaller screens */
+    overflow-x: auto; 
 }
 
 /* Styling for table headers and table cells */
@@ -94,7 +257,7 @@ table tr:hover {
     background-color: #fff;
     border-radius: 10px;
     margin: 20px;
-	width: 1500px;
+	width: 1200px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1); /* Adds shadow to the container */
 }
 
@@ -121,8 +284,10 @@ table tr:hover {
 }
 
 h1 {
-    text-align: center;
+      text-align: center;
+    font-size: 24px;
     color: #333;
     margin-bottom: 20px;
 }
+
 
