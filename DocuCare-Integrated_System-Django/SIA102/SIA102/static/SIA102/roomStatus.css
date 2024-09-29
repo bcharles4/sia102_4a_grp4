@@ -2,13 +2,12 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    font-family:sans-serif;
 }
 
 /* Set background color for the body */
 body {
     background-color: whitesmoke;
-    font-family: Arial, sans-serif;
     line-height: 1.6;
 }
 
