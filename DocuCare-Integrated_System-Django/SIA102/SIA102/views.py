@@ -42,3 +42,9 @@ def patientList(request):
 
 def roomStatus(request):
     return render(request, "SIA102/roomStatus.html")
+
+def dischargeSummary(request, userName):
+    return render(request, "SIA102/dischargeSummary.html",
+    {
+        "patientName": userName
+    })

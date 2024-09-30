@@ -26,5 +26,6 @@ urlpatterns = [
     path("dischargeRecords/", views.dischargeRecords, name="dischargeRecords"),
     path("patientList/", views.patientList, name="patientList"),
     path("roomStatus/", views.roomStatus, name="roomStatus"),
-    path('users/', views.users, name='users')
+    path('users/', views.users, name='users'),
+    path('dischargeSummary/<str:userName>/', views.dischargeSummary, name='dischargeSummary')
 ]
