@@ -1,0 +1,61 @@
+{% extends "SIA102/layout.html" %}
+{% load static %}
+
+{% block body %}
+<title>Discharge Records</title>
+<link rel="stylesheet" href="{% static 'SIA102/patientList.css' %}">
+
+<div class="main-content">
+    <h2>Patient List</h2>
+    <table class="patient-table">
+        <thead>
+            <tr>
+                <th>Patient ID</th>
+                <th>Admission Date</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Room Number</th>
+                <th>Birth Date</th>
+                <th>Attending Physician</th>
+                <th>Patient Status</th>
+                <th>Discharged Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>2024-09-10</td>
+                <td>John</td>
+                <td>A.</td>
+                <td>Doe</td>
+                <td>45</td>
+                <td>M</td>
+                <td>101</td>
+                <td>1979-05-14</td>
+                <td>Dr. Smith</td>
+                <td>Discharged</td>
+                <td>2024-09-24</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>2024-09-15</td>
+                <td>Jane</td>
+                <td>B.</td>
+                <td>Smith</td>
+                <td>32</td>
+                <td>F</td>
+                <td>102</td>
+                <td>1992-08-19</td>
+                <td>Dr. Johnson</td>
+                <td>Not Yet Discharged</td>
+                <td>-</td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
