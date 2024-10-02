@@ -11,10 +11,6 @@ body {
     justify-content: flex-start;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 608e256 (fixed the width of sidebar)
 #close-icons:hover {
     color: whitesmoke;
     cursor: pointer;
