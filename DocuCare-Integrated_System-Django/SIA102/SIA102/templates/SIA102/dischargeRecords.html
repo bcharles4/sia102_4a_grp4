@@ -25,28 +25,39 @@
         <table class="patient-table" >
             <thead>
                 <tr>
-                    <th>Patient ID</th>
+                    <th>Record Number</th>
                     <th>Patient Name</th>
                     <th>Discharge Date</th>
+                    <th> </th>
                 </tr>
             </thead>
             <tbody>
-                <tr data-href="{% url 'dischargeSummary' 'Klein Moretti' %}">
-                    <a>
+                <tr>
+                    <a href="{% url 'dischargeSummary' 'Klein Moretti' %}">
+                        <td>1</td>
+                        <td>Klein Moretti</td>
+                        <td>25/09/2024</td>
+                        <td>
+                            <button onclick="window.location.href='{% url 'dischargeSummary' 'Klein Moretti' %}'">View Summary</button>
+                        </td>
                     </a>
-                    <td>1</td>
-                    <td>Klein Moretti</td>
-                    <td>25/09/2024</td>
                 </tr>
+                
                 <tr data-href="{% url 'dischargeSummary' 'Kevin Kaslana' %}">
                     <td>2</td>
                     <td>Kevin Kaslana</td>
                     <td>23/09/2024</td>
+                    <td>
+                        <button onclick="window.location.href='{% url 'dischargeSummary' 'Kevin Kaslana' %}'">View Summary</button>
+                    </td>
                 </tr>
                 <tr data-href="{% url 'dischargeSummary' 'Ruby Rose' %}">
                     <td>3</td>
                     <td>Ruby Rose</td>
                     <td>20/09/2024</td>
+                    <td>
+                        <button onclick="window.location.href='{% url 'dischargeSummary' 'Ruby Rose' %}'">View Summary</button>
+                    </td>
                 </tr>
                 <!-- Add more rows as needed -->
             </tbody>
