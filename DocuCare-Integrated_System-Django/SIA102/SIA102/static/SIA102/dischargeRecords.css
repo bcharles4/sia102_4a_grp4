@@ -25,8 +25,7 @@ h2 {
     color: white;
 }
 
-.patient-table th,
-.patient-table td {
+.patient-table th, .patient-table td {
     padding: 15px;
     text-align: center;
     border: 1px solid #ddd;
@@ -51,4 +50,9 @@ h2 {
     align-items: center;
     justify-content: center;
 
+}
+
+.patient-table tbody tr td button {
+    background-color: #2fe7ce;
+    color: white;
 }
