@@ -11,17 +11,6 @@ body {
     justify-content: flex-start;
 }
 
-.sidebar {
-    height: 100vh;
-    width: 18%;
-    background-color: #2fe7ce;
-    border-radius: 10px;
-    filter: drop-shadow(10px 10px 2px #999);
-    position: relative;
-
-
-}
-
 #close-icons:hover {
     color: whitesmoke;
     cursor: pointer;
@@ -253,7 +242,7 @@ table tr:hover {
 
 /* Main content area styling */
 .main-content {
-    padding: 150px;
+    padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     margin: 20px;
