@@ -7,6 +7,28 @@ from django.contrib.auth.decorators import login_required
 import requests
 
 
+def login_view(request):
+    if request.method == "POST":
+
+        # Attempt to sign user in
+        username = request.POST["userID"]
+        password = request.POST["uPassword"]
+        user = authenticate(request, username=username, password=password)
+
+        # Check if authentication successful
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse("dashboard"))
+        else:
+            return render(request, "SIA102/index.html", {
+                "message": "Invalid username and/or password."
+            })
+    else:
+        return render(request, "SIA102/index.html")
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("index"))
 
 def index(request):
     return render(request, "SIA102/index.html")

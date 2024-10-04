@@ -33,7 +33,8 @@
         </div>
 
         <div class="form">
-            <form action="">
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
                 <input type="text" name="userID" id="userID" placeholder="User ID:"><br>
                 <input type="password" name="uPassword" id="uPassword" placeholder="Password"><br>
                 <center><button type="submit">LOGIN</button></center>
