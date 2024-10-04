@@ -80,15 +80,6 @@ DATABASES = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
-    
-    #"default": {
-        #"ENGINE": "django.db.backends.mysql",
-        #"NAME": "SIAproject_db",  # Replace with your database name
-        #"USER": "HyrkanDjango",        # Replace with your MySQL username
-        #"PASSWORD": "gustokongJowa_22",    # Replace with your MySQL password
-        #"HOST": "icy-apples-shout.loca.lt",            # Or use 'localhost'
-        #"PORT": "3308",                  # Default MySQL port
-    #}
 }
 
 
