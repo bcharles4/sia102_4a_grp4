@@ -130,7 +130,8 @@ body {
 
 .dashboard {
     width: 70%;
-    margin: 50px;
+    margin: 0 auto;
+    background-color: black;
    
 }
 
@@ -142,7 +143,6 @@ body {
 .dashboard-elements {
     width: 90%;
     height: 70vh;
-    
     padding: 30px;
     border-radius: 20px;
     display: flex;
@@ -195,5 +195,4 @@ body {
     color: white;
     margin: 0 auto;
     font-size: 100px;
-
 }
