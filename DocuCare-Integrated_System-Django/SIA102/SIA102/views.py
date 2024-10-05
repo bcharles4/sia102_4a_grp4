@@ -9,22 +9,20 @@ import requests
 
 def login_view(request):
     if request.method == "POST":
+        userIdnumber = request.POST.get("userID")
+        password = request.POST.get("uPassword")
 
-        # Attempt to sign user in
-        username = request.POST["userID"]
-        password = request.POST["uPassword"]
-        user = authenticate(request, username=username, password=password)
+        user = User.objects.get(userIdnumber=userIdnumber)
+        user = authenticate(request, username=user.username, password=password)
 
-        # Check if authentication successful
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse("dashboard"))
         else:
             return render(request, "SIA102/index.html", {
-                "message": "Invalid username and/or password."
+                "message": "Invalid userIdnumber and/or password."
             })
-    else:
-        return render(request, "SIA102/index.html")
+    return render(request, "SIA102/index.html")
 
 def logout_view(request):
     logout(request)
