@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details</title>
+    <link rel="stylesheet" href="css/patient-details.css">
+</head>
+
+<body>
+    <div class="content-con">
+        <h2>Patient Details</h2>
+
+        <!-- Patient Information -->
+        <div class="patient-info">
+            <p><strong>Patient ID:</strong> <span id="patient-id"></span></p>
+            <p><strong>First Name:</strong> <span id="first-name"></span></p>
+            <p><strong>Middle Name:</strong> <span id="middle-name"></span></p>
+            <p><strong>Last Name:</strong> <span id="last-name"></span></p>
+            <p><strong>Admission Date:</strong> <span id="admission-date"></span></p>
+            <p><strong>Room Number:</strong> <span id="room-number"></span></p>
+            <p><strong>Birth Date:</strong> <span id="birth-date"></span></p>
+            <p><strong>Age:</strong> <span id="age"></span></p>
+            <p><strong>Sex:</strong> <span id="sex"></span></p>
+            <p><strong>Attending Physician:</strong> <span id="attending-physician"></span></p>
+            <p><strong>Diagnosis:</strong> <span id="diagnosis"></span></p>
+            <p><strong>Patient Status:</strong> <span id="patient-status"></span></p>
+            <p><strong>Discharged Date:</strong> <span id="discharged-date"></span></p>
+        </div>
+
+        <!-- Back Button -->
+        <div class="back-button">
+            <button onclick="goBack()">Back to Patient List</button>
+        </div>
+    </div>
+
+    <!-- Back Button Function -->
+    <script>
+        function goBack() {
+            window.location.href = 'patient-list.html';
+        }
+
+        // Helper function to calculate age from birthdate
+        function calculateAge(birthDate) {
+            const today = new Date();
+            const birthDateObj = new Date(birthDate);
+            let age = today.getFullYear() - birthDateObj.getFullYear();
+            const monthDifference = today.getMonth() - birthDateObj.getMonth();
+
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDateObj.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        // Simulated patient data
+        const patientData = {
+            1: {
+                id: 1,
+                firstName: 'John',
+                middleName: 'A.',
+                lastName: 'Doe',
+                admissionDate: '2024-09-10',
+                roomNumber: '101',
+                birthDate: '1979-05-14',
+                age: null, // Age will be calculated
+                sex: 'M',
+                attendingPhysician: 'Dr. Smith',
+                diagnosis: 'Pneumonia',
+                status: 'Discharged',
+                dischargedDate: '2024-09-24'
+            },
+            2: {
+                id: 2,
+                firstName: 'Jane',
+                middleName: 'B.',
+                lastName: 'Smith',
+                admissionDate: '2024-09-15',
+                roomNumber: '102',
+                birthDate: '1992-08-19',
+                age: null, // Age will be calculated
+                sex: 'F',
+                attendingPhysician: 'Dr. Johnson',
+                diagnosis: 'Appendicitis',
+                status: 'Not Yet Discharged',
+                dischargedDate: '-'
+            }
+        };
+
+        // Get patient ID from URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const patientId = urlParams.get('id');
+
+        // Populate patient details
+        if (patientData[patientId]) {
+            const patient = patientData[patientId];
+
+            // Calculate age based on birth date
+            patient.age = calculateAge(patient.birthDate);
+
+            document.getElementById('patient-id').textContent = patient.id;
+            document.getElementById('first-name').textContent = patient.firstName;
+            document.getElementById('middle-name').textContent = patient.middleName;
+            document.getElementById('last-name').textContent = patient.lastName;
+            document.getElementById('admission-date').textContent = patient.admissionDate;
+            document.getElementById('room-number').textContent = patient.roomNumber;
+            document.getElementById('birth-date').textContent = patient.birthDate;
+            document.getElementById('age').textContent = patient.age;
+            document.getElementById('sex').textContent = patient.sex;
+            document.getElementById('attending-physician').textContent = patient.attendingPhysician;
+            document.getElementById('diagnosis').textContent = patient.diagnosis;
+            document.getElementById('patient-status').textContent = patient.status;
+            document.getElementById('discharged-date').textContent = patient.dischargedDate;
+        } else {
+            alert('Patient not found');
+        }
+    </script>
+
+</body>
+
+</html>
