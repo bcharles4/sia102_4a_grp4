@@ -58,6 +58,13 @@ h2 {
 }
 
 .patient-table button {
-    height: 5pc;
+    height: 3pc;
     border: none;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.patient-table button:hover {
+    background-color: #333;
+    cursor: pointer;
 }
