@@ -52,7 +52,12 @@ h2 {
 
 }
 
-.patient-table tbody tr td button {
+.patient-table tbody tr td  {
     background-color: #2fe7ce;
     color: white;
+}
+
+.patient-table button {
+    height: 5pc;
+    border: none;
 }
