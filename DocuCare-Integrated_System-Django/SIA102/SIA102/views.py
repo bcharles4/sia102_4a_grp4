@@ -10,12 +10,10 @@ import requests
 def login_view(request):
     if request.method == "POST":
 
-        # Attempt to sign user in
         username = request.POST["userID"]
         password = request.POST["uPassword"]
         user = authenticate(request, username=username, password=password)
 
-        # Check if authentication successful
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse("dashboard"))

@@ -1,0 +1,119 @@
+/* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.content-con {
+    width: 80%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.patient-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.patient-info p {
+    width: 48%;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.patient-info p strong {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+    color: #555;
+}
+
+.patient-info p span {
+    color: #333;
+    font-weight: normal;
+}
+
+.patient-info p:nth-child(odd) {
+    clear: both;
+}
+
+.patient-info {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Form appearance */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form label {
+    font-weight: bold;
+    color: #333;
+}
+
+form input[type="text"],
+form input[type="date"],
+form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+form button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
+@media screen and (max-width: 768px) {
+    .patient-info p {
+        width: 100%;
+    }
+}
+
+.back-button {
+    margin-top: 20px;
+}
+
+.back-button button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.back-button button:hover {
+    background-color: #45a049;
+}

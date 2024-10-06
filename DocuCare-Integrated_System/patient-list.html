@@ -19,30 +19,22 @@
             <div class="side-pages">
                 <div class="page-con page">
                     <ion-icon name="home" id="icons"></ion-icon>
-                    <p>
-                        <span class="pages">Dashboard</span>
-                    </p>
+                    <p><span class="pages">Dashboard</span></p>
                 </div>
 
                 <div class="page-con page">
                     <ion-icon name="home" id="icons"></ion-icon>
-                    <p>
-                        <span class="pages">Dashboard</span>
-                    </p>
+                    <p><span class="pages">Dashboard</span></p>
                 </div>
 
                 <div class="page-con page">
                     <ion-icon name="home" id="icons"></ion-icon>
-                    <p>
-                        <span class="pages">Dashboard</span>
-                    </p>
+                    <p><span class="pages">Dashboard</span></p>
                 </div>
 
                 <div class="page-con page">
                     <ion-icon name="home" id="icons"></ion-icon>
-                    <p>
-                        <span class="pages">Dashboard</span>
-                    </p>
+                    <p><span class="pages">Dashboard</span></p>
                 </div>
             </div>
 
@@ -68,36 +60,52 @@
             <table class="patient-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Condition</th>
-                        <th>Discharge Date</th>
-                        <th>Status</th>
+                        <th>Patient ID</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+                        <th>Room Number</th>
+                        <th>Attending Physician</th>
+                        <th>Diagnosis</th>
+                        <th>Patient Status</th>
+                        <th>Discharged Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr onclick="goToPatientDetails(1)">
                         <td>1</td>
-                        <td>John Doe</td>
-                        <td>45</td>
-                        <td>Stable</td>
-                        <td>2024-09-24</td>
+                        <td>John</td>
+                        <td>A.</td>
+                        <td>Doe</td>
+                        <td>101</td>
+                        <td>Dr. Smith</td>
+                        <td>Pneumonia</td>
                         <td>Discharged</td>
+                        <td>2024-09-24</td>
                     </tr>
-                    <tr>
+                    <tr onclick="goToPatientDetails(2)">
                         <td>2</td>
-                        <td>Jane Smith</td>
-                        <td>32</td>
-                        <td>Improving</td>
-                        <td>2024-09-25</td>
+                        <td>Jane</td>
+                        <td>B.</td>
+                        <td>Smith</td>
+                        <td>102</td>
+                        <td>Dr. Johnson</td>
+                        <td>Appendicitis</td>
                         <td>Not Yet Discharged</td>
+                        <td>-</td>
                     </tr>
                     <!-- Add more rows as needed -->
                 </tbody>
             </table>
         </div>
     </div>
+
+    <!-- Redirect to patient-details.html with patient ID -->
+    <script>
+        function goToPatientDetails(patientId) {
+            window.location.href = `patient-details.html?id=${patientId}`;
+        }
+    </script>
 
     <!-- DASHBOARD.JS -->
     <script src="./js/dashboard.js"></script>
