@@ -68,3 +68,9 @@ def dischargeSummary(request, userName):
     {
         "patientName": userName
     })
+
+def patient_detail(request, patient_id):
+    return render(request, "SIA102/patientDetail.html",
+    {
+        "patientID": patient_id
+    })

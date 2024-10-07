@@ -27,6 +27,7 @@ urlpatterns = [
     path("dashboard/", views.dashboard, name="dashboard"),
     path("dischargeRecords/", views.dischargeRecords, name="dischargeRecords"),
     path("patientList/", views.patientList, name="patientList"),
+    path('patient/<int:patient_id>', views.patient_detail, name='patient'),
     path("roomStatus/", views.roomStatus, name="roomStatus"),
     path('users/', views.users, name='users'),
     path('dischargeSummary/<str:userName>/', views.dischargeSummary, name='dischargeSummary')

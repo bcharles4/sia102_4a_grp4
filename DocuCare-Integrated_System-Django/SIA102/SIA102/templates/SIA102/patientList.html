@@ -17,33 +17,27 @@
                     <th>Last Name</th>
                     <th>Room Number</th>
                     <th>Attending Physician</th>
-                    <th>Diagnosis</th>
                     <th>Patient Status</th>
-                    <th>Discharged Date</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr onclick="window.location.href='{% url 'patient' 1 %}'">
                     <td>1</td>
                     <td>John</td>
                     <td>A.</td>
                     <td>Doe</td>
                     <td>101</td>
                     <td>Dr. Smith</td>
-                    <td>Pneumonia</td>
-                    <td>Discharged</td>
-                    <td>2024-09-24</td>
+                    <td>Active</td>
                 </tr>
-                <tr>
+                <tr onclick="window.location.href='{% url 'patient' 2 %}'">
                     <td>2</td>
                     <td>Jane</td>
                     <td>B.</td>
                     <td>Smith</td>
                     <td>102</td>
                     <td>Dr. Johnson</td>
-                    <td>Appendicitis</td>
-                    <td>Not Yet Discharged</td>
-                    <td>-</td>
+                    <td>Active</td>
                 </tr>
                 <!-- Add more rows as needed -->
             </tbody>
