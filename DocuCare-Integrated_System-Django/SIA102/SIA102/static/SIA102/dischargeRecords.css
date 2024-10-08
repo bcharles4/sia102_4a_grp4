@@ -63,3 +63,13 @@ table tr:hover {
     display: flex;
     justify-content: center;
 }
+
+.dischargeSummary-main {
+    width: 50%;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+
+    filter: drop-shadow(8px 8px 1px #999);
+
+}

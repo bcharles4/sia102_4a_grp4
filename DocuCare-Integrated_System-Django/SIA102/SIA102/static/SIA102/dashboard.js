@@ -153,11 +153,18 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
     const tl = gsap.timeline();
 
-    tl.from(".main-content",{
-        y: 1500,
+    tl.from([".main-content"],{
+        y: -1500,
         duration: 1,
         opacity: 0
     }) 
+
+    tl.from([".dischargeSummary-main"],{
+        x: 1000,
+        duration: 0.5,
+        opacity: 0
+    }) 
+
 
 });
 
