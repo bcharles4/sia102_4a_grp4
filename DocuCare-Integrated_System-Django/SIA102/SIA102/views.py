@@ -13,23 +13,20 @@ def login_view(request):
         password = request.POST["uPassword"]
 
         try:
-            # Look up the nurse by userIdnumber
             nurse = Nurse.objects.get(userIdnumber=userIdnumber)
-            
-            # Check if the provided password matches the stored (hashed) password
+            print("Nurse found")
             if check_password(password, nurse.password):
-                # Store the nurse ID in session for authentication
                 request.session['nurse_userID'] = nurse.userIdnumber
+                print("Storing session ID")
                 return HttpResponseRedirect(reverse("dashboard"))
             else:
-                return render(request, "SIA102/index.html", {
-                    "message": "Invalid UserID and/or password."
-                })
+                print("Invalid UserID and/or password.")
+                return render(request, "SIA102/index.html")
         except Nurse.DoesNotExist:
-            return render(request, "SIA102/index.html", {
-                "message": "Invalid UserID and/or password."
-            })
+            print("Nurse does not exist")
+            return render(request, "SIA102/index.html")
     else:
+        print("GET request received")
         return render(request, "SIA102/index.html")
 
 
