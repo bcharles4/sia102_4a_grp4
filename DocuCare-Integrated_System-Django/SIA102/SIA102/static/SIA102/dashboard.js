@@ -164,9 +164,15 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 0.5,
         opacity: 0
     }) 
-
-
 });
+
+document.addEventListener("DOMContentLoaded", ()=> {
+    tl.from(".content",{
+        x: 1000,
+        duration: 0.5,
+        opacity: 0
+    }) 
+})
 
 
 document.querySelectorAll('.page-con').forEach(function(page) {
