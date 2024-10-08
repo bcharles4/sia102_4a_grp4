@@ -167,9 +167,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", ()=> {
+    const tl = gsap.timeline();
     tl.from(".content",{
-        x: 1000,
-        duration: 0.5,
+        y: 1000,
+        duration: 1,
         opacity: 0
     }) 
 })
