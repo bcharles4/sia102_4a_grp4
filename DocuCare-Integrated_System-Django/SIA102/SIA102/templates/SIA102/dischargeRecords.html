@@ -27,34 +27,33 @@
             <thead>
                 <tr>
                     <th>Record Number</th>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Last Name</th>
+                    <th>Patient Fullname</th>
+                    <th>Attending Physician</th>
                     <th>Discharge Date</th>
+                    <th>Discharge Summary</th>
                 </tr>
             </thead>
             <tbody>
-                <tr onclick="window.location.href='{% url 'dischargeSummary' 'Klein Moretti' %}'">
+                <tr>
                     <td>1</td>
-                    <td>Klein</td>
-                    <td> </td>
-                    <td>Moretti</td>
+                    <td>Klein Moretti</td>
+                    <td>Dr. Pepper</td>
                     <td>25/09/2024</td>
+                    <td>
+                        <button onclick="window.location.href='{% url 'dischargeSummary' 'Klein Moretti' %}'" value="View Summary">
+                        </button>
+                    </td>
                 </tr>
                 
-                <tr onclick="window.location.href='{% url 'dischargeSummary' 'Marshal D. Teach' %}'">
+                <tr>
                     <td>2</td>
-                    <td>Marshal</td>
-                    <td>D.</td>
-                    <td>Teach</td>
+                    <td>Marshal D. Teach</td>
+                    <td>Nurse Sing</td>
                     <td>23/09/2024</td>
-                </tr>
-                <tr onclick="window.location.href='{% url 'dischargeSummary' 'Ruby Rose' %}'">
-                    <td>3</td>
-                    <td>Ruby</td>
-                    <td> </td>
-                    <td>Rose</td>
-                    <td>20/09/2024</td>
+                    <td>
+                        <button  onclick="window.location.href='{% url 'dischargeSummary' 'Marshal D. Teach' %}'" value="View Summary">
+                        </button>
+                    </td>
                 </tr>
                 <!-- Add more rows as needed -->
             </tbody>
