@@ -1,6 +1,6 @@
-.content-con {
+.content {
     width: 70%;
-    margin: 20px;
+    margin: 0 auto;
     padding: 20px;
 }
 
@@ -21,13 +21,14 @@ h2 {
     width: 48%;
     margin: 10px 0;
     font-size: 16px;
+    color: black;
 }
 
 .patient-info p strong {
     display: inline-block;
     width: 150px;
     font-weight: bold;
-    color: #555;
+    color: black;
 }
 
 .patient-info p span {
@@ -42,8 +43,9 @@ h2 {
 .patient-info {
     border: 1px solid #ccc;
     padding: 20px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+    border-radius: 20px;
+    background-color: white;
+    filter: drop-shadow(8px 8px 1px #999);
 }
 
 /* Form appearance */
@@ -70,7 +72,7 @@ form select {
 }
 
 form button {
-    background-color: #28a745;
+    background-color: #2fe7ce;
     color: white;
     padding: 10px;
     border: none;
@@ -80,7 +82,7 @@ form button {
 }
 
 form button:hover {
-    background-color: #218838;
+    background-color: #333;
 }
 
 @media screen and (max-width: 768px) {
