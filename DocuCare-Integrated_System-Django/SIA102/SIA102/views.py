@@ -16,7 +16,8 @@ def login_view(request):
             nurse = Nurse.objects.get(userIdnumber=userIdnumber)
             print("Nurse found")
             if check_password(password, nurse.password):
-                request.session['nurse_userID'] = nurse.userIdnumber
+                request.session['userID'] = nurse.userIdnumber
+                request.session['fullname'] = f"{nurse.first_name} {nurse.last_name}"
                 print("Storing session ID")
                 return HttpResponseRedirect(reverse("dashboard"))
             else:
@@ -31,13 +32,14 @@ def login_view(request):
 
 
 def logout_view(request):
-    if 'nurse_id' in request.session:
-        del request.session['nurse_id']
+    if 'userID' in request.session:
+        del request.session['userID']
     return HttpResponseRedirect(reverse("index"))
 
 
 def index(request):
     return render(request, "SIA102/index.html")
+
 
 # Define a view to fetch and display users from the DocuCare API
 def users(request):
