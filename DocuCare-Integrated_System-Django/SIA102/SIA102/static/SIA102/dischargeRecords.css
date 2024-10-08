@@ -75,7 +75,7 @@ table tr:hover {
 }
 
 
-button {
+.patient-table button {
     height: 5vh;
     width: 60%;
     background-color: #333;
@@ -85,7 +85,7 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.patient-table button:hover {
     background-color: #111;
     border: none;
 }
