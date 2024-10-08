@@ -45,9 +45,16 @@ h2 {
 
 
  button {
-    height: 3vh;
+    height: 5vh;
+    width: 80%;
     background-color: #333;
     color: white;
     font-weight: bold;
     border-radius: 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #111;
+    border: none;
 }
