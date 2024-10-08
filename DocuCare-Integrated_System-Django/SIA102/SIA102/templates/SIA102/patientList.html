@@ -18,32 +18,37 @@
             <thead>
                 <tr>
                     <th>Patient ID</th>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Last Name</th>
+                    <th>Patient Fullname</th>
                     <th>Room Number</th>
                     <th>Attending Physician</th>
                     <th>Patient Status</th>
+                    <th>Patient Details</th>
                 </tr>
             </thead>
             <tbody>
-                <tr onclick="window.location.href='{% url 'patient' 1 %}'">
-                    <td>1</td>
-                    <td>John</td>
-                    <td>A.</td>
-                    <td>Doe</td>
+                <tr>
+                    <td>P003</td>
+                    <td>John A. Doe</td>
                     <td>101</td>
                     <td>Dr. Smith</td>
                     <td>Active</td>
+                    <td>
+                        <button onclick="window.location.href='{% url 'patient' 'P003' %}'">
+                            View Details
+                        </button>
+                    </td>
                 </tr>
-                <tr onclick="window.location.href='{% url 'patient' 2 %}'">
-                    <td>2</td>
-                    <td>Jane</td>
-                    <td>B.</td>
-                    <td>Smith</td>
+                <tr>
+                    <td>P004</td>
+                    <td>Jane B. Smith</td>
                     <td>102</td>
                     <td>Dr. Johnson</td>
                     <td>Active</td>
+                    <td>
+                        <button  onclick="window.location.href='{% url 'patient' 'P004' %}'">
+                            View Details
+                        </button>
+                    </td>
                 </tr>
                 <!-- Add more rows as needed -->
             </tbody>
