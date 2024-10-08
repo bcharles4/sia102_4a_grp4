@@ -1,3 +1,4 @@
+
 .content {
     width: 70%;
     margin: 0 auto;
@@ -43,7 +44,8 @@ h2 {
 .patient-info {
     border: 1px solid #ccc;
     padding: 20px;
-    border-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     background-color: white;
     filter: drop-shadow(8px 8px 1px #999);
 }
@@ -93,10 +95,11 @@ form button:hover {
 
 .back-button {
     margin-top: 20px;
+
 }
 
 .back-button button {
-    background-color: #4CAF50;
+    background-color: #2fe7ce;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -106,5 +109,5 @@ form button:hover {
 }
 
 .back-button button:hover {
-    background-color: #45a049;
+    background-color: #333;
 }
