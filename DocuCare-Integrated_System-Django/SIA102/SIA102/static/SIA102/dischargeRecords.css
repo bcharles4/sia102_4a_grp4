@@ -28,6 +28,7 @@ table th, table td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
+    cursor: pointer;
 }
 
 table th {
@@ -43,4 +44,22 @@ table tr:nth-child(even) {
 /* Hover effect on rows */
 table tr:hover {
     background-color: #ddd;
+}
+
+#filter {
+    text-transform: uppercase;
+    padding: 5px;
+    border-radius: 10px;
+    margin: 2px;
+    border: .7px solid #999;
+    border-bottom: 5px solid #999;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+    
+}
+
+.f {
+    display: flex;
+    justify-content: center;
 }
