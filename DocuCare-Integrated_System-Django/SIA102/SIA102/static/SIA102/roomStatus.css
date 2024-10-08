@@ -242,12 +242,13 @@ table tr:hover {
 
 /* Main content area styling */
 .main-content {
-    padding: 20px;
+    width: 70%;
     background-color: #fff;
     border-radius: 10px;
-    margin: 20px;
-	width: 1200px;
+    margin: 20px auto;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1); /* Adds shadow to the container */
+    padding: 20px;
+
 }
 
 /* Media queries for responsive design */
