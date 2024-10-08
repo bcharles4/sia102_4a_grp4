@@ -1,32 +1,43 @@
-from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 import requests
-
+from django.contrib.auth.hashers import check_password
+from .models import Nurse
 
 def login_view(request):
     if request.method == "POST":
-
-        username = request.POST["userID"]
+        userIdnumber = request.POST["userID"]
         password = request.POST["uPassword"]
-        user = authenticate(request, username=username, password=password)
 
-        if user is not None:
-            login(request, user)
-            return HttpResponseRedirect(reverse("dashboard"))
-        else:
+        try:
+            # Look up the nurse by userIdnumber
+            nurse = Nurse.objects.get(userIdnumber=userIdnumber)
+            
+            # Check if the provided password matches the stored (hashed) password
+            if check_password(password, nurse.password):
+                # Store the nurse ID in session for authentication
+                request.session['nurse_userID'] = nurse.userIdnumber
+                return HttpResponseRedirect(reverse("dashboard"))
+            else:
+                return render(request, "SIA102/index.html", {
+                    "message": "Invalid UserID and/or password."
+                })
+        except Nurse.DoesNotExist:
             return render(request, "SIA102/index.html", {
-                "message": "Invalid username and/or password."
+                "message": "Invalid UserID and/or password."
             })
     else:
         return render(request, "SIA102/index.html")
 
+
 def logout_view(request):
-    logout(request)
+    if 'nurse_id' in request.session:
+        del request.session['nurse_id']
     return HttpResponseRedirect(reverse("index"))
+
 
 def index(request):
     return render(request, "SIA102/index.html")
