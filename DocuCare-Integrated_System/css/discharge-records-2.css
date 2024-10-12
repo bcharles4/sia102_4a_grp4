@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: whitesmoke;
+}
+.content-con {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.sidebar {
+    height: 150vh;
+    width: 18%;
+    background-color: #2fe7ce;
+    border-radius: 10px;
+    filter: drop-shadow(10px 10px 2px #999);
+    position: relative;
+
+
+}
+
+#close-icons:hover {
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+
+.logo img {
+    width: 270px;
+
+
+}
+
+.side-pages p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.side-pages {
+    margin: 20px;
+}
+
+
+.page-con {
+    background-color: whitesmoke;
+    margin: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+.page-con:hover {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    transition: all ease .3s;
+}
+
+.close-icon {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    /* Pushes the icon to the right */
+}
+
+
+#icons {
+    margin: 20px;
+    font-size: 20px;
+}
+
+#pages {
+    margin-left: 20px;
+}
+
+
+.side-bottom {
+    width: 100%;
+    height: 7.5vh;
+    background-color: whitesmoke;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+
+.bottom-con {
+    padding: 20px;
+
+}
+
+.bottom-con ion-icon:hover {
+    color: #2fe7ce;
+    cursor: pointer;
+}
+
+.menu {
+    z-index: 1;
+}
+
+.menu button {
+    margin-top: 12px;
+    width: 50px;
+    height: 7pc;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    background-color: #333;
+    transition: all .3 ease-in;
+    cursor: pointer;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.container {
+    max-width: 880px;
+    width: 100%; 
+    margin: 20px auto; 
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+			
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
