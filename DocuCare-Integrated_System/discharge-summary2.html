@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Discharge Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Patient Discharge Summary</h1>
+
+        <!-- Patient Information Section -->
+        <div class="section">
+            <h2>Patient Information</h2>
+            <table>
+                <tr>
+                    <th>Patient_ID</th>
+                    <td>202409564</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>John Doe</td>
+                </tr>
+                <tr>
+                    <th>Age</th>
+                    <td>45</td>
+                </tr>
+                <tr>
+                    <th>Sex</th>
+                    <td>Male</td>
+                </tr>
+                <tr>
+                    <th>Date_of_Birth</th>
+                    <td>1979-04-18</td>
+                </tr>
+                <tr>
+                    <th>Admission_Date</th>
+                    <td>2024-09-10</td>
+                </tr>
+                <tr>
+                    <th>Discharge_Date</th>
+                    <td>2024-09-15</td>
+                </tr>
+                <tr>
+                    <th>Attending_Physician</th>
+                    <td>Dr. Smith</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Vital Signs Section -->
+        <div class="section">
+            <h2>Vital Signs at Discharge</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Blood_Pressure</th>
+                        <th>Respiratory_Rate</th>
+                        <th>Pulse_Rate</th>
+                        <th>Temperature</th>
+                        <th>Oxygen_Level</th>
+                        <th>Weight</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-09-15</td>
+                        <td>120/80 mmHg</td>
+                        <td>16 breaths/min</td>
+                        <td>72 bpm</td>
+                        <td>37.0°C</td>
+                        <td>98%</td>
+                        <td>75 kg</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- IV Treatments Section -->
+        <div class="section">
+            <h2>IV Treatments</h2>
+            <table>
+                <tr>
+                    <th>IV_Date</th>
+                    <th>Bottle_No</th>
+                    <th>IV_Solution</th>
+                    <th>Volume</th>
+                    <th>Incorporation</th>
+                    <th>Regulation</th>
+                    <th>Start_Time</th>
+                    <th>Time_End</th>
+                    <th>Remarks</th>
+                    <th>Nurse</th>
+                </tr>
+                <tr>
+                    <td>2024-09-12</td>
+                    <td>001</td>
+                    <td>Saline</td>
+                    <td>500ml</td>
+                    <td>Standard</td>
+                    <td>Regulated</td>
+                    <td>15:50</td>
+                    <td>16:20</td>
+                    <td>Stable</td>
+                    <td>Nurse A</td>
+                </tr>
+                <tr>
+                    <td>2024-09-13</td>
+                    <td>Dextrose</td>
+                    <td>002</td>
+                    <td>1L</td>
+                    <td>Standard</td>
+                    <td>Regulated</td>
+                    <td>16:00</td>
+                    <td>16:30</td>
+                    <td>Monitor vitals</td>
+                    <td>Nurse B</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Kardex Medications Section -->
+        <div class="section">
+            <h2>Kardex Medications</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Medication_Name</th>
+                        <th>Medication_Remarks</th>
+                        <th>Entered_By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Kardex Diagnostics Section -->
+        <div class="section">
+            <h2>Kardex Diagnostics</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Diagnostics_Date</th>
+                        <th>Diagnostics</th>
+                        <th>Diagnostics_Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Discharge Instructions Section -->
+        <div class="section">
+            <h2>Discharge Instructions</h2>
+            <ul>
+                <li>Take prescribed medications as directed.</li>
+                <li>Monitor for any signs of infection at the wound site.</li>
+                <li>Schedule a follow-up appointment in two weeks.</li>
+                <li>Limit physical activities for the next two weeks.</li>
+                <li>Contact your healthcare provider if you experience any new symptoms, such as fever or excessive
+                    pain.</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <div class="section">
+            <p><strong>Prepared by:</strong> Nurse C</p>
+            <p><strong>Approved by:</strong> Dr. Smith</p>
+        </div>
+    </div>
+</body>
+
+</html>
