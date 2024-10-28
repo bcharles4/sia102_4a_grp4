@@ -74,7 +74,7 @@ form select {
 }
 
 form button {
-    background-color: #2fe7ce;
+    background-color: #0292b7;
     color: white;
     padding: 10px;
     border: none;
@@ -99,7 +99,7 @@ form button:hover {
 }
 
 .back-button button {
-    background-color: #2fe7ce;
+    background-color: #0292b7;
     color: white;
     padding: 10px 20px;
     border: none;

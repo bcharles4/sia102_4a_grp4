@@ -15,7 +15,7 @@ body {
 .sidebar {
     height: 100vh;
     width: 18%;
-    background-color: #2fe7ce;
+    background-color: #0292b7;
     border-radius: 10px;
     filter: drop-shadow(10px 10px 2px #999);
     position: relative;
@@ -166,7 +166,7 @@ body {
 .left-line {
     height: 22vh;
     width: 15px;
-    background-color: #2fe7ce;
+    background-color: #0292b7;
     border-bottom-right-radius: 50px;
     
 }
@@ -185,7 +185,7 @@ body {
 }
 
 .dE-count {
-    background-color: #2fe7ce;
+    background-color: #0292b7;
     width: 200px;
     height: 180px;
     display: flex;

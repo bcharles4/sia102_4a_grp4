@@ -92,7 +92,7 @@ body {
 }
 
 .bottom-con ion-icon:hover {
-    color: #2fe7ce;
+    color: #0292b7;
     cursor: pointer;
 }
 
@@ -132,7 +132,7 @@ body {
 .left-line {
     height: 22vh;
     width: 15px;
-    background-color: #2fe7ce;
+    background-color: #0292b7;
     border-bottom-right-radius: 50px;
 
 }
