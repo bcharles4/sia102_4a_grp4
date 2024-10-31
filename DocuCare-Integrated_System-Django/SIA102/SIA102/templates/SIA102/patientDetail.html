@@ -3,46 +3,85 @@
 
 {% block body %}
 
-    <title>Patient Details</title>
-    <link rel="stylesheet" href="{% static 'SIA102/patientDetail.css' %}">
+<title>Patient Details</title>
+<link rel="stylesheet" href="{% static 'SIA102/patientDetail.css' %}">
 
-    <div class="content">
-        <h1 style="background-color:#2fe7ce; color: white; padding: 20px; font-size: 50px; border-top-left-radius: 10px; border-top-right-radius: 10px; text-align: center;
-            margin-bottom: 20px;">PATIENT DETAILS</h1>
-        <!-- Patient Information -->
-        <div class="patient-info">
-            
-
-            <p><strong>Patient ID: {{patientID}}</strong> <span id="patient-id"></span></p>
-            <p><strong>Middle Name: (WALA PA PYTHON LOGIC)</strong> <span id="middle-name"></span></p>
-            <p><strong>First Name: (WALA PA PYTHON LOGIC)</strong> <span id="first-name"></span></p>
-            <p><strong>Last Name: (WALA PA PYTHON LOGIC)</strong> <span id="last-name"></span></p>
-            <p><strong>Admission Date: (WALA PA PYTHON LOGIC)</strong> <span id="admission-date"></span></p>
-            <p><strong>Room Number: (WALA PA PYTHON LOGIC)</strong> <span id="room-number"></span></p>
-            <p><strong>Birth Date: (WALA PA PYTHON LOGIC)</strong> <span id="birth-date"></span></p>
-            <p><strong>Age: (WALA PA PYTHON LOGIC)</strong> <span id="age"></span></p>
-            <p><strong>Sex: (WALA PA PYTHON LOGIC)</strong> <span id="sex"></span></p>
-            <p><strong>Attending Physician: (WALA PA PYTHON LOGIC)</strong> <span id="attending-physician"></span></p>
-            <p><strong>Diagnosis: (WALA PA PYTHON LOGIC)</strong> <span id="diagnosis"></span></p>
-            <p><strong>Patient Status: (WALA PA PYTHON LOGIC)</strong> <span id="patient-status"></span></p>
-            <p><strong>Discharged Date: (WALA PA PYTHON LOGIC)</strong> <span id="discharged-date"></span></p> 
-            <p><strong>Street: (WALA PA PYTHON LOGIC)</strong> <span id="street"></span></p> 
-            <p><strong>House Number: (WALA PA PYTHON LOGIC)</strong> <span id="House-Num"></span></p> 
-            <p><strong>Subdivision: (WALA PA PYTHON LOGIC)</strong> <span id="subdivision"></span></p> 
-            <p><strong>Barangay: (WALA PA PYTHON LOGIC)</strong> <span id="barangay"></span></p> 
-            <p><strong>City: (WALA PA PYTHON LOGIC)</strong> <span id="city"></span></p> 
-            <p><strong>Province: (WALA PA PYTHON LOGIC)</strong> <span id="province"></span></p> 
-            <p><strong>Birthplace: (WALA PA PYTHON LOGIC)</strong> <span id="birthplace"></span></p> 
-            <p><strong>Date of Birth: (WALA PA PYTHON LOGIC)</strong> <span id="DoB"></span></p> 
-        </div>
-
-        <!-- Back Button -->
-        <div class="back-button">
-            <button onclick="window.location.href='{% url 'patientList' %}';">Back to Patient List</button>
-        </div>
+<div class="content">
+    <h1 style="background-color:#2fe7ce; color: white; padding: 20px; font-size: 50px; border-top-left-radius: 10px; border-top-right-radius: 10px; text-align: center;
+        margin-bottom: 20px;">PATIENT DETAILS</h1>
+    
+    <!-- Patient Information -->
+    <div class="patient-info">
+        <p><strong>Patient ID: {{patientID}}</strong> <span id="patient-id"></span></p>
+        <p><strong>Middle Name: (WALA PA PYTHON LOGIC)</strong> <span id="middle-name"></span></p>
+        <p><strong>First Name: (WALA PA PYTHON LOGIC)</strong> <span id="first-name"></span></p>
+        <p><strong>Last Name: (WALA PA PYTHON LOGIC)</strong> <span id="last-name"></span></p>
+        <p><strong>Admission Date: (WALA PA PYTHON LOGIC)</strong> <span id="admission-date"></span></p>
+        <p><strong>Room Number: (WALA PA PYTHON LOGIC)</strong> <span id="room-number"></span></p>
+        <p><strong>Birth Date: (WALA PA PYTHON LOGIC)</strong> <span id="birth-date"></span></p>
+        <p><strong>Age: (WALA PA PYTHON LOGIC)</strong> <span id="age"></span></p>
+        <p><strong>Sex: (WALA PA PYTHON LOGIC)</strong> <span id="sex"></span></p>
+        <p><strong>Attending Physician: (WALA PA PYTHON LOGIC)</strong> <span id="attending-physician"></span></p>
+        <p><strong>Diagnosis: (WALA PA PYTHON LOGIC)</strong> <span id="diagnosis"></span></p>
+        <p><strong>Patient Status: (WALA PA PYTHON LOGIC)</strong> <span id="patient-status"></span></p>
+        <p><strong>Discharged Date: (WALA PA PYTHON LOGIC)</strong> <span id="discharged-date"></span></p> 
+        <p><strong>Street: (WALA PA PYTHON LOGIC)</strong> <span id="street"></span></p> 
+        <p><strong>House Number: (WALA PA PYTHON LOGIC)</strong> <span id="House-Num"></span></p> 
+        <p><strong>Subdivision: (WALA PA PYTHON LOGIC)</strong> <span id="subdivision"></span></p> 
+        <p><strong>Barangay: (WALA PA PYTHON LOGIC)</strong> <span id="barangay"></span></p> 
+        <p><strong>City: (WALA PA PYTHON LOGIC)</strong> <span id="city"></span></p> 
+        <p><strong>Province: (WALA PA PYTHON LOGIC)</strong> <span id="province"></span></p> 
+        <p><strong>Birthplace: (WALA PA PYTHON LOGIC)</strong> <span id="birthplace"></span></p> 
+        <p><strong>Date of Birth: (WALA PA PYTHON LOGIC)</strong> <span id="DoB"></span></p> 
     </div>
 
-    <script src="{% static 'SIA102/dashboard.js' %}"></script>
+    <!-- Print Button -->
+    <div class="print-button" style="text-align: center; margin-top: 20px;">
+        <button onclick="window.print()">Print Patient Details</button>
+    </div>
 
+    <!-- Back Button -->
+    <div class="back-button" style="text-align: center; margin-top: 10px;">
+        <button onclick="window.location.href='{% url 'patientList' %}';">Back to Patient List</button>
+    </div>
+</div>
 
-    {% endblock %}
+<!-- Print CSS -->
+<style>
+    @media print {
+        /* Hide all elements except .patient-info */
+        body * {
+            visibility: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .patient-info, .patient-info * {
+            visibility: visible;
+        }
+
+        /* Ensure only .patient-info is printed */
+        .patient-info {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Remove page breaks and margins */
+        @page {
+            margin: 0;
+        }
+
+        /* Avoid printing buttons */
+        .print-button, .back-button {
+            display: none;
+        }
+    }
+</style>
+
+<script src="{% static 'SIA102/dashboard.js' %}"></script>
+
+{% endblock %}
