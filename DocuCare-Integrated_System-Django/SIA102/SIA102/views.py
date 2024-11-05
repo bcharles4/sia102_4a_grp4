@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 import requests
 from django.contrib.auth.hashers import check_password
 from .models import Nurse
+from background_task import background
 
 def login_view(request):
     if request.method == "POST":
@@ -45,7 +46,7 @@ def index(request):
 def users(request):
     try:
         # Make a request to your DocuCare API endpoint
-        response = requests.get('https://01bd-136-158-66-67.ngrok-free.app/DocuCare/get_users.php')
+        response = requests.get('https://39c6-136-158-67-130.ngrok-free.app/DocuCare/get_users.php')
         # Check if the request was successful
         if response.status_code == 200:
             users_data = response.json()
