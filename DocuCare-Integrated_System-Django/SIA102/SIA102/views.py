@@ -6,7 +6,8 @@ from django.contrib.auth.decorators import login_required
 import requests
 from django.contrib.auth.hashers import check_password
 from .models import Nurse
-from background_task import background
+
+from django.core.cache import cache
 
 def login_view(request):
     if request.method == "POST":
@@ -43,7 +44,7 @@ def index(request):
 
 
 # Define a view to fetch and display users from the DocuCare API
-def users(request):
+def fetch_users_data():
     try:
         # Make a request to your DocuCare API endpoint
         response = requests.get('https://39c6-136-158-67-130.ngrok-free.app/DocuCare/get_users.php')
@@ -53,14 +54,21 @@ def users(request):
         else:
             users_data = []
     except requests.exceptions.RequestException as e:
-        # Handle any exceptions that occur during the API request
         print(f"An error occurred: {e}")
         users_data = []
 
-    # Render the users.html template, passing the users_data to it
+    # Store the data in a way that your main view can access it, like Django cache
+    cache.set('users_data', users_data, timeout=10)  # Cache for 10 seconds 'users': users_data
+
+def users(request):
+    # Retrieve the cached users_data if available
+    users_data = cache.get('users_data', [])
+
+    # Render the users.html template with the cached data
     return render(request, 'SIA102/users.html', {
         'users': users_data
     })
+
 
 def dashboard(request):
     return render(request, "SIA102/dashboard.html")
