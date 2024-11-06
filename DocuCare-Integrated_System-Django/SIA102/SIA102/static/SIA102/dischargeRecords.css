@@ -89,3 +89,22 @@ table tr:hover {
     background-color: #111;
     border: none;
 }
+
+.print-button {
+    margin-top: 20px;
+
+}
+
+.print-button button {
+    background-color: #0292b7;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.print-button button:hover {
+    background-color: #333;
+}
