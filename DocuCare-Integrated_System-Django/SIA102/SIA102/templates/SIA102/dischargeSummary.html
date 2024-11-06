@@ -193,38 +193,9 @@
             <p><strong>Prepared by:</strong> Nurse C</p>
             <p><strong>Approved by:</strong> Dr. Smith</p>
         </div>
-    </div>
-
+        
     <div class="print-button" style="text-align: center; margin-top: 20px;">
         <button onclick="window.print()">Print Patient Details</button>
     </div>
-    <!-- Print Stylesheet -->
-    <style>
-        @media print {
-            /* Hide all elements except dischargeSummary-main */
-            body * {
-                visibility: hidden;
-            }
-            /* Only make .dischargeSummary-main visible */
-            .dischargeSummary-main, .dischargeSummary-main * {
-                visibility: visible;
-            }
-            /* Ensure print button is hidden when printing */
-            .print-button {
-                display: none !important;
-            }
-            /* Remove page margins */
-            @page {
-                margin: 0;
-            }
-            /* Position .dischargeSummary-main at the top for printing */
-            .dischargeSummary-main {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-            }
-        }
-    </style>
-
+    </div>
 {% endblock %}
