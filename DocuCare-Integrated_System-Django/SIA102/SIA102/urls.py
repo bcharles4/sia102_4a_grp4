@@ -31,5 +31,6 @@ urlpatterns = [
     path("roomStatus/", views.roomStatus, name="roomStatus"),
     path('users/', views.users, name='users'),
     path('get_users_data/', views.get_users_data, name='get_users_data'),
+    path('get_patients_info/', views.get_patients_info, name='get_patients_info'),
     path('dischargeSummary/<str:userName>/', views.dischargeSummary, name='dischargeSummary')
 ]

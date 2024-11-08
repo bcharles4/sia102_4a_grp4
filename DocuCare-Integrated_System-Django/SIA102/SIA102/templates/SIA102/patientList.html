@@ -4,10 +4,10 @@
 {% block body %}
     <title>Patient List</title>
     <link rel="stylesheet" href="{% static 'SIA102/patientList.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
      <!-- Main Content - Patient List -->
-    
-     
+
      <div class="main-content">
         
         <div class="head">
@@ -30,45 +30,53 @@
                     <th>Patient Details</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button onclick="window.location.href='{% url 'patient' 'P003' %}'">
-                            View Details
-                        </button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button onclick="window.location.href='{% url 'patient' 'P004' %}'">
-                            View Details
-                        </button>
-                    </td>
-                </tr>
-                <!-- Add more rows as needed -->
+            <tbody id="patients-list">
             </tbody>
         </table>
+        <script>
+            // use AJAX
+            function fetchPatientsInfo() {
+                $.ajax({
+                    url: "{% url 'get_patients_info' %}", // get the data by calling this
+                    method: 'GET',
+                    success: function(response) {
+                        console.log('Fetched patients info:', response);
+                        const patients = response.patients; 
+                        let patientsHtml = '';
+                        if (patients.length > 0) {
+                            patients.forEach(function(patient) {
+                                patientsHtml += `<tr>
+                                    <td>${patient.Patient_ID}</td>
+                                    <td>${patient.Patient_FName}</td>
+                                    <td>${patient.Patient_MName}</td>
+                                    <td>${patient.Patient_LName}</td>
+                                    <td>${patient.Admission_Date}</td>
+                                    <td>${patient.Patient_Type}</td>
+                                    <td>${patient.Room_Num}</td>
+                                    <td>${patient.Attending_Physician}</td>
+                                    <td>${patient.Admitting_Diagnosis}</td>
+                                    <td></td>
+                                    <td>
+                                        <button onclick="window.location.href='/patient/${patient.Patient_ID}'">
+                                            View Details
+                                        </button>
+                                    </td> 
+                                </tr>`;
+                            });
+                        } else {
+                            patientsHtml = `<tr><td colspan="11">No patients found.</td></tr>`;
+                        }
+                        console.log('Generated HTML:', patientsHtml);
+                        $('#patients-list').html(patientsHtml); 
+                    },
+                    error: function() {
+                        console.log('Error fetching users data');
+                    }
+                });
+            }
+            setInterval(fetchPatientsInfo, 10000);  //10 seconds
+            fetchPatientsInfo();
+        </script>
     </div>
 
 {% endblock %}

@@ -44,7 +44,7 @@ def index(request):
 def get_users_data(request):
     try:
         # Make a request to your DocuCare API endpoint
-        response = requests.get('https://39c6-136-158-67-130.ngrok-free.app/DocuCare/get_users.php')
+        response = requests.get('https://fe64-136-158-67-130.ngrok-free.app/DocuCare/get_users.php')
 
         # Check if the request was successful
         if response.status_code == 200:
@@ -60,14 +60,30 @@ def get_users_data(request):
 
 # Define a view to fetch and display users from the DocuCare API
 def users(request):
-    return render(request, 'SIA102/users.html', {
-    })
+    return render(request, 'SIA102/users.html')
 
 def dashboard(request):
     return render(request, "SIA102/dashboard.html")
 
 def dischargeRecords(request):
     return render(request, "SIA102/dischargeRecords.html")
+
+def get_patients_info(request):
+    try:
+        # Make a request to your DocuCare API endpoint
+        response = requests.get('https://fe64-136-158-67-130.ngrok-free.app/DocuCare/get_patientsInfo.php')
+
+        # Check if the request was successful
+        if response.status_code == 200:
+            patients_info = response.json()  # Parse the response as JSON
+        else:
+            patients_info = []  # If API request fails, return an empty list
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        patients_info = []  # If there’s an error with the API request, return an empty list
+
+    # Return the users data as a JSON response
+    return JsonResponse({'patients': patients_info})
 
 def patientList(request):
     return render(request, "SIA102/patientList.html")
