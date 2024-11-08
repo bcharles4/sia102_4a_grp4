@@ -8,7 +8,7 @@ from django.contrib.auth.hashers import check_password
 from .models import Nurse
 from django.http import JsonResponse
 
-ngrok = "https://199d-136-158-67-130.ngrok-free.app"
+ngrok = "https://0d3a-136-158-67-130.ngrok-free.app"
 
 def login_view(request):
     if request.method == "POST":
@@ -95,7 +95,21 @@ def dischargeSummary(request, userName):
     })
 
 def patient_detail(request, patient_id):
-    return render(request, "SIA102/patientDetail.html",
-    {
-        "patientID": patient_id
+    try:
+        # Make an API call to get the specific patient's details
+        response = requests.get(
+            f'{ngrok}/DocuCare/get_specific_patient.php',
+            params={'patient_id': patient_id}
+        )
+        if response.status_code == 200:
+            patient_info = response.json()
+        else:
+            patient_info = None
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        patient_info = None
+
+    # Pass the patient's data to the template
+    return render(request, 'SIA102/patientDetail.html', {
+        'patient': patient_info[0] if patient_info else {},
     })

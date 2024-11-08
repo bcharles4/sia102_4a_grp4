@@ -14,34 +14,34 @@
         <!-- Personal Information Section -->
         <div class="resume-section">
             <h2>Personal Information</h2>
-            <p><strong>Full Name:</strong> {{ first_name }} {{ middle_name }} {{ last_name }}</p>
-            <p><strong>Birth Date:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>Birthplace:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>Age:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>Sex:</strong> (WALA PA PYTHON LOGIC)</p>
+            <p><strong>Full Name:</strong> {{ patient.Patient_FName }} {{ patient.Patient_MName }} {{ patient.Patient_LName }}</p>
+            <p><strong>Birth Date:</strong> {{ patient.DoB}}</p>
+            <p><strong>Birthplace:</strong> {{ patient.Birthplace }}</p>
+            <p><strong>Age:</strong> {{ patient.Age }}</p>
+            <p><strong>Sex:</strong> {{ patient.Sex }}</p>
         </div>
 
         <!-- Address Section -->
         <div class="resume-section">
             <h2>Address</h2>
-            <p><strong>House Number:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>Barangay:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>Street:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>Subdivision:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>City:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>Province:</strong> (WALA PA PYTHON LOGIC)</p>
+            <p><strong>House Number:</strong> {{ patient.House_Num }}</p>
+            <p><strong>Barangay:</strong> {{ patient.Barangay }}</p>
+            <p><strong>Street:</strong> {{ patient.Street }}</p>
+            <p><strong>Subdivision:</strong> {{ patient.Subdivision }}</p>
+            <p><strong>City:</strong> {{ patient.City }}</p>
+            <p><strong>Province:</strong> {{ patient.Province }}</p>
         </div>
 
         <!-- Patient Details Section -->
         <div class="resume-section">
             <h2>Patient Details</h2>
-            <p><strong>Patient ID:</strong> {{ patientID }}</p>
-            <p><strong>Admission Date:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>Room Number:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>Attending Physician:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>Patient Status:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>Discharge Date:</strong> (WALA PA PYTHON LOGIC)</p>
-            <p><strong>Diagnosis:</strong> (WALA PA PYTHON LOGIC)</p>
+            <p><strong>Patient ID:</strong> {{ patient.Patient_ID }}</p>
+            <p><strong>Admission Date:</strong> {{ patient.Admission_Date }}</p>
+            <p><strong>Room Number:</strong> {{ patient.Room_Num }}</p>
+            <p><strong>Attending Physician:</strong> {{ patient.Attending_Physician }}</p>
+            <p><strong>Patient Status:</strong> {{ patient.Status }}</p>
+            <p><strong>Discharge Date:</strong> {{ patient.Discharge_Date }}</p>
+            <p><strong>Diagnosis:</strong> {{ patient.Admitting_Diagnosis }}</p>
         </div>
     </div>
 
@@ -55,7 +55,6 @@
         <button onclick="window.location.href='{% url 'patientList' %}';">Back to Patient List</button>
     </div>
 </div>
-
 
 <script src="{% static 'SIA102/dashboard.js' %}"></script>
 
