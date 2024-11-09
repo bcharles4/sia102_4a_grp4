@@ -33,7 +33,13 @@
             <tbody id="patients-list">
             </tbody>
         </table>
+
+        <div class="print-button" style="text-align: center; margin-top: 20px;">
+            <button onclick="window.print()">Print Patient List</button>
+        </div>
+        
         <script>
+            
             // use AJAX
             function fetchPatientsInfo() {
                 $.ajax({
