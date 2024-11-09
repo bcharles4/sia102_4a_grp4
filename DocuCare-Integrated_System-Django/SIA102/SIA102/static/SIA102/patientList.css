@@ -58,3 +58,91 @@ h2 {
     background-color: #111;
     border: none;
 }
+
+.print-button {
+    margin-top: 20px;
+
+}
+
+.print-button button {
+    background-color: #0292b7;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.print-button button:hover {
+    background-color: #333;
+}
+
+@media print {
+    /* Hide non-printable elements */
+
+    body * {
+        visibility: hidden;
+    }
+
+    .main-content, .main-content * {
+        visibility: visible;
+    }
+    
+    .print-button, .head {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* Display table headers and make sure they are visible in print */
+    .patient-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .main-content {
+        width: 100%;
+        margin: 0 auto;  /* Centers the content horizontally */
+        padding: 20px;
+        text-align: center;  /* Centers the text */
+    }
+
+    .patient-table th, .patient-table td {
+        border: 1px solid #000;
+        padding: 8px;
+        text-align: left;
+        font-size: 14px;
+        color: black;
+    }
+
+    /* Center the content in print */
+    .main-content {
+        width: 100%;
+        margin: auto;
+        padding: 20px;
+    }
+
+    /* Apply a different color background only on the screen, not in print */
+    .head {
+        color: black;
+        background-color: #fff !important;
+        padding: 20px;
+        font-size: 30px;
+    }
+
+    /* Ensure the table fills the page width */
+    body {
+        margin: 0;
+        padding: 0;
+        color: black;
+    }
+
+    .print-button {
+        display: none;
+    }
+
+    .sidebar {
+        display: none;
+    }
+}
