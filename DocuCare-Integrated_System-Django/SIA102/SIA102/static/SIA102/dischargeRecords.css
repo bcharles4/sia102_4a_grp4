@@ -114,10 +114,25 @@ table tr:hover {
     body * {
         visibility: hidden;
     }
+    
+    /* Remove shadow, blur, and ensure text is black */
+    * {
+        box-shadow: none !important;
+        filter: none !important;
+        color: black !important;
+    }
+
+    /* Remove shadow and blur specifically for .dischargeSummary-main */
+    .dischargeSummary-main * {
+        box-shadow: none !important;
+        filter: none !important;
+        color: black !important;
+    }
 
     /* Show only tables inside .dischargeSummary-main */
-    .dischargeSummary-main, .dischargeSummary-main table, .dischargeSummary-main h2, .dischargeSummary-main th, .dischargeSummary-main td {
+    .dischargeSummary-main, .dischargeSummary-main table, .dischargeSummary-main h2, .dischargeSummary-main th, .dischargeSummary-main td, .dischargeSummary-main p, .dischargeSummary-main strong {
         visibility: visible;
+        color: black !important; /* Ensure text inside dischargeSummary-main is black */
     }
 
     /* Ensure alignment and layout for printing */
@@ -141,10 +156,10 @@ table tr:hover {
     /* Style table headers */
     th {
         background-color: #0292b7;
-        color: white;
+        color: black !important; /* Ensure header text is black */
         padding: 8px;
         text-align: center;
-        font-weight: bold;
+        font-weight: bold; /* Keep headers bold */
         border: 1px solid #dddddd;
     }
 
@@ -153,6 +168,8 @@ table tr:hover {
         border: 1px solid #dddddd;
         padding: 8px;
         text-align: center;
+        color: black !important; /* Ensure cell text is black */
+        font-weight: normal; /* Ensure cell text is not bold */
     }
 
     /* Zebra striping for even rows */
@@ -163,7 +180,7 @@ table tr:hover {
     /* Header styling */
     h2 {
         font-size: 18px;
-        color: #0292b7;
+        color: black !important; /* Ensure header text is black */
         margin: 10px 0;
         text-align: center;
     }
