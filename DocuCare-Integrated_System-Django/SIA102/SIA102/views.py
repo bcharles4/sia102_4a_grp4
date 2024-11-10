@@ -8,7 +8,7 @@ from django.contrib.auth.hashers import check_password
 from .models import Nurse
 from django.http import JsonResponse
 
-ngrok = "https://0d3a-136-158-67-130.ngrok-free.app"
+ngrok = "https://2408-136-158-67-130.ngrok-free.app"
 
 def login_view(request):
     if request.method == "POST":
@@ -84,6 +84,19 @@ def get_patients_info(request):
 
 def patientList(request):
     return render(request, "SIA102/patientList.html")
+
+def get_rooms_info(request):
+    try:
+        response = requests.get(f'{ngrok}/DocuCare/get_roomsInfo.php')
+        if response.status_code == 200:
+            rooms_info = response.json()  
+        else:
+            rooms_info = []  
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        rooms_info = [] 
+
+    return JsonResponse({'rooms': rooms_info})
 
 def roomStatus(request):
     return render(request, "SIA102/roomStatus.html")
