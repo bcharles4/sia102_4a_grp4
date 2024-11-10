@@ -189,7 +189,7 @@ table th, table td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
-    background-color: white; 
+    background-color: white; /* Set to white for both headers and cells */
     color: #333;
 }
 
