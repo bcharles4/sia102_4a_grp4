@@ -108,3 +108,68 @@ table tr:hover {
 .print-button button:hover {
     background-color: #333;
 }
+
+@media print {
+    /* Hide everything by default */
+    body * {
+        visibility: hidden;
+    }
+
+    /* Show only tables inside .dischargeSummary-main */
+    .dischargeSummary-main, .dischargeSummary-main table, .dischargeSummary-main h2, .dischargeSummary-main th, .dischargeSummary-main td {
+        visibility: visible;
+    }
+
+    /* Ensure alignment and layout for printing */
+    .dischargeSummary-main {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Table styling to retain design */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
+    }
+
+    /* Style table headers */
+    th {
+        background-color: #0292b7;
+        color: white;
+        padding: 8px;
+        text-align: center;
+        font-weight: bold;
+        border: 1px solid #dddddd;
+    }
+
+    /* Style table cells */
+    td {
+        border: 1px solid #dddddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    /* Zebra striping for even rows */
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Header styling */
+    h2 {
+        font-size: 18px;
+        color: #0292b7;
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    /* Hide print button */
+    .print-button {
+        display: none;
+    }
+}
