@@ -189,11 +189,8 @@ table th, table td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
-}
-
-table th {
-    background-color: #2fe7ce;
-    color: white;
+    background-color: white; 
+    color: #333;
 }
 
 /* Zebra striping for even table rows */
