@@ -80,19 +80,13 @@ h2 {
 
 @media print {
     /* Hide non-printable elements */
-
     body * {
         visibility: hidden;
     }
 
+    /* Make only the main content visible */
     .main-content, .main-content * {
         visibility: visible;
-    }
-    
-    .print-button, .head {
-        display: block;
-        text-align: center;
-        margin-top: 20px;
     }
 
     /* Display table headers and make sure they are visible in print */
@@ -144,5 +138,12 @@ h2 {
 
     .sidebar {
         display: none;
+    }
+
+    /* Hide "Patient Details" column */
+    .patient-table th:nth-child(11), /* Target 11th header cell */
+    .patient-table td:nth-child(11) { /* Target 11th column cells */
+        display: none;
+        visibility: hidden;
     }
 }
