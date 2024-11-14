@@ -7,8 +7,9 @@ import requests
 from django.contrib.auth.hashers import check_password
 from .models import Nurse
 from django.http import JsonResponse
+from collections import Counter
 
-ngrok = "https://2408-136-158-67-130.ngrok-free.app"
+ngrok = "https://1e45-136-158-67-1.ngrok-free.app"
 
 def login_view(request):
     if request.method == "POST":
@@ -38,6 +39,32 @@ def logout_view(request):
     if 'userID' in request.session:
         del request.session['userID']
     return HttpResponseRedirect(reverse("index"))
+
+def get_illness_data(request):
+    try:
+        # Use the existing API to get all patient information
+        response = requests.get(f'{ngrok}/DocuCare/get_patientsInfo.php')
+        
+        if response.status_code == 200:
+            patients_info = response.json()  # Retrieve the list of patients
+            
+            # Extract all 'Admitting_Diagnosis' entries
+            diagnoses = [patient['Admitting_Diagnosis'] for patient in patients_info if 'Admitting_Diagnosis' in patient]
+            
+            # Count occurrences of each illness
+            diagnosis_counts = Counter(diagnoses)
+
+            # Prepare data for the chart
+            labels = list(diagnosis_counts.keys())
+            data = list(diagnosis_counts.values())
+            
+            return JsonResponse({'illness_data': {'labels': labels, 'data': data}})
+        else:
+            return JsonResponse({'error': 'Failed to fetch data from external API'}, status=500)
+    
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        return JsonResponse({'error': 'API request failed'}, status=500)
 
 
 def index(request):

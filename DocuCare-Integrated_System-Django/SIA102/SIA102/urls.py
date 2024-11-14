@@ -25,6 +25,7 @@ urlpatterns = [
     path("login/", views.login_view, name="login"),
     path("logout/", views.logout_view, name="logout"),
     path("dashboard/", views.dashboard, name="dashboard"),
+    path('get_illness_data/', views.get_illness_data, name='get_illness_data'),
     path("dischargeRecords/", views.dischargeRecords, name="dischargeRecords"),
     path("patientList/", views.patientList, name="patientList"),
     path('patient/<str:patient_id>', views.patient_detail, name='patient'),

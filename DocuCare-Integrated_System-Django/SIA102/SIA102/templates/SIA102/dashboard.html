@@ -4,54 +4,131 @@
 {% block body %}
     <title>Dashboard</title>
 
-        <div class="dashboard" >
-            <h1 style="background-color: #0292b7; padding: 20px; width: 26%; filter: drop-shadow(10px 10px 2px #999);
-                border-radius: 10px;" id="dashB">DASHBOARD</h1>
-            <div class="dashboard-elements">
-                <div class="container-dE  dbE-top">
-               
-                    <div class="dE-description">
-                        <h1>DEATHS</h1>
-                        <p>Data Analysis</p>
-                    </div>
-                    <div class="dE-count">
-                        <h1>1</h1>
-                    </div>
-                </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-               <div class="container-dE  dbE-top-right">
-               
-                    <div class="dE-description">
-                        <h1>PATIENTS</h1>
-                        <p>List</p>
-                    </div>
-                    <div class="dE-count">
-                        <h1>1</h1>
-                    </div>
-               </div>
+        .dashboard-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-               <div class="container-dE  dbE-bot">
-               
-                    <div class="dE-description">
-                        <h1>ROOMS</h1>
-                        <p>Status</p>
-                    </div>
-                    <div class="dE-count">
-                        <h1>1</h1>
-                    </div>
-               </div>
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-               <div class="container-dE dbE-bot-right">
-               
-                    <div class="dE-description">
-                        <h1>DISCHARGED</h1>
-                        <p>Records</p>
-                    </div>
-                    <div class="dE-count">
-                        <h1>1</h1>
-                    </div>
-               </div>
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: 25px;
+        }
+
+        .chart {
+            width: 100%;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        canvas {
+            max-width: 100%;
+            height: 120px;
+            /* Further reduced height */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <h1>Dashboard</h1>
+        <div class="chart-container">
+            <div class="chart" id="illness-chart">
+                <h3>Illness Distribution</h3>
+                <canvas id="illnessPieChart"></canvas>
+            </div>
+            <div class="chart" id="mortality-rate">
+                <h3>Mortality Rate</h3>
+                <canvas id="mortalityBarChart"></canvas>
             </div>
         </div>
+    </div>
+
+    <script>
+        // Illness Distribution Pie Chart (Softer colors)
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctxIllness = document.getElementById('illnessPieChart').getContext('2d');
+
+            const illnessPieChart = new Chart(ctxIllness, {
+                type: 'pie',
+                data: {
+                    labels: [],  // Will be populated dynamically
+                    datasets: [{
+                        label: 'Illnesses',
+                        data: [],
+                        backgroundColor: ['#A8DADC', '#FFE156', '#6A4C93', '#FF6B6B', '#F4A261'],
+                        borderColor: ['#457B9D', '#FFD23F', '#4F2C91', '#F14657', '#F1A15B'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    aspectRatio: 1.5,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+
+            // Fetch data from the Django API endpoint
+            fetch('/get_illness_data')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.illness_data) {
+                        illnessPieChart.data.labels = data.illness_data.labels;
+                        illnessPieChart.data.datasets[0].data = data.illness_data.data;
+                        illnessPieChart.update();
+                    } else {
+                        console.error("No illness data found");
+                    }
+                })
+                .catch(error => console.error("Error fetching illness data:", error));
+        });
+
+
+        // Mortality Rate Bar Chart (Blue colors)
+        var ctxMortality = document.getElementById('mortalityBarChart').getContext('2d');
+        var mortalityBarChart = new Chart(ctxMortality, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                datasets: [{
+                    label: 'Number of Deaths',
+                    data: [10, 15, 8, 20, 13, 18, 30, 25, 17, 21, 19, 12],  // Example data for deaths in each month
+                    backgroundColor: '#4A90E2',  // Softer Blue color
+                    borderColor: '#3B7AC4',      // Slightly darker blue for border
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true
+            }
+        });
+    </script>
 
 {% endblock %}
