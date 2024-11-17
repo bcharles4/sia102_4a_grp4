@@ -9,7 +9,10 @@ from .models import Nurse
 from django.http import JsonResponse
 from collections import Counter
 
-ngrok = "https://1e45-136-158-67-1.ngrok-free.app"
+from collections import defaultdict
+from datetime import datetime
+
+ngrok = "https://5447-136-158-66-138.ngrok-free.app"
 
 def login_view(request):
     if request.method == "POST":
@@ -66,6 +69,62 @@ def get_illness_data(request):
         print(f"An error occurred: {e}")
         return JsonResponse({'error': 'API request failed'}, status=500)
 
+def monthly_illness_distribution(request):
+    try:
+        response = requests.get(f'{ngrok}/DocuCare/get_patientsInfo.php')
+        if response.status_code == 200:
+            patients_info = response.json()
+            
+            # Initialize a structure to hold monthly counts per illness
+            monthly_data = defaultdict(lambda: defaultdict(int))
+            
+            for patient in patients_info:
+                diagnosis = patient.get('Admitting_Diagnosis', 'Unknown')
+                admission_date = patient.get('Admission_Date')
+                if admission_date:
+                    # Parse the admission date
+                    date_obj = datetime.strptime(admission_date, '%Y-%m-%d %H:%M:%S')
+                    year_month = (date_obj.year, date_obj.month)
+                    monthly_data[diagnosis][year_month] += 1
+            
+            # Format the data for the chart
+            formatted_data = {}
+            for diagnosis, counts in monthly_data.items():
+                yearly_data = defaultdict(lambda: [0] * 12)
+                for (year, month), count in counts.items():
+                    yearly_data[year][month - 1] = count
+                formatted_data[diagnosis] = yearly_data
+
+        else:
+            formatted_data = {}
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        formatted_data = {}
+
+    return JsonResponse(formatted_data)
+
+def illness_deaths_data(request):
+    try:
+        response = requests.get(f'{ngrok}/DocuCare/get_patientsInfo.php')
+        if response.status_code == 200:
+            patients_info = response.json()
+            # Filter for deceased patients
+            deceased_patients = [p for p in patients_info if p.get('Status') == "DET"]
+
+            # Categorize by Admitting_Diagnosis
+            diagnosis_count = {}
+            for patient in deceased_patients:
+                diagnosis = patient.get('Admitting_Diagnosis', 'Unknown')
+                diagnosis_count[diagnosis] = diagnosis_count.get(diagnosis, 0) + 1
+        else:
+            diagnosis_count = {}
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        diagnosis_count = {}
+
+    # Return the data in JSON format
+    return JsonResponse(diagnosis_count)
+
 
 def index(request):
     return render(request, "SIA102/index.html")
@@ -91,7 +150,38 @@ def users(request):
     return render(request, 'SIA102/users.html')
 
 def dashboard(request):
-    return render(request, "SIA102/dashboard.html")
+    # Fetch patients info
+    try:
+        patients_response = requests.get(f'{ngrok}/DocuCare/get_patientsInfo.php')
+        if patients_response.status_code == 200:
+            patients_info = patients_response.json()
+            # Count patients with "ALV" status
+            alive_patients_count = sum(1 for patient in patients_info if patient.get('Status') == "ALV")
+        else:
+            alive_patients_count = 0
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        alive_patients_count = 0
+
+    # Fetch rooms info
+    try:
+        rooms_response = requests.get(f'{ngrok}/DocuCare/get_roomsInfo.php')
+        if rooms_response.status_code == 200:
+            rooms_info = rooms_response.json()
+            # Count total rooms
+            total_rooms = len(rooms_info)
+        else:
+            total_rooms = 0
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        total_rooms = 0
+
+    # Pass data to the template
+    context = {
+        'patientsAdmitted': alive_patients_count,
+        'roomsOccupied': total_rooms,
+    }
+    return render(request, 'SIA102/dashboard.html', context)
 
 def dischargeRecords(request):
     return render(request, "SIA102/dischargeRecords.html")
