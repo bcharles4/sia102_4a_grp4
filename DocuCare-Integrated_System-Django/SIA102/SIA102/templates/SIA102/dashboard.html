@@ -71,7 +71,7 @@
             height: 120px;
         }
 
-        #toggleYearBtn {
+        #mortalityYearDropdown, #illnessYearDropdown {
             margin: 20px auto;
             padding: 10px 20px;
             background-color: #4A90E2;
@@ -81,7 +81,7 @@
             cursor: pointer;
         }
 
-        #toggleYearBtn:hover {
+        #mortalityYearDropdown:hover, #illnessYearDropdown:hover {
             background-color: #357ABD;
         }
     </style>
@@ -105,21 +105,22 @@
         <!-- Chart selection dropdown -->
         <select id="chartSelectionDropdown">
             <option value="">Select a Chart</option>
-            <option value="mortality-rate">Mortality Rate</option>
-            <option value="illness-chart">Illness Distribution</option>
+            <option value="illness-chart">Overall Illness Distribution</option>
             <option value="monthly-illness-distribution">Monthly Illness Distribution</option>
-            <option value="illness-vs-deaths">Illness vs. Deaths Analytics</option>
+            <option value="mortality-rate">Monthly Mortality Rate</option>
+            <option value="illness-vs-deaths">Overall Illness vs. Deaths Analytics</option>
         </select>
 
         <!-- Mortality Rate Chart -->
         <div class="chart-container" id="mortality-rate">
-            <h3>Mortality Rate</h3>
+            <h3>Monthly Mortality Rate</h3>
             <canvas id="mortalityBarChart"></canvas>
+            <select id="mortalityYearDropdown"></select>
         </div>
 
         <!-- Illness Distribution Pie Chart -->
         <div class="chart-container" id="illness-chart">
-            <h3>Illness Distribution</h3>
+            <h3>Overall Illness Distribution</h3>
             <canvas id="illnessPieChart"></canvas>
         </div>
 
@@ -127,20 +128,21 @@
         <div class="chart-container" id="monthly-illness-distribution">
             <h3>Monthly Illness Distribution</h3>
             <canvas id="monthlyIllnessLineChart"></canvas>
-            <button id="toggleYearBtn">Toggle Year: 2024</button>
+            <select id="illnessYearDropdown"></select>
         </div>
 
         <!-- Illness vs. Deaths Chart -->
         <div class="chart-container" id="illness-vs-deaths">
-            <h3>Illness vs. Deaths Analytics</h3>
+            <h3>Overall Illness vs. Deaths Analytics</h3>
             <canvas id="illnessDeathsChart"></canvas>
         </div>
     </div>
 
     <script>
-        let monthlyIllnessChart; // To store the Chart instance
+        let monthlyIllnessChart;
+        let mortalityData = {};
         let currentYear = 2024; // Default year
-
+    
         // Toggle chart visibility based on selection
         document.getElementById('chartSelectionDropdown').onchange = function () {
             document.querySelectorAll('.chart-container').forEach(chart => {
@@ -151,95 +153,104 @@
                 document.getElementById(selectedValue).style.display = 'flex';
             }
         };
-
-        // Mortality Rate Bar Chart
-        var ctxMortality = document.getElementById('mortalityBarChart').getContext('2d');
-        var mortalityBarChart = new Chart(ctxMortality, {
+    
+        // Utility function to generate random colors
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    
+        // Populate and set up the year dropdown for the Mortality Rate chart
+        function setupMortalityYearDropdown() {
+            const dropdown = document.getElementById('mortalityYearDropdown');
+            const availableYears = Object.keys(mortalityData).map(Number);
+    
+            // Populate the dropdown
+            availableYears.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                dropdown.appendChild(option);
+            });
+    
+            // Set default value
+            dropdown.value = currentYear;
+    
+            // Update the chart when a new year is selected
+            dropdown.onchange = function () {
+                currentYear = parseInt(this.value, 10);
+                updateMortalityChart(currentYear);
+            };
+        }
+    
+        // Fetch and initialize the Mortality Rate chart
+        fetch('/mortality_data/')
+            .then(response => response.json())
+            .then(data => {
+                mortalityData = data; // Store the fetched data
+                setupMortalityYearDropdown(); // Set up the dropdown
+                updateMortalityChart(currentYear); // Initialize the chart with the default year
+            })
+            .catch(error => console.error('Error fetching mortality data:', error));
+    
+        // Initialize the Mortality Rate chart
+        const ctxMortality = document.getElementById('mortalityBarChart').getContext('2d');
+        const mortalityBarChart = new Chart(ctxMortality, {
             type: 'bar',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                labels: [
+                    'January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'
+                ],
                 datasets: [{
                     label: 'Number of Deaths',
-                    data: [10, 15, 8, 20, 13, 18, 30, 25, 17, 21, 19, 12],
+                    data: [], // Filled dynamically
                     backgroundColor: '#4A90E2',
                     borderColor: '#3B7AC4',
                     borderWidth: 1
                 }]
             },
             options: {
+                responsive: true,
                 scales: {
                     y: { beginAtZero: true }
                 },
-                responsive: true
+                plugins: {
+                    legend: { position: 'top' }
+                }
             }
         });
-
-        // Illness Distribution Pie Chart
-        document.addEventListener('DOMContentLoaded', () => {
-            const ctxIllness = document.getElementById('illnessPieChart').getContext('2d');
-
-            const illnessPieChart = new Chart(ctxIllness, {
-                type: 'pie',
-                data: {
-                    labels: [],  // Will be populated dynamically
-                    datasets: [{
-                        label: 'Illnesses',
-                        data: [],
-                        backgroundColor: ['#A8DADC', '#FFE156', '#6A4C93', '#FF6B6B', '#F4A261'],
-                        borderColor: ['#457B9D', '#FFD23F', '#4F2C91', '#F14657', '#F1A15B'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    aspectRatio: 1.5,
-                    plugins: {
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-
-            // Fetch data from the Django API endpoint
-            fetch('/get_illness_data')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.illness_data) {
-                        illnessPieChart.data.labels = data.illness_data.labels;
-                        illnessPieChart.data.datasets[0].data = data.illness_data.data;
-                        illnessPieChart.update();
-                    } else {
-                        console.error("No illness data found");
-                    }
-                })
-                .catch(error => console.error("Error fetching illness data:", error));
-        });
-
-        // Fetch data from the backend and initialize the chart
+    
+        // Function to update the Mortality Rate chart
+        function updateMortalityChart(year) {
+            const dataForYear = mortalityData[year] || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            mortalityBarChart.data.datasets[0].data = dataForYear;
+            mortalityBarChart.update();
+        }
+    
+        // Fetch and initialize the Monthly Illness Distribution chart
         fetch('/monthly_illness_distribution/')
             .then(response => response.json())
             .then(data => {
-                // Data structure: { 'Flu': {2023: [...], 2024: [...]}, 'COVID-19': {...}, ... }
-                const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-                // Function to generate datasets for a specific year
+                const labels = [
+                    'January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'
+                ];
+    
+                // Helper function to generate datasets for a specific year
                 const getDatasetsForYear = (year) => {
-                    const datasets = [];
-                    Object.keys(data).forEach(illness => {
-                        const illnessData = data[illness];
-                        if (illnessData[year]) { // Ensure data for the selected year exists
-                            datasets.push({
-                                label: illness,
-                                data: illnessData[year],
-                                borderColor: getRandomColor(),
-                                fill: false
-                            });
-                        }
-                    });
-                    return datasets;
+                    return Object.keys(data).map(illness => ({
+                        label: illness,
+                        data: data[illness][year] || [],
+                        borderColor: getRandomColor(),
+                        fill: false
+                    }));
                 };
-
+    
                 // Initialize the chart
                 const ctxMonthlyIllness = document.getElementById('monthlyIllnessLineChart').getContext('2d');
                 monthlyIllnessChart = new Chart(ctxMonthlyIllness, {
@@ -258,45 +269,82 @@
                         }
                     }
                 });
-
-                // Set up the toggle button
-                document.getElementById('toggleYearBtn').onclick = function () {
-                    // Get all available years
+    
+                // Populate and set up the year dropdown for the Monthly Illness chart
+                const setupIllnessYearDropdown = () => {
+                    const dropdown = document.getElementById('illnessYearDropdown');
                     const availableYears = Object.keys(data[Object.keys(data)[0]]).map(Number);
-
-                    // Find the next year or loop back
-                    const currentIndex = availableYears.indexOf(currentYear);
-                    currentYear = availableYears[(currentIndex + 1) % availableYears.length];
-
-                    // Update the button text
-                    this.textContent = `Toggle Year: ${currentYear}`;
-
-                    // Update the chart datasets
-                    monthlyIllnessChart.data.datasets = getDatasetsForYear(currentYear);
-                    monthlyIllnessChart.update();
+    
+                    // Populate the dropdown
+                    availableYears.forEach(year => {
+                        const option = document.createElement('option');
+                        option.value = year;
+                        option.textContent = year;
+                        dropdown.appendChild(option);
+                    });
+    
+                    // Set default value
+                    dropdown.value = currentYear;
+    
+                    // Update the chart when a new year is selected
+                    dropdown.onchange = function () {
+                        currentYear = parseInt(this.value, 10);
+                        monthlyIllnessChart.data.datasets = getDatasetsForYear(currentYear);
+                        monthlyIllnessChart.update();
+                    };
                 };
+    
+                setupIllnessYearDropdown();
             })
-            .catch(error => console.error('Error fetching data:', error));
-
-        // Utility function to generate random colors
-        function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
-        // Fetch the data from the Django view
+            .catch(error => console.error('Error fetching monthly illness distribution data:', error));
+    
+        // Illness Distribution Pie Chart
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctxIllness = document.getElementById('illnessPieChart').getContext('2d');
+    
+            const illnessPieChart = new Chart(ctxIllness, {
+                type: 'pie',
+                data: {
+                    labels: [],  // Will be populated dynamically
+                    datasets: [{
+                        label: 'Illnesses',
+                        data: [],
+                        backgroundColor: ['#A8DADC', '#FFE156', '#6A4C93', '#FF6B6B', '#F4A261'],
+                        borderColor: ['#457B9D', '#FFD23F', '#4F2C91', '#F14657', '#F1A15B'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    aspectRatio: 1.5,
+                    plugins: {
+                        legend: { position: 'top' }
+                    }
+                }
+            });
+    
+            // Fetch data from the Django API endpoint
+            fetch('/get_illness_data')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.illness_data) {
+                        illnessPieChart.data.labels = data.illness_data.labels;
+                        illnessPieChart.data.datasets[0].data = data.illness_data.data;
+                        illnessPieChart.update();
+                    } else {
+                        console.error("No illness data found");
+                    }
+                })
+                .catch(error => console.error("Error fetching illness data:", error));
+        });
+    
+        // Fetch and display Illness Deaths Bar Chart
         fetch('/illness_deaths_data/')
             .then(response => response.json())
             .then(data => {
-                // Prepare chart labels and data
                 const labels = Object.keys(data);
                 const deathCounts = Object.values(data);
-
-                // Create the chart
+    
                 const ctxDeaths = document.getElementById('illnessDeathsChart').getContext('2d');
                 new Chart(ctxDeaths, {
                     type: 'bar',
@@ -321,8 +369,9 @@
                     }
                 });
             })
-            .catch(error => console.error('Error fetching data:', error));
+            .catch(error => console.error('Error fetching illness deaths data:', error));
     </script>
+    
 </body>
 
 {% endblock %}
