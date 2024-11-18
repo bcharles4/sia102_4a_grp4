@@ -289,18 +289,19 @@
                     'January', 'February', 'March', 'April', 'May', 'June',
                     'July', 'August', 'September', 'October', 'November', 'December'
                 ];
-                
-    
+
                 // Helper function to generate datasets for a specific year
                 const getDatasetsForYear = (year) => {
-                    return Object.keys(data).map(illness => ({
-                        label: illness,
-                        data: data[illness][year] || [],
-                        borderColor: getRandomColor(),
-                        fill: false
-                    }));
+                    return Object.keys(data)
+                        .map(illness => ({
+                            label: illness,
+                            data: data[illness][year] || [],
+                            borderColor: getRandomColor(),
+                            fill: false
+                        }))
+                        .filter(dataset => dataset.data.some(value => value > 0)); // Only include illnesses with data > 0
                 };
-    
+
                 // Initialize the chart
                 const ctxMonthlyIllness = document.getElementById('monthlyIllnessLineChart').getContext('2d');
                 monthlyIllnessChart = new Chart(ctxMonthlyIllness, {
@@ -319,12 +320,12 @@
                         }
                     }
                 });
-    
+
                 // Populate and set up the year dropdown for the Monthly Illness chart
                 const setupIllnessYearDropdown = () => {
                     const dropdown = document.getElementById('illnessYearDropdown');
                     const availableYears = Object.keys(data[Object.keys(data)[0]]).map(Number);
-    
+
                     // Populate the dropdown
                     availableYears.forEach(year => {
                         const option = document.createElement('option');
@@ -332,10 +333,10 @@
                         option.textContent = year;
                         dropdown.appendChild(option);
                     });
-    
+
                     // Set default value
                     dropdown.value = currentYear;
-    
+
                     // Update the chart when a new year is selected
                     dropdown.onchange = function () {
                         currentYear = parseInt(this.value, 10);
@@ -343,10 +344,11 @@
                         monthlyIllnessChart.update();
                     };
                 };
-    
+
                 setupIllnessYearDropdown();
             })
             .catch(error => console.error('Error fetching monthly illness distribution data:', error));
+
 
     
         // Fetch and display Illness Deaths Bar Chart

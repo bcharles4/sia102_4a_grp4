@@ -12,7 +12,7 @@ from collections import Counter
 from collections import defaultdict
 from datetime import datetime
 
-ngrok = "https://4fce-136-158-66-138.ngrok-free.app"
+ngrok = "https://8dc5-136-158-66-138.ngrok-free.app"
 
 def login_view(request):
     if request.method == "POST":
@@ -77,6 +77,7 @@ def monthly_illness_distribution(request):
             
             # Initialize a structure to hold monthly counts per illness
             monthly_data = defaultdict(lambda: defaultdict(int))
+            all_years = set()  # Track all years in the dataset
             
             for patient in patients_info:
                 diagnosis = patient.get('Admitting_Diagnosis', 'Unknown')
@@ -86,6 +87,7 @@ def monthly_illness_distribution(request):
                     date_obj = datetime.strptime(admission_date, '%Y-%m-%d %H:%M:%S')
                     year_month = (date_obj.year, date_obj.month)
                     monthly_data[diagnosis][year_month] += 1
+                    all_years.add(date_obj.year)  # Add year to the set of years
             
             # Format the data for the chart
             formatted_data = {}
@@ -93,6 +95,12 @@ def monthly_illness_distribution(request):
                 yearly_data = defaultdict(lambda: [0] * 12)
                 for (year, month), count in counts.items():
                     yearly_data[year][month - 1] = count
+
+                # Make sure every year in all_years is included for this illness
+                for year in all_years:
+                    if year not in yearly_data:
+                        yearly_data[year] = [0] * 12
+
                 formatted_data[diagnosis] = yearly_data
 
         else:
