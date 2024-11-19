@@ -1,11 +1,11 @@
 
 
 .main-content {
+    
     flex-grow: 1;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
-    margin: 20px;
     filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.1));
 }
 
@@ -17,7 +17,7 @@ h2 {
 }
 
 .patient-table {
-    width: 100%;
+    width: 70%;
     border-collapse: collapse;
     margin: 0 auto;
 }
@@ -65,7 +65,7 @@ h2 {
 }
 
 .print-button button {
-    background-color: #0292b7;
+    background-color: #333;
     color: white;
     padding: 10px 20px;
     border: none;

@@ -280,3 +280,7 @@ def patient_detail(request, patient_id):
     return render(request, 'SIA102/patientDetail.html', {
         'patient': patient_info[0] if patient_info else {},
     })
+
+
+def notifications(request):
+    return render(request, "SIA102/notifications.html")

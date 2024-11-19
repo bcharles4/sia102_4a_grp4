@@ -84,6 +84,31 @@
         #mortalityYearDropdown:hover, #illnessYearDropdown:hover {
             background-color: #357ABD;
         }
+
+       
+    .notif {
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        bottom: 0;
+        right: 0;
+        margin: 20px;
+        padding: 10px;
+        border-radius: 50%;
+        background-color: #2fe7ce;
+        color: white;
+        
+    }
+
+    .notif-icon {
+        font-size: 35px;
+        cursor: pointer;
+        top: 20%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     </style>
 
 <body>
@@ -137,6 +162,13 @@
         </div>
     </div>
 
+    <div class="notif" onclick="showNotification()">
+        <div class="notif-icon"><ion-icon name="notifications"></ion-icon></div>
+    </div>
+
+
+    
+    
     <script>
         let monthlyIllnessChart;
         let mortalityData = {};
@@ -383,6 +415,14 @@
                 });
             })
             .catch(error => console.error('Error fetching illness deaths data:', error));
+    </script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        function showNotification() {
+            window.location.href = "/notifications";
+        }
     </script>
     
 </body>

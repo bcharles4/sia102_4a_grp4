@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="{% static 'SIA102/notification.css' %}">
+</head>
+<body>
+
+    <div class="back"  onclick="window.location.href='/dashboard';"> <ion-icon name="arrow-back-circle" id="back"></ion-icon></div>
+   
+    <div class="notif-con">
+        <h1 style="color: white;">READY TO DISCHARGE PATIENTS</h1>
+        <!-- Container for all the patients' notifications -->
+        <div id="patients-container"></div> 
+    </div>
+
+    <script>
+        // Fetch patient data from the API
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('http://localhost:5000/api/patients')
+                .then(response => {
+                    console.log('Response Status:', response.status); // Log status code
+                    return response.json(); // Parse JSON response
+                })
+                .then(data => {
+                    console.log('Fetched Data:', data); // Log the actual response structure
+
+                    const patientsContainer = document.getElementById('patients-container');
+
+                    if (data.success && data.data && data.data.length > 0) {
+                        data.data.forEach(patient => {
+                            // Create a new div for each patient
+                            const patientDiv = document.createElement('div');
+                            patientDiv.classList.add('notif'); // Add the 'notif' class to the div
+                            
+                            // Create the content for each patient's notification
+                            const patientContent = `
+                                <div class="head-name">
+                                    <h1 style="font-size: 40px;">${patient.firstName} ${patient.lastName}</h1>
+                                    <p style="color: lightgray;">${new Date().toLocaleString()}</p> <!-- You can customize the timestamp here -->
+                                    
+                                    <div class="notif-patient">
+                                        <div class="patient-details1">
+                                            <p>Patient ID</p>
+                                            <p>Gender</p>
+                                            <p>Contact</p>
+                                            <p>Status</p>
+                                        </div>
+
+                                        <div class="dot">
+                                            <p>:</p>
+                                            <p>:</p>
+                                            <p>:</p>
+                                            <p>:</p>
+                                        </div>
+
+                                        <div class="patient-details">
+                                            <p><span>${patient.patientID}</span></p>
+                                            <p><span>${patient.gender}</span></p>
+                                            <p><span>${patient.contact || 'Not Provided'}</span></p>
+                                            <p><span>${patient.status || 'Ready for Discharge'}</span></p>
+                                        </div>
+                                    </div>
+
+                                    <center><button>DISCHARGE PATIENT</button></center>
+                                </div>
+                            `;
+
+                            // Insert the patient content into the patient div
+                            patientDiv.innerHTML = patientContent;
+                            
+                            // Append the patient div to the patients container
+                            patientsContainer.appendChild(patientDiv);
+                        });
+                    } else {
+                        const noPatientsMessage = document.createElement('div');
+                        noPatientsMessage.classList.add('notif');
+                        noPatientsMessage.innerHTML = `
+                            <div class="head-name">
+                                <h1>No patients available for discharge</h1>
+                            </div>
+                        `;
+                        patientsContainer.appendChild(noPatientsMessage);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching patient data:', error);
+                    const errorMessage = document.createElement('div');
+                    errorMessage.classList.add('notif');
+                    errorMessage.innerHTML = `
+                        <div class="head-name">
+                            <h1>Error loading patient data</h1>
+                        </div>
+                    `;
+                    document.getElementById('patients-container').appendChild(errorMessage);
+                });
+        });
+    </script>
+
+<ion-icon name="chevron-up-circle" id="up"></ion-icon>
+
+<script>
+    document.getElementById('up').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
+</body>
+</html>
