@@ -165,6 +165,28 @@
     <div class="notif" onclick="showNotification()">
         <div class="notif-icon"><ion-icon name="notifications"></ion-icon></div>
     </div>
+    <div id="notificationDot" style="display: none; position: absolute; top: 5px; right: 5px; width: 10px; height: 10px; background-color: red; border-radius: 50%;"></div>
+
+    <script>
+        // Function to check for new notifications
+        function checkForNewNotifications() {
+            fetch('http://localhost:5000/api/patients')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.new_notifications) {
+                        document.getElementById('notificationDot').style.display = 'block';
+                    } else {
+                        document.getElementById('notificationDot').style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error checking notifications:', error));
+        }
+
+        // Check for new notifications on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            checkForNewNotifications();
+        });
+    </script>
 
 
     
