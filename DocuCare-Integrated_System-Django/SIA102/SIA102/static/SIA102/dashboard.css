@@ -14,12 +14,11 @@ body {
 
 .sidebar {
         width: 18%;
+        height: 100vh;
         background-color: #2fe7ce;
         border-radius: 10px;
         filter: drop-shadow(10px 10px 2px #999);
-        position: fixed;
-        left: 0;
-
+        
    
 }
 
