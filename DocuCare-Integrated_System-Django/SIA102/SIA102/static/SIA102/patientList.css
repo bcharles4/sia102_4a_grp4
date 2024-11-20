@@ -1,7 +1,9 @@
-
+* {
+    overflow-y: hidden;
+}
 
 .main-content {
-    
+    width: 90%;
     flex-grow: 1;
     padding: 20px;
     background-color: #fff;
@@ -17,7 +19,7 @@ h2 {
 }
 
 .patient-table {
-    width: 70%;
+    width: 100%;
     border-collapse: collapse;
     margin: 0 auto;
 }
