@@ -96,7 +96,7 @@ body {
 
 #back {
     font-size: 70px;
-    color: #333;
+    color: white;
     margin-top: 20px;
     margin-left: 20px;
     cursor: pointer;
@@ -104,7 +104,7 @@ body {
 
 #up {
     font-size: 70px;
-    color: #333;
+    color: white;
     position: fixed;
     bottom: 20px;
     right: 20px;
