@@ -195,6 +195,13 @@
         let monthlyIllnessChart;
         let mortalityData = {};
         let currentYear = 2024; // Default year
+        let illnessData; // Declare data globally
+
+        // Define a fixed color palette
+        const colorPalette = [
+            "#FF5733", "#33FF57", "#3357FF", "#F39C12", "#8E44AD",
+            "#FFC300", "#DAF7A6", "#C70039", "#900C3F", "#581845"
+        ];
     
         // Toggle chart visibility based on selection
         function showChart(chartId) {
@@ -211,17 +218,7 @@
             showChart(selectedValue);
         };
     
-        // Utility function to generate random colors
-        function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
-
+    
         // Initialize page with default chart
         document.addEventListener('DOMContentLoaded', () => {
             const defaultChartId = 'illness-chart';
@@ -248,7 +245,8 @@
                     aspectRatio: 1.5,
                     plugins: {
                         legend: { position: 'top' }
-                    }
+                    },
+                    animation: false
                 }
             });
 
@@ -334,77 +332,7 @@
             mortalityBarChart.data.datasets[0].data = dataForYear;
             mortalityBarChart.update();
         }
-    
-        // Fetch and initialize the Monthly Illness Distribution chart
-        fetch('/monthly_illness_distribution/')
-            .then(response => response.json())
-            .then(data => {
-                const labels = [
-                    'January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'
-                ];
 
-                // Helper function to generate datasets for a specific year
-                const getDatasetsForYear = (year) => {
-                    return Object.keys(data)
-                        .map(illness => ({
-                            label: illness,
-                            data: data[illness][year] || [],
-                            borderColor: getRandomColor(),
-                            fill: false
-                        }))
-                        .filter(dataset => dataset.data.some(value => value > 0)); // Only include illnesses with data > 0
-                };
-
-                // Initialize the chart
-                const ctxMonthlyIllness = document.getElementById('monthlyIllnessLineChart').getContext('2d');
-                monthlyIllnessChart = new Chart(ctxMonthlyIllness, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: getDatasetsForYear(currentYear)
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: { position: 'top' }
-                        },
-                        scales: {
-                            y: { beginAtZero: true }
-                        }
-                    }
-                });
-
-                // Populate and set up the year dropdown for the Monthly Illness chart
-                const setupIllnessYearDropdown = () => {
-                    const dropdown = document.getElementById('illnessYearDropdown');
-                    const availableYears = Object.keys(data[Object.keys(data)[0]]).map(Number);
-
-                    // Populate the dropdown
-                    availableYears.forEach(year => {
-                        const option = document.createElement('option');
-                        option.value = year;
-                        option.textContent = year;
-                        dropdown.appendChild(option);
-                    });
-
-                    // Set default value
-                    dropdown.value = currentYear;
-
-                    // Update the chart when a new year is selected
-                    dropdown.onchange = function () {
-                        currentYear = parseInt(this.value, 10);
-                        monthlyIllnessChart.data.datasets = getDatasetsForYear(currentYear);
-                        monthlyIllnessChart.update();
-                    };
-                };
-
-                setupIllnessYearDropdown();
-            })
-            .catch(error => console.error('Error fetching monthly illness distribution data:', error));
-
-
-    
         // Fetch and display Illness Deaths Bar Chart
         fetch('/illness_deaths_data/')
             .then(response => response.json())
@@ -437,6 +365,94 @@
                 });
             })
             .catch(error => console.error('Error fetching illness deaths data:', error));
+    
+        // Helper function to generate datasets for a specific year
+        const getDatasetsForYear = (year, illnessData) => {
+            return Object.keys(illnessData)
+                .map((illness, index) => ({
+                    label: illness,
+                    data: illnessData[illness][year] || [],
+                    borderColor: colorPalette[index % colorPalette.length], // Assign a color based on index
+                    fill: false
+                }))
+                .filter(dataset => dataset.data.some(value => value > 0)); // Only include illnesses with data > 0
+        };
+
+        // Initialize the Monthly Illness Distribution chart
+        const initializeChart = (data) => {
+            const labels = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+
+            const ctxMonthlyIllness = document.getElementById('monthlyIllnessLineChart').getContext('2d');
+            const chart = new Chart(ctxMonthlyIllness, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: getDatasetsForYear(currentYear, data)
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    },
+                    animation: false // Disable animation for updates
+                }
+            });
+
+            return chart;
+        };
+
+        // Fetch and initialize the Monthly Illness Distribution chart
+        fetch('/monthly_illness_distribution/')
+            .then(response => response.json())
+            .then(fetchedData => {
+                illnessData = fetchedData; // Assign the fetched data to the global variable
+                monthlyIllnessChart = initializeChart(illnessData);
+
+                // Populate and set up the year dropdown for the Monthly Illness chart
+                const setupIllnessYearDropdown = () => {
+                    const dropdown = document.getElementById('illnessYearDropdown');
+                    const availableYears = Object.keys(illnessData[Object.keys(illnessData)[0]]).map(Number);
+
+                    // Populate the dropdown
+                    availableYears.forEach(year => {
+                        const option = document.createElement('option');
+                        option.value = year;
+                        option.textContent = year;
+                        dropdown.appendChild(option);
+                    });
+
+                    // Set default value
+                    dropdown.value = currentYear;
+
+                    // Update the chart when a new year is selected
+                    dropdown.onchange = function () {
+                        currentYear = parseInt(this.value, 10);
+                        monthlyIllnessChart.data.datasets = getDatasetsForYear(currentYear, illnessData);
+                        monthlyIllnessChart.update();
+                    };
+                };
+
+                setupIllnessYearDropdown();
+
+                // Set an interval to refresh the data every few seconds
+                setInterval(() => {
+                    fetch('/monthly_illness_distribution/')
+                        .then(response => response.json())
+                        .then(data => {
+                            illnessData = data; // Assign the fetched data to the global variable
+                            monthlyIllnessChart.data.datasets = getDatasetsForYear(currentYear, illnessData); // Update the datasets
+                            monthlyIllnessChart.update(); // Trigger chart update without animation
+                        })
+                        .catch(error => console.error('Error fetching updated data:', error));
+                }, 2000); // Update every 2 seconds
+            })
+            .catch(error => console.error('Error fetching monthly illness distribution data:', error));
     </script>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
