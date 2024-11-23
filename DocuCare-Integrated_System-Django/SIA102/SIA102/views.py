@@ -166,23 +166,6 @@ def mortality_data_by_month_and_year(request):
 def index(request):
     return render(request, "SIA102/index.html")
 
-def get_users_data(request):
-    try:
-        # Make a request to your DocuCare API endpoint
-        response = requests.get(f'{ngrok}/DocuCare/get_users.php')
-
-        # Check if the request was successful
-        if response.status_code == 200:
-            users_data = response.json()  # Parse the response as JSON
-        else:
-            users_data = []  # If API request fails, return an empty list
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
-        users_data = []  # If there’s an error with the API request, return an empty list
-
-    # Return the users data as a JSON response
-    return JsonResponse({'users': users_data})
-
 def users(request):
     return render(request, 'SIA102/users.html')
 
@@ -284,3 +267,22 @@ def patient_detail(request, patient_id):
 
 def notifications(request):
     return render(request, "SIA102/notifications.html")
+
+def search_specificPatient(requets, patient_id):
+    try:
+        response = response.get(
+            f'{ngrok}/DocuCare/get_specific_patient.php',
+            params={'patient_id': patient_id}
+        )
+        if response.status_code == 200:
+            patient_info = response.json()
+        else:
+            patient_info = None
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        patient_info = None
+
+    # Pass the patient's data to the template
+    return render(request, 'SIA102/patientDetail.html', {
+        'patient': patient_info[0] if patient_info else {},
+    })
