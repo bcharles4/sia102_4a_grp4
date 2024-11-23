@@ -12,7 +12,7 @@ from collections import Counter
 from collections import defaultdict
 from datetime import datetime
 
-ngrok = "https://b34d-136-158-66-201.ngrok-free.app"
+ngrok = "https://1bad-119-92-254-113.ngrok-free.app"
 
 def login_view(request):
     if request.method == "POST":
