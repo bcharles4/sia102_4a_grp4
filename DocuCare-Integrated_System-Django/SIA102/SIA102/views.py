@@ -12,7 +12,7 @@ from collections import Counter
 from collections import defaultdict
 from datetime import datetime
 
-ngrok = "https://1bad-119-92-254-113.ngrok-free.app"
+ngrok = "https://4f19-136-158-66-138.ngrok-free.app/docu_care-copy-main"
 
 def login_view(request):
     if request.method == "POST":
@@ -268,21 +268,45 @@ def patient_detail(request, patient_id):
 def notifications(request):
     return render(request, "SIA102/notifications.html")
 
-def search_specificPatient(requets, patient_id):
+def get_dischargeInfo(request, patient_id):
     try:
-        response = response.get(
+        response1 = requests.get(
+            f'{ngrok}/DocuCare/getDischargeInfo.php',
+            params={'patient_id': patient_id}
+        )
+        if response1.status_code == 200:
+            patient_dischargeInfo = response1.json()
+        else:
+            patient_dischargeInfo = []
+
+        response2 = requests.get(
+            f'{ngrok}/DocuCare/get_patientVitals.php',
+            params={'patient_id': patient_id}
+        )
+        if response2.status_code == 200:
+            patient_vitals = response2.json()
+        else:
+            patient_vitals = []
+
+        response3 = requests.get(
             f'{ngrok}/DocuCare/get_specific_patient.php',
             params={'patient_id': patient_id}
         )
-        if response.status_code == 200:
-            patient_info = response.json()
+        if response3.status_code == 200:
+            patient_info = response3.json()
         else:
             patient_info = None
+
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
+        patient_dischargeInfo = []
+        patient_vitals = []
         patient_info = None
+        
 
-    # Pass the patient's data to the template
-    return render(request, 'SIA102/patientDetail.html', {
-        'patient': patient_info[0] if patient_info else {},
+    return render(request, 'SIA102/dischargeSummary.html', 
+    {
+        'patientInfo': patient_info[0],
+        'dischargeInfo': patient_dischargeInfo,
+        'vitals': patient_vitals,
     })

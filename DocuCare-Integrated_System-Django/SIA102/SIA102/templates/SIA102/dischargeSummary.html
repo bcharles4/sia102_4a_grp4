@@ -17,39 +17,39 @@
             <table>
                 <tr>
                     <th>Name</th>
-                    <td>John Doe</td>
+                    <td>{{ patientInfo.Patient_FName }} {{ patientInfo.Patient_MName }} {{ patientInfo.Patient_LName }} </td>
                 </tr>
                 <tr>
                     <th>Patient_Type</th>
-                    <td>Outpatient</td>
+                    <td>{{ patientInfo.Patient_Type }} </td>
                 </tr>
                 <tr>
                     <th>Age</th>
-                    <td>45</td>
+                    <td>{{ patientInfo.Age }}</td>
                 </tr>
                 <tr>
                     <th>Sex</th>
-                    <td>Male</td>
+                    <td>{{ patientInfo.Sex }}</td>
                 </tr>
                 <tr>
                     <th>Date_of_Birth</th>
-                    <td>1979-04-18</td>
+                    <td>{{ patientInfo.DoB }}</td>
                 </tr>
                 <tr>
                     <th>Admission_Date</th>
-                    <td>2024-09-10</td>
+                    <td>{{ patientInfo.Admission_Date }}</td>
                 </tr>
                 <tr>
                     <th>Discharge_Date</th>
-                    <td>2024-09-15</td>
+                    <td>{{ patientInfo.Deletion_Date }}</td>
                 </tr>
                 <tr>
                     <th>Attending_Physician</th>
-                    <td>Dr. Smith</td>
+                    <td>{{ patientInfo.Attending_Physician }}</td>
                 </tr>
                 <tr>
                     <th>Diagnosis</th>
-                    <td>Dengue</td>
+                    <td>{{ patientInfo.Admitting_Diagnosis }}</td>
                 </tr>
             </table>
         </div>
@@ -71,16 +71,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                    </tr>
+                    {% for vital in vitals %}
+                        {% if vital %}
+                            <tr>
+                                <td>{{ vital.Temperature }}</td>
+                                <td>{{ vital.Pulse }}</td>
+                                <td>{{ vital.Respiration }}</td>
+                                <td>{{ vital.Blood_Pressure }}</td>
+                                <td>{{ vital.Urine }}</td>
+                                <td>{{ vital.Stool }}</td>
+                                <td>{{ vital.Weight }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">No data available</td>
+                            </tr>
+                        {% endif %}
+                {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -99,16 +106,25 @@
                     <th>Time_End</th>
                     <th>Remarks</th>
                 </tr>
-                <tr>
-                    <td>001</td>
-                    <td>Saline</td>
-                    <td>500ml</td>
-                    <td>Standard</td>
-                    <td>Regulated</td>
-                    <td>15:50</td>
-                    <td>16:20</td>
-                    <td>Stable</td>
-                </tr>
+                {% for discharge in dischargeInfo %}
+                    {% if discharge %}
+                        <tr>
+                            <td>{{ discharge.IV_Bottle_No }}</td>
+                            <td>{{ discharge.IV_Solution }}</td>
+                            <td>{{ discharge.IV_Volume }}</td>
+                            <td>{{ discharge.IV_Incorporation }}</td>
+                            <td>{{ discharge.IV_Regulation }}</td>
+                            <td>{{ discharge.IV_Start_Time }}</td>
+                            <td>{{ discharge.IV_Time_End }}</td>
+                            <td>{{ discharge.IV_Remarks }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">No data available</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                
             </table>
 
             <h2>IV Side Drip</h2>
@@ -123,16 +139,24 @@
                     <th>Time_End</th>
                     <th>Remarks</th>
                 </tr>
-                <tr>
-                    <td>001</td>
-                    <td>Saline</td>
-                    <td>500ml</td>
-                    <td>Standard</td>
-                    <td>Regulated</td>
-                    <td>15:50</td>
-                    <td>16:20</td>
-                    <td>Stable</td>
-                </tr>
+                {% for discharge in dischargeInfo %}
+                    {% if discharge %}
+                        <tr>
+                            <td>{{ discharge.SD_Bottle_No }}</td>
+                            <td>{{ discharge.SD_Solution }}</td>
+                            <td>{{ discharge.SD_Volume }}</td>
+                            <td>{{ discharge.SD_Incorporation }}</td>
+                            <td>{{ discharge.SD_Regulation }}</td>
+                            <td>{{ discharge.SD_Start_Time }}</td>
+                            <td>{{ discharge.SD_Time_End }}</td>
+                            <td>{{ discharge.SD_Remarks }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">No data available</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
             </table>
 
                 <h2>IV Fast Drip</h2>
@@ -144,13 +168,22 @@
                         <th>Time_Taken</th>
                         <th>Remarks</th>
                     </tr>
-                    <tr>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                    </tr>
+                    {% for discharge in dischargeInfo %}
+                        {% if discharge %}
+                            <tr>
+                                <td>{{ discharge.FD_IVF }}</td>
+                                <td>{{ discharge.FD_Volume }}</td>
+                                <td>{{ discharge.FD_Incorporation }}</td>
+                                <td>{{ discharge.FD_Time_Taken }}</td>
+                                <td>{{ discharge.FD_Remarks }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">No data available</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    
                 </table>
             </table>
 
@@ -167,11 +200,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>N/A</td>
-                        <td>N/A</td>
-
-                    </tr>
+                    {% for discharge in dischargeInfo %}
+                        {% if discharge %}
+                            <tr>
+                                <td>{{ discharge.Medication_Name }}</td>
+                                <td>{{ discharge.Medication_Remarks }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">No data available</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
