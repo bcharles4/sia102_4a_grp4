@@ -12,7 +12,7 @@ from collections import Counter
 from collections import defaultdict
 from datetime import datetime
 
-ngrok = "https://4f19-136-158-66-138.ngrok-free.app/docu_care-copy-main"
+ngrok = "https://690c-136-158-66-138.ngrok-free.app/docu_care-copy-main"
 
 def login_view(request):
     if request.method == "POST":
@@ -270,6 +270,7 @@ def notifications(request):
 
 def get_dischargeInfo(request, patient_id):
     try:
+        # Fetch discharge information
         response1 = requests.get(
             f'{ngrok}/DocuCare/getDischargeInfo.php',
             params={'patient_id': patient_id}
@@ -277,17 +278,19 @@ def get_dischargeInfo(request, patient_id):
         if response1.status_code == 200:
             patient_dischargeInfo = response1.json()
         else:
-            patient_dischargeInfo = []
+            patient_dischargeInfo = {"IV_Fluids": [], "Side_Drips": [], "Fast_Drips": [], "Medications": []}
 
+        # Fetch vitals information
         response2 = requests.get(
             f'{ngrok}/DocuCare/get_patientVitals.php',
             params={'patient_id': patient_id}
         )
         if response2.status_code == 200:
-            patient_vitals = response2.json()
+            patient_vitals = response2.json()  # Expecting a JSON object with keys for each table
         else:
-            patient_vitals = []
+            patient_vitals = {"vital_signs": [], "vital_signs_output": [], "initial_vitals": []}
 
+        # Fetch specific patient information
         response3 = requests.get(
             f'{ngrok}/DocuCare/get_specific_patient.php',
             params={'patient_id': patient_id}
@@ -299,14 +302,19 @@ def get_dischargeInfo(request, patient_id):
 
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
-        patient_dischargeInfo = []
-        patient_vitals = []
+        patient_dischargeInfo = {"IV_Fluids": [], "Side_Drips": [], "Fast_Drips": [], "Medications": []}
+        patient_vitals = {"vital_signs": [], "vital_signs_output": [], "initial_vitals": []}
         patient_info = None
-        
 
-    return render(request, 'SIA102/dischargeSummary.html', 
-    {
-        'patientInfo': patient_info[0],
-        'dischargeInfo': patient_dischargeInfo,
-        'vitals': patient_vitals,
+    return render(request, 'SIA102/dischargeSummary.html', {
+        'patientInfo': patient_info[0] if patient_info else {},  # Use the first patient info if available
+
+        'IV_Fluids': patient_dischargeInfo.get("IV_Fluids", []),
+        'Side_drips': patient_dischargeInfo.get("Side_Drips", []),
+        'Fast_drips': patient_dischargeInfo.get("Fast_Drips", []),
+        'Medications': patient_dischargeInfo.get("Medications", []),
+
+        'vitalSigns': patient_vitals.get("vital_signs", []),
+        'vitalSignsOutput': patient_vitals.get("vital_signs_output", []),
+        'initialVitals': patient_vitals.get("initial_vitals", []),
     })
