@@ -7,55 +7,65 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <body>
+    <div class="parent-db-con">
     <div class="dashboard-container">
-        <h1>Sample Dashboard</h1>
+        <h1 style="background-color: #2fe7ce; filter: drop-shadow(7px 7px 2px #999); padding: 20px; color: white; border-radius: 20px;"> DASHBOARD</h1>
 
         <!-- Dashboard info cards -->
         <div class="info-cards">
             <div class="info-card">
                 <h3>Number of Current Patients Admitted</h3>
-                <p id="patientsAdmitted">{{ patientsAdmitted }}</p>
+                <p id="patientsAdmitted"><span>{{ patientsAdmitted }}</span></p>
             </div>
             <div class="info-card">
                 <h3>Number of Rooms Occupied</h3><br>
-                <p id="roomsOccupied">{{roomsOccupied}}</p>
+                <p id="roomsOccupied"><span>{{roomsOccupied}}</span></p>
             </div>
         </div>
 
         <!-- Chart selection dropdown -->
-        <select id="chartSelectionDropdown">
-            <option value="illness-chart">Overall Illness Distribution</option>
-            <option value="monthly-illness-distribution">Monthly Illness Distribution</option>
-            <option value="mortality-rate">Monthly Mortality Rate</option>
-            <option value="illness-vs-deaths">Overall Illness vs. Deaths Analytics</option>
-        </select>
+        
 
         <!-- Mortality Rate Chart -->
         <div class="chart-container" id="mortality-rate">
-            <h3>Monthly Mortality Rate</h3>
+            <h3 style="background-color: #2fe7ce; text-align: center; color: white; padding: 5px; text-transform: uppercase;
+             filter: drop-shadow(7px 7px 2px #999); border-radius: 10px; margin: 7px;"  >Monthly Mortality Rate</h3>
             <canvas id="mortalityBarChart"></canvas>
             <select id="mortalityYearDropdown"></select>
         </div>
 
         <!-- Illness Distribution Pie Chart -->
         <div class="chart-container" id="illness-chart">
-            <h3>Overall Illness Distribution</h3>
+            <h3 style="background-color: #2fe7ce; text-align: center; color: white; padding: 5px; text-transform: uppercase;
+             filter: drop-shadow(7px 7px 2px #999); border-radius: 10px; margin: 7px;">Overall Illness Distribution</h3>
             <canvas id="illnessPieChart"></canvas>
         </div>
 
         <!-- Monthly Illness Distribution Line Chart -->
         <div class="chart-container" id="monthly-illness-distribution">
-            <h3>Monthly Illness Distribution</h3>
+            <h3 style="background-color: #2fe7ce; text-align: center; color: white; padding: 5px; text-transform: uppercase;
+             filter: drop-shadow(7px 7px 2px #999); border-radius: 10px; margin: 7px;">Monthly Illness Distribution</h3>
             <canvas id="monthlyIllnessLineChart"></canvas>
             <select id="illnessYearDropdown"></select>
         </div>
 
         <!-- Illness vs. Deaths Chart -->
         <div class="chart-container" id="illness-vs-deaths">
-            <h3>Overall Illness vs. Deaths Analytics</h3>
+            <h3 style="background-color: #2fe7ce; text-align: center; color: white; padding: 5px; text-transform: uppercase;
+             filter: drop-shadow(7px 7px 2px #999); border-radius: 10px; margin: 7px;">Overall Illness vs. Deaths Analytics</h3>
             <canvas id="illnessDeathsChart"></canvas>
         </div>
+
+        <select id="chartSelectionDropdown">
+            <option value="illness-chart">Overall Illness Distribution</option>
+            <option value="monthly-illness-distribution">Monthly Illness Distribution</option>
+            <option value="mortality-rate">Monthly Mortality Rate</option>
+            <option value="illness-vs-deaths">Overall Illness vs. Deaths Analytics</option>
+        </select>
     </div>
+    
+
+</div>
 
     <div class="notif" onclick="showNotification()">
         <div class="notif-icon"><ion-icon name="notifications"></ion-icon></div>
@@ -97,3 +107,4 @@
 </body>
 
 {% endblock %}
+

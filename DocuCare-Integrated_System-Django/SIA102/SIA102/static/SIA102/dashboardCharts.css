@@ -5,10 +5,22 @@ body {
     padding: 0;
 }
 
+.parent-db-con {
+    width: 70%;
+    max-height: 820px;
+    background-color: aqua;
+    margin: 20px auto;
+    border-radius: 20px;
+    background-color: white;
+    filter: drop-shadow(10px 10px 2px #999);
+    overflow-y: scroll;
+}
+
 .dashboard-container {
-    max-width: 600px;
+    max-width: 650px;
     margin: 0 auto;
     padding: 20px;
+
 }
 
 h1 {
@@ -52,10 +64,18 @@ h1 {
 .info-card {
     flex: 1;
     padding: 15px;
-    background-color: #fff;
+    margin: 10px;
+    border-radius: 20px;
+    color: white;
+    background-color: #2fe7ce;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    filter: drop-shadow(7px 7px 2px #999);
     text-align: center;
+}
+
+.info-card span {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 canvas {
@@ -100,4 +120,9 @@ margin: 0 auto;
 display: flex;
 align-items: center;
 justify-content: center;
+}
+
+#chartSelectionDropdown {
+    font-weight: bold;
+    border: 3px solid #999;
 }

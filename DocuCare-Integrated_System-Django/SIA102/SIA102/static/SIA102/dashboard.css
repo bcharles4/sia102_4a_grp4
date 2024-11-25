@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    overflow-y: hidden;
+    
 }
 
 body {
@@ -19,6 +19,7 @@ body {
         background-color: #2fe7ce;
         border-radius: 10px;
         filter: drop-shadow(10px 10px 2px #999);
+        
         
    
 }

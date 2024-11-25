@@ -6,9 +6,11 @@
     width: 90%;
     flex-grow: 1;
     padding: 20px;
+   
     background-color: #fff;
     border-radius: 10px;
     filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.1));
+    overflow-y: scroll;
 }
 
 h2 {
