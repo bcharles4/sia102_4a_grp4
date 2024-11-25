@@ -353,7 +353,7 @@ def get_dischargeInfo(request, patient_id):
          # Merge address components
         address = f"{patient_data['House_Num']} {patient_data['Street']}, {patient_data['Subdivision']}, {patient_data['Barangay']}, {patient_data['City']}, {patient_data['Province']}"
 
-        
+        print(request.session.get('fullname'))
         patient, created = PatientDischargeArchive.objects.get_or_create(
             name=f"{patient_data['Patient_FName']} {patient_data['Patient_MName']} {patient_data['Patient_LName']}",
             defaults={
