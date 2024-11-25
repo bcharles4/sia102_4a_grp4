@@ -11,8 +11,20 @@ from collections import Counter
 
 from collections import defaultdict
 from datetime import datetime
+from django.shortcuts import get_object_or_404
 
-ngrok = "https://8dc5-136-158-66-138.ngrok-free.app"
+from .models import (
+    PatientDischargeArchive,
+    VitalSign,
+    VitalSignOutput,
+    InitialVital,
+    IVTreatment,
+    IVSideDrip,
+    IVFastDrip,
+    Medication,
+)
+
+ngrok = "https://d168-136-158-66-138.ngrok-free.app/docu_care-copy-main"
 
 def login_view(request):
     if request.method == "POST":
@@ -166,23 +178,6 @@ def mortality_data_by_month_and_year(request):
 def index(request):
     return render(request, "SIA102/index.html")
 
-def get_users_data(request):
-    try:
-        # Make a request to your DocuCare API endpoint
-        response = requests.get(f'{ngrok}/DocuCare/get_users.php')
-
-        # Check if the request was successful
-        if response.status_code == 200:
-            users_data = response.json()  # Parse the response as JSON
-        else:
-            users_data = []  # If API request fails, return an empty list
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
-        users_data = []  # If there’s an error with the API request, return an empty list
-
-    # Return the users data as a JSON response
-    return JsonResponse({'users': users_data})
-
 def users(request):
     return render(request, 'SIA102/users.html')
 
@@ -193,7 +188,7 @@ def dashboard(request):
         if patients_response.status_code == 200:
             patients_info = patients_response.json()
             # Count patients with "ALV" status
-            alive_patients_count = sum(1 for patient in patients_info if patient.get('Status') == "ALV")
+            alive_patients_count = sum(1 for patient in patients_info if patient.get('Status') == "o")
         else:
             alive_patients_count = 0
     except requests.exceptions.RequestException as e:
@@ -284,3 +279,170 @@ def patient_detail(request, patient_id):
 
 def notifications(request):
     return render(request, "SIA102/notifications.html")
+
+def dischargeSummary(request, patient_id):
+    # Fetch patient information
+    # patient = get_object_or_404(PatientDischargeArchive, id=patient_id)
+
+    patient = PatientDischargeArchive.objects.get(patientID = patient_id)
+
+    # Fetch related data
+    vital_signs = VitalSign.objects.filter(patient=patient)
+    vital_sign_outputs = VitalSignOutput.objects.filter(patient=patient)
+    initial_vitals = InitialVital.objects.filter(patient=patient)
+    iv_fluids = IVTreatment.objects.filter(patient=patient)
+    side_drips = IVSideDrip.objects.filter(patient=patient)
+    fast_drips = IVFastDrip.objects.filter(patient=patient)
+    medications = Medication.objects.filter(patient=patient)
+
+    # Render the template
+    return render(request, 'SIA102/dischargeSummary.html', {
+        'patientInfo': patient,  # Pass the patient object directly
+        'vitalSigns': vital_signs,
+        'vitalSignsOutput': vital_sign_outputs,
+        'initialVitals': initial_vitals,
+        'IV_Fluids': iv_fluids,
+        'Side_drips': side_drips,
+        'Fast_drips': fast_drips,
+        'Medications': medications,
+    })
+
+#add doctor_id later for "approved by: Doctor"
+def get_dischargeInfo(request, patient_id):
+    try:
+        # Fetch discharge information
+        response1 = requests.get(
+            f'{ngrok}/DocuCare/getDischargeInfo.php',
+            params={'patient_id': patient_id}
+        )
+        if response1.status_code == 200:
+            patient_dischargeInfo = response1.json()
+        else:
+            patient_dischargeInfo = {"IV_Fluids": [], "Side_Drips": [], "Fast_Drips": [], "Medications": []}
+
+        # Fetch vitals information
+        response2 = requests.get(
+            f'{ngrok}/DocuCare/get_patientVitals.php',
+            params={'patient_id': patient_id}
+        )
+        if response2.status_code == 200:
+            patient_vitals = response2.json()
+        else:
+            patient_vitals = {"vital_signs": [], "vital_signs_output": [], "initial_vitals": []}
+
+        # Fetch specific patient information
+        response3 = requests.get(
+            f'{ngrok}/DocuCare/get_specific_patient.php',
+            params={'patient_id': patient_id}
+        )
+        if response3.status_code == 200:
+            patient_info = response3.json()
+        else:
+            patient_info = None
+
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        patient_dischargeInfo = {"IV_Fluids": [], "Side_Drips": [], "Fast_Drips": [], "Medications": []}
+        patient_vitals = {"vital_signs": [], "vital_signs_output": [], "initial_vitals": []}
+        patient_info = None
+
+    # Save data to SQLite
+    if patient_info:
+        patient_data = patient_info[0]  # Use the first patient info if available
+
+         # Merge address components
+        address = f"{patient_data['House_Num']} {patient_data['Street']}, {patient_data['Subdivision']}, {patient_data['Barangay']}, {patient_data['City']}, {patient_data['Province']}"
+
+        
+        patient, created = PatientDischargeArchive.objects.get_or_create(
+            name=f"{patient_data['Patient_FName']} {patient_data['Patient_MName']} {patient_data['Patient_LName']}",
+            defaults={
+                'patientID' : patient_data['Patient_ID'],
+                'patient_type': patient_data['Patient_Type'],
+                'age': patient_data['Age'],
+                'sex': patient_data['Sex'],
+                'date_of_birth': patient_data['DoB'],
+                'room_number': patient_data['Room_Num'],
+                'address': address,
+                'admission_date': patient_data['Admission_Date'],
+                'discharge_date': patient_data.get('Deletion_Date'),
+                'attending_physician': patient_data['Attending_Physician'],
+                'diagnosis': patient_data['Admitting_Diagnosis'],
+                'approved_by': "test",
+                'discharged_by': request.session['fullname']
+            }
+        )
+
+        # Save vitals
+        for vital in patient_vitals.get("vital_signs", []):
+            VitalSign.objects.create(
+                patient=patient,
+                date=vital['Date'],
+                temperature=vital['Temperature'],
+                pulse=vital['Pulse'],
+                respiration=vital['Respiration']
+            )
+        for vital_output in patient_vitals.get("vital_signs_output", []):
+            VitalSignOutput.objects.create(
+                patient=patient,
+                date=vital_output['Date'],
+                blood_pressure=vital_output['Blood_Pressure'],
+                urine=vital_output['Urine'],
+                stool=vital_output['Stool']
+            )
+        for initial_vital in patient_vitals.get("initial_vitals", []):
+            InitialVital.objects.create(
+                patient=patient,
+                date=initial_vital['Date'],
+                weight=initial_vital['Weight']
+            )
+
+        # Save IV data
+        for iv in patient_dischargeInfo.get("IV_Fluids", []):
+            IVTreatment.objects.create(
+                patient=patient,
+                date=iv['Date'],
+                bottle_no=iv['Bottle_No'],
+                iv_solution=iv['IV_Solution'],
+                volume=iv['Volume'],
+                incorporation=iv['Incorporation'],
+                regulation=iv['Regulation'],
+                start_time=iv['Start_Time'],
+                end_time=iv['End_Time'],
+                remarks=iv['Remarks']
+            )
+        for side_drip in patient_dischargeInfo.get("Side_Drips", []):
+            IVSideDrip.objects.create(
+                patient=patient,
+                date=side_drip['Date'],
+                bottle_no=side_drip['Bottle_No'],
+                iv_solution=side_drip['IV_Solution'],
+                volume=side_drip['Volume'],
+                incorporation=side_drip['Incorporation'],
+                regulation=side_drip['Regulation'],
+                start_time=side_drip['Start_Time'],
+                end_time=side_drip['End_Time'],
+                remarks=side_drip['Remarks']
+            )
+        for fast_drip in patient_dischargeInfo.get("Fast_Drips", []):
+            IVFastDrip.objects.create(
+                patient=patient,
+                date=fast_drip['Date'],
+                ivf=fast_drip['IVF'],
+                volume=fast_drip['Volume'],
+                incorporation=fast_drip['Incorporation'],
+                time_taken=fast_drip['Time_Taken'],
+                remarks=fast_drip['Remarks']
+            )
+
+        # Save medications
+        for medication in patient_dischargeInfo.get("Medications", []):
+            Medication.objects.create(
+                patient=patient,
+                date=medication['Date'],
+                medication_name=medication['Medication_Name'],
+                medication_remarks=medication['Medication_Remarks']
+            )
+
+    # Redirect to get_dischargeSummary after saving data
+    return redirect('dischargeSummary', patient_id=patient_id)
