@@ -12,7 +12,7 @@ from collections import Counter
 from collections import defaultdict
 from datetime import datetime
 
-ngrok = "https://690c-136-158-66-138.ngrok-free.app/docu_care-copy-main"
+ngrok = "https://d168-136-158-66-138.ngrok-free.app/docu_care-copy-main"
 
 def login_view(request):
     if request.method == "POST":
@@ -176,7 +176,7 @@ def dashboard(request):
         if patients_response.status_code == 200:
             patients_info = patients_response.json()
             # Count patients with "ALV" status
-            alive_patients_count = sum(1 for patient in patients_info if patient.get('Status') == "ALV")
+            alive_patients_count = sum(1 for patient in patients_info if patient.get('Status') == "o")
         else:
             alive_patients_count = 0
     except requests.exceptions.RequestException as e:
