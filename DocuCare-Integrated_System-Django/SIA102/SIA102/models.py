@@ -16,12 +16,13 @@ class Nurse(models.Model):
 
 class PatientDischargeArchive(models.Model):
     # Basic Patient Information
+    patientID = models.IntegerField()
     name = models.CharField(max_length=255)
     patient_type = models.CharField(max_length=50)  
     age = models.IntegerField()
     sex = models.CharField(max_length=10)  
     date_of_birth = models.DateField()
-    room_number = models.CharField(max_length=50)  
+    room_number = models.CharField(null=True, blank=True, max_length=50)  
     address = models.TextField(default="Address not provided")  
     admission_date = models.DateTimeField()
     discharge_date = models.DateTimeField(null=True, blank=True)

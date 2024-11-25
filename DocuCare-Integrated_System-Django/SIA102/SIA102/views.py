@@ -11,6 +11,7 @@ from collections import Counter
 
 from collections import defaultdict
 from datetime import datetime
+from django.shortcuts import get_object_or_404
 
 from .models import (
     PatientDischargeArchive,
@@ -279,9 +280,11 @@ def patient_detail(request, patient_id):
 def notifications(request):
     return render(request, "SIA102/notifications.html")
 
-def get_discharge_summary(request, patient_id):
+def dischargeSummary(request, patient_id):
     # Fetch patient information
-    patient = get_object_or_404(PatientDischargeArchive, id=patient_id)
+    # patient = get_object_or_404(PatientDischargeArchive, id=patient_id)
+
+    patient = PatientDischargeArchive.objects.get(patientID = patient_id)
 
     # Fetch related data
     vital_signs = VitalSign.objects.filter(patient=patient)
@@ -354,6 +357,7 @@ def get_dischargeInfo(request, patient_id):
         patient, created = PatientDischargeArchive.objects.get_or_create(
             name=f"{patient_data['Patient_FName']} {patient_data['Patient_MName']} {patient_data['Patient_LName']}",
             defaults={
+                'patientID' : patient_data['Patient_ID'],
                 'patient_type': patient_data['Patient_Type'],
                 'age': patient_data['Age'],
                 'sex': patient_data['Sex'],
@@ -441,4 +445,4 @@ def get_dischargeInfo(request, patient_id):
             )
 
     # Redirect to get_dischargeSummary after saving data
-    return redirect('get_dischargeSummary', patient_id=patient_id)
+    return redirect('dischargeSummary', patient_id=patient_id)
