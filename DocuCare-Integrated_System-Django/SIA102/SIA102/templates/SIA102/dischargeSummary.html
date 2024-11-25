@@ -17,39 +17,55 @@
             <table>
                 <tr>
                     <th>Name</th>
-                    <td>{{ patientInfo.Patient_FName }} {{ patientInfo.Patient_MName }} {{ patientInfo.Patient_LName }} </td>
+                    <td>{{ patientInfo.name }} </td>
                 </tr>
                 <tr>
                     <th>Patient_Type</th>
-                    <td>{{ patientInfo.Patient_Type }} </td>
+                    <td>{{ patientInfo.patient_type }} </td>
                 </tr>
                 <tr>
                     <th>Age</th>
-                    <td>{{ patientInfo.Age }}</td>
+                    <td>{{ patientInfo.age }}</td>
                 </tr>
                 <tr>
                     <th>Sex</th>
-                    <td>{{ patientInfo.Sex }}</td>
+                    <td>{{ patientInfo.sex }}</td>
                 </tr>
                 <tr>
                     <th>Date_of_Birth</th>
-                    <td>{{ patientInfo.DoB }}</td>
+                    <td>{{ patientInfo.date_of_birth }}</td>
                 </tr>
                 <tr>
                     <th>Admission_Date</th>
-                    <td>{{ patientInfo.Admission_Date }}</td>
+                    <td>{{ patientInfo.room_number }}</td>
+                </tr>
+                <tr>
+                    <th>Admission_Date</th>
+                    <td>{{ patientInfo.address }}</td>
+                </tr>
+                <tr>
+                    <th>Admission_Date</th>
+                    <td>{{ patientInfo.admission_date }}</td>
                 </tr>
                 <tr>
                     <th>Discharge_Date</th>
-                    <td>{{ patientInfo.Deletion_Date }}</td>
+                    <td>{{ patientInfo.discharge_date }}</td>
                 </tr>
                 <tr>
                     <th>Attending_Physician</th>
-                    <td>{{ patientInfo.Attending_Physician }}</td>
+                    <td>{{ patientInfo.attending_physician }}</td>
                 </tr>
                 <tr>
                     <th>Diagnosis</th>
-                    <td>{{ patientInfo.Admitting_Diagnosis }}</td>
+                    <td>{{ patientInfo.diagnosis }}</td>
+                </tr>
+                <tr>
+                    <th>Diagnosis</th>
+                    <td>{{ patientInfo.approved_by }}</td>
+                </tr>
+                <tr>
+                    <th>Diagnosis</th>
+                    <td>{{ patientInfo.discharged_by }}</td>
                 </tr>
             </table>
         </div>
@@ -70,10 +86,10 @@
                 <tbody>
                     {% for vital in vitalSigns %}
                         <tr>
-                            <td>{{ vital.Vitals_Date }}</td>
-                            <td>{{ vital.Temperature }}</td>
-                            <td>{{ vital.Pulse }}</td>
-                            <td>{{ vital.Respiration }}</td>
+                            <td>{{ vital.date}}</td>
+                            <td>{{ vital.temperature }}</td>
+                            <td>{{ vital.pulse }}</td>
+                            <td>{{ vital.respiration }}</td>
                         </tr>
                     {% empty %}
                         <tr>
@@ -96,10 +112,10 @@
                 <tbody>
                     {% for output in vitalSignsOutput %}
                         <tr>
-                            <td>{{ output.Date }}</td>
-                            <td>{{ output.Blood_Pressure }}</td>
-                            <td>{{ output.Urine }}</td>
-                            <td>{{ output.Stool }}</td>
+                            <td>{{ output.date }}</td>
+                            <td>{{ output.blood_pressure }}</td>
+                            <td>{{ output.urine }}</td>
+                            <td>{{ output.stool }}</td>
                         </tr>
                     {% empty %}
                         <tr>
@@ -120,8 +136,8 @@
                 <tbody>
                     {% for initial in initialVitals %}
                         <tr>
-                            <td>{{ initial.Initial_Vitals_Date }}</td>
-                            <td>{{ initial.Weight }} kg</td>
+                            <td>{{ initial.date }}</td>
+                            <td>{{ initial.weight }} kg</td>
                         </tr>
                     {% empty %}
                         <tr>
@@ -149,15 +165,15 @@
             </tr>
             {% for discharge in IV_Fluids %}
                 <tr>
-                    <td>{{ discharge.IV_Date }}</td>
-                    <td>{{ discharge.Bottle_No }}</td>
-                    <td>{{ discharge.IV_Solution }}</td>
-                    <td>{{ discharge.Volume }}</td>
-                    <td>{{ discharge.Incorporation }}</td>
-                    <td>{{ discharge.Regulation }}</td>
-                    <td>{{ discharge.Start_Time }}</td>
-                    <td>{{ discharge.Time_End }}</td>
-                    <td>{{ discharge.Remarks }}</td>
+                    <td>{{ discharge.date }}</td>
+                    <td>{{ discharge.bottle_no }}</td>
+                    <td>{{ discharge.iv_solution }}</td>
+                    <td>{{ discharge.volume }}</td>
+                    <td>{{ discharge.incorporation }}</td>
+                    <td>{{ discharge.regulation }}</td>
+                    <td>{{ discharge.start_time }}</td>
+                    <td>{{ discharge.end_time}}</td>
+                    <td>{{ discharge.remarks }}</td>
                 </tr>
             {% empty %}
                 <tr>
@@ -182,15 +198,15 @@
             </tr>
             {% for discharge in Side_drips %}
                 <tr>
-                    <td>{{ discharge.SD_Date }}</td>
-                    <td>{{ discharge.Bottle_No }}</td>
-                    <td>{{ discharge.IV_Solution }}</td>
-                    <td>{{ discharge.Volume }}</td>
-                    <td>{{ discharge.Incorporation }}</td>
-                    <td>{{ discharge.Regulation }}</td>
-                    <td>{{ discharge.Start_Time }}</td>
-                    <td>{{ discharge.Time_End }}</td>
-                    <td>{{ discharge.Remarks }}</td>
+                    <td>{{ discharge.date }}</td>
+                    <td>{{ discharge.bottle_no }}</td>
+                    <td>{{ discharge.iv_solution }}</td>
+                    <td>{{ discharge.volume }}</td>
+                    <td>{{ discharge.incorporation }}</td>
+                    <td>{{ discharge.regulation }}</td>
+                    <td>{{ discharge.start_time }}</td>
+                    <td>{{ discharge.end_time}}</td>
+                    <td>{{ discharge.remarks }}</td>
                 </tr>
             {% empty %}
                 <tr>
@@ -212,12 +228,12 @@
             </tr>
             {% for discharge in Fast_drips %}
                 <tr>
-                    <td>{{ discharge.SFD_Date }}</td>
-                    <td>{{ discharge.IVF }}</td>
-                    <td>{{ discharge.Volume }}</td>
-                    <td>{{ discharge.Incorporation }}</td>
-                    <td>{{ discharge.Time_Taken }}</td>
-                    <td>{{ discharge.Remarks }}</td>
+                    <td>{{ discharge.date }}</td>
+                    <td>{{ discharge.ivf }}</td>
+                    <td>{{ discharge.volume }}</td>
+                    <td>{{ discharge.incorporation }}</td>
+                    <td>{{ discharge.time_taken }}</td>
+                    <td>{{ discharge.remarks }}</td>
                 </tr>
             {% empty %}
                 <tr>
@@ -239,9 +255,9 @@
             <tbody>
                 {% for discharge in Medications %}
                     <tr>
-                        <td>{{ discharge.Date }}</td>
-                        <td>{{ discharge.Medication_Name }}</td>
-                        <td>{{ discharge.Medication_Remarks }}</td>
+                        <td>{{ discharge.date }}</td>
+                        <td>{{ discharge.medication_name }}</td>
+                        <td>{{ discharge.medication_remarks }}</td>
                     </tr>
                 {% empty %}
                     <tr>
@@ -255,7 +271,8 @@
 
         <!-- Footer -->
         <div class="section">
-            <p><strong>Approved by:</strong> Dr. Smith</p>
+            <p><strong>Approved by:</strong> {{ patientInfo.approved_by }} </p>
+            <p><strong>Discharged by:</strong> {{ patientInfo.discharged_by}} </p>
         </div>
 
             <div class="print-button" style="text-align: center; margin-top: 20px;">

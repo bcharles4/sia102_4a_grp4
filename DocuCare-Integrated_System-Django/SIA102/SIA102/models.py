@@ -13,3 +13,94 @@ class Nurse(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name} ({self.userIdnumber})'
+
+class PatientDischargeArchive(models.Model):
+    # Basic Patient Information
+    name = models.CharField(max_length=255)
+    patient_type = models.CharField(max_length=50)  
+    age = models.IntegerField()
+    sex = models.CharField(max_length=10)  
+    date_of_birth = models.DateField()
+    room_number = models.CharField(max_length=50)  
+    address = models.TextField(default="Address not provided")  
+    admission_date = models.DateTimeField()
+    discharge_date = models.DateTimeField(null=True, blank=True)
+    attending_physician = models.CharField(max_length=255)
+    diagnosis = models.CharField(max_length=255)
+    approved_by = models.CharField(max_length=255)  
+    discharged_by = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.name} - {self.diagnosis}"
+
+
+class VitalSign(models.Model):
+    # Vital signs at discharge
+    patient = models.ForeignKey(PatientDischargeArchive, on_delete=models.CASCADE, related_name="vital_signs")
+    date = models.DateField()
+    temperature = models.FloatField()
+    pulse = models.IntegerField()
+    respiration = models.IntegerField()
+
+
+class VitalSignOutput(models.Model):
+    # Blood pressure, urine, and stool records
+    patient = models.ForeignKey(PatientDischargeArchive, on_delete=models.CASCADE, related_name="vital_sign_outputs")
+    date = models.DateField()
+    blood_pressure = models.CharField(max_length=15)
+    urine = models.IntegerField()
+    stool = models.IntegerField()
+
+
+class InitialVital(models.Model):
+    # Initial vitals, e.g., weight
+    patient = models.ForeignKey(PatientDischargeArchive, on_delete=models.CASCADE, related_name="initial_vitals")
+    date = models.DateTimeField()
+    weight = models.CharField(max_length=20)
+
+
+class IVTreatment(models.Model):
+    # IV treatments
+    patient = models.ForeignKey(PatientDischargeArchive, on_delete=models.CASCADE, related_name="iv_treatments")
+    date = models.DateField()
+    bottle_no = models.CharField(max_length=50)
+    iv_solution = models.CharField(max_length=255)
+    volume = models.CharField(max_length=50)
+    incorporation = models.CharField(max_length=255)
+    regulation = models.CharField(max_length=255)
+    start_time = models.TimeField()
+    end_time = models.DateTimeField()
+    remarks = models.TextField()
+
+
+class IVSideDrip(models.Model):
+    # IV side drips
+    patient = models.ForeignKey(PatientDischargeArchive, on_delete=models.CASCADE, related_name="iv_side_drips")
+    date = models.DateField()
+    bottle_no = models.CharField(max_length=50)
+    iv_solution = models.CharField(max_length=255)
+    volume = models.CharField(max_length=50)
+    incorporation = models.CharField(max_length=255)
+    regulation = models.CharField(max_length=255)
+    start_time = models.TimeField()
+    end_time = models.DateTimeField()
+    remarks = models.TextField()
+
+
+class IVFastDrip(models.Model):
+    # IV fast drips
+    patient = models.ForeignKey(PatientDischargeArchive, on_delete=models.CASCADE, related_name="iv_fast_drips")
+    date = models.DateField()
+    ivf = models.CharField(max_length=255)
+    volume = models.CharField(max_length=50)
+    incorporation = models.CharField(max_length=255)
+    time_taken = models.TimeField()
+    remarks = models.TextField()
+
+
+class Medication(models.Model):
+    # Medications
+    patient = models.ForeignKey(PatientDischargeArchive, on_delete=models.CASCADE, related_name="medications")
+    date = models.DateField()
+    medication_name = models.CharField(max_length=255)
+    medication_remarks = models.TextField()
