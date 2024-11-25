@@ -67,10 +67,15 @@
                                     </div>
 
                                     <center>
-                                        <button onclick="window.location.href='/discharge/${patient.patientID}'">
-                                            DISCHARGE PATIENT
-                                        </button>
-                                    </center>
+                                        <div style="display: flex; gap: 60px; justify-content: center;">
+                                            <button style="padding: 10px 20px; border: 2px solid #ccc;" onclick="window.location.href='/discharge/${patient.patientID}'">
+                                                DISCHARGE PATIENT
+                                            </button>
+                                            <button style="padding: 10px 20px; border: 2px solid #ccc;" onclick="window.location.href='/discharge/${patient.patientID}'">
+                                                DECEASED DISCHARGE
+                                            </button>
+                                        </div>
+                                </center>
                                 </div>
                             `;
 
