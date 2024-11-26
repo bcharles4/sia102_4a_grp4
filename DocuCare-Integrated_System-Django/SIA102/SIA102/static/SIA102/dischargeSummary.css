@@ -137,3 +137,67 @@ table tr:hover {
 .section h2 {
     color: #999;
 }
+
+/* General print settings */
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+    }
+
+    .dis-con {
+        margin: 0;
+        padding: 20px;
+        width: 100%;
+    }
+
+    /* Ensure tables fit within the page */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: avoid;
+    }
+
+    table th, table td {
+        border: 1px solid #000; /* Add visible borders for print */
+        padding: 8px;
+        text-align: left;
+        word-wrap: break-word; /* Handle long text */
+    }
+
+    table thead {
+        display: table-header-group; /* Keep table headers on each page */
+    }
+
+    table tbody tr {
+        page-break-inside: avoid; /* Avoid splitting rows between pages */
+    }
+
+    /* Remove unnecessary print elements */
+    .print-button, .no-print {
+        display: none !important;
+    }
+
+    /* Fix header and footer display */
+    h2, .section h2 {
+        font-size: 14px;
+        margin: 10px 0;
+    }
+
+    p {
+        margin: 5px 0;
+    }
+
+        .print-button {
+        display: none;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .menu {
+        display: none;
+    }
+}
