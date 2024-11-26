@@ -16,7 +16,7 @@
         </span>
         
         <table class="patient-table" >
-            <table>
+            
                 <thead>
                     <tr>
                         <th>Record Number</th>
@@ -52,9 +52,12 @@
                     </tr> 
                     {% endfor %}
                 </tbody>
-            </table>
+            
             
         </table>
+        <div class="print-button" style="text-align: center; margin-top: 20px;">
+            <button onclick="window.print()"><ion-icon name="print" style="font-size: 40px;"> </ion-icon></button>
+        </div>
     </div>
 
     <div class="notif" onclick="showNotification()">
