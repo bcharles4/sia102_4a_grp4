@@ -89,12 +89,18 @@
 
             <center>
                 <div style="display: flex; gap: 60px; justify-content: center;">
-                    <button style="padding: 10px 20px; border: 2px solid #ccc;" onclick="window.location.href='/discharge/${patient.patientID}'">
+                   <button 
+                        style="padding: 10px 20px; border: 2px solid #ccc;" 
+                        onclick="dischargePatient('${patient.patientID}')">
                         DISCHARGE PATIENT
                     </button>
-                    <button style="padding: 10px 20px; border: 2px solid #ccc;" onclick="window.location.href='/discharge/${patient.patientID}'">
+                    <button 
+                        style="padding: 10px 20px; border: 2px solid #ccc;" 
+                        onclick="dischargePatient('${patient.patientID}')">
                         DECEASED DISCHARGE
                     </button>
+
+                    
                 </div>
             </center>
         </div>
@@ -167,9 +173,49 @@
     document.getElementById('created-at').textContent = formattedDate;
 </script>
 
+<script>
+    async function dischargePatient(patientID) {
+        // Confirm the action with the user
+        const confirmed = confirm('Are you sure you want to discharge this patient?');
+        if (!confirmed) return; // Exit if the user cancels the action
+
+        // Define the API endpoint
+        const deleteUrl = `https://patient-discharge-notification-c1545bff9ae9.herokuapp.com/api/patients/${patientID}`;
+
+        try {
+            // Send the DELETE request
+            const response = await fetch(deleteUrl, { method: 'DELETE' });
+
+            // Handle response
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to discharge the patient');
+            }
+
+            // Parse successful response
+            const result = await response.json();
+            alert(result.message || 'Patient discharged successfully!');
+            location.reload();
+
+            // Remove the patient element from the DOM
+            const patientDiv = document.querySelector(`[data-patient-id="${patientID}"]`);
+            if (patientDiv) {
+                patientDiv.remove();
+            } else {
+                console.warn(`No DOM element found for patientID: ${patientID}`);
+            }
+        } catch (error) {
+            // Log and show errors
+            console.error('Error discharging patient:', error);
+            alert(`Error: ${error.message}`);
+        }
+    }
+</script>
+
+
+
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     
 </body>
 </html>
-
