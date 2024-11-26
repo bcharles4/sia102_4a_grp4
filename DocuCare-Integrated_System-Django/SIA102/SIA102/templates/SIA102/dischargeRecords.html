@@ -4,6 +4,8 @@
 {% block body %}
     <title>Discharge Records</title>
     <link rel="stylesheet" href="{% static 'SIA102/dischargeRecords.css' %}">
+    <link rel="stylesheet" href="{% static 'SIA102/dashboardCharts.css' %}">
+    
 
     <div class="main-content">
         <span class="headerDiv">
@@ -36,7 +38,14 @@
                         <td>{{ patient.approved_by }}</td> 
                         <td>{{ patient.discharge_date }}</td> 
                         <td>
-                            <button onclick="window.location.href='{% url 'dischargeSummary' patient.patientID %}'">
+                            <button style="padding: 12px;
+                            border-radius: 12px;
+                            background-color: #333;
+                            color: white;
+                            cursor: pointer;
+                            font-weight: bold;"
+                            
+                            onclick="window.location.href='{% url 'dischargeSummary' patient.patientID %}'">
                                 View Summary
                             </button>
                         </td>
@@ -47,5 +56,16 @@
             
         </table>
     </div>
+
+    <div class="notif" onclick="showNotification()">
+        <div class="notif-icon"><ion-icon name="notifications"></ion-icon></div>
+    </div>
+    
+    
+    <script>
+        function showNotification() {
+            window.location.href = "/notifications";
+        }
+    </script>
 
 {% endblock %}
