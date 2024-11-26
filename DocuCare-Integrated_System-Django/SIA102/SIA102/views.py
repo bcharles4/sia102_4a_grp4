@@ -215,9 +215,6 @@ def dashboard(request):
     }
     return render(request, 'SIA102/dashboard.html', context)
 
-def dischargeRecords(request):
-    return render(request, "SIA102/dischargeRecords.html")
-
 def get_patients_info(request):
     try:
         response = requests.get(f'{ngrok}/DocuCare/get_patientsInfo.php')
@@ -273,6 +270,14 @@ def patient_detail(request, patient_id):
 
 def notifications(request):
     return render(request, "SIA102/notifications.html")
+
+
+def dischargeRecords(request):
+    patients = PatientDischargeArchive.objects.all()
+
+    return render(request, "SIA102/dischargeRecords.html", {
+        'patients' : patients,
+    })
 
 def dischargeSummary(request, patient_id):
     # Fetch patient information

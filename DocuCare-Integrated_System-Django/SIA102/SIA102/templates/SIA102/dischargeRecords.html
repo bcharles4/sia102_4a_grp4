@@ -14,31 +14,37 @@
         </span>
         
         <table class="patient-table" >
-            <thead>
-                <tr>
-                    <th>Record Number</th>
-                    <th>Patient ID</th>
-                    <th>Patient Fullname</th>
-                    <th>Attending Physician</th>
-                    <th>Discharge Date</th>
-                    <th>Discharge Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>P001</td>
-                    <td>Klein Moretti</td>
-                    <td>Dr. Pepper</td>
-                    <td>25/09/2024</td>
-                    <td>
-                        <button onclick="window.location.href=''">
-                            View Summary
-                        </button>
-                    </td>
-                </tr> 
-                <!-- Add more rows as needed -->
-            </tbody>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Record Number</th>
+                        <th>Patient ID</th>
+                        <th>Patient Fullname</th>
+                        <th>Patient Type</th>
+                        <th>Attending Physician</th>
+                        <th>Discharge Date</th>
+                        <th>Discharge Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                    <tr>
+                        <td>{{ patient.id }}</td>
+                        <td>{{ patient.patientID }}</td> 
+                        <td>{{ patient.name }}</td> 
+                        <td>{{ patient.patient_type }}</td> 
+                        <td>{{ patient.attending_physician }}</td> 
+                        <td>{{ patient.discharge_date }}</td> 
+                        <td>
+                            <button onclick="window.location.href='{% url 'dischargeSummary' patient.patientID %}'">
+                                View Summary
+                            </button>
+                        </td>
+                    </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+            
         </table>
     </div>
 
