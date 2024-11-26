@@ -187,7 +187,7 @@ def dashboard(request):
         patients_response = requests.get(f'{ngrok}/DocuCare/get_patientsInfo.php')
         if patients_response.status_code == 200:
             patients_info = patients_response.json()
-            # Count patients with "ALV" status
+            # Count patients with "o" status
             alive_patients_count = sum(1 for patient in patients_info if patient.get('Status') == "o")
         else:
             alive_patients_count = 0
@@ -217,16 +217,21 @@ def dashboard(request):
 
 def get_patients_info(request):
     try:
+        # Fetch the patient data from the external API
         response = requests.get(f'{ngrok}/DocuCare/get_patientsInfo.php')
         if response.status_code == 200:
-            patients_info = response.json()  
+            patients_info = response.json()
+
+            # Filter out patients with status "o" (alive patients)
+            alive_patients = [patient for patient in patients_info if patient.get('Status') == 'o']
         else:
-            patients_info = []  
+            alive_patients = []  # Return an empty list if API request fails
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
-        patients_info = [] 
+        alive_patients = []  # In case of error, return an empty list
 
-    return JsonResponse({'patients': patients_info})
+    # Return only alive patients as JSON
+    return JsonResponse({'patients': alive_patients})
 
 def patientList(request):
     return render(request, "SIA102/patientList.html")
@@ -357,6 +362,19 @@ def get_dischargeInfo(request, patient_id, createdAt, doctor_id):
 
     
     discharge_datetime = datetime.fromisoformat(createdAt)
+
+    # Fetch discharge information
+    response5 = requests.get(
+        f'{ngrok}/DocuCare/update_dischargedPatient.php',
+        params={'patient_id': patient_id}
+    )
+
+    # Check the response from the API
+    if response5.status_code == 200:
+        print("Success:", response5.json())
+    else:
+        print("Error:", response5.json())
+
 
     if doctor_info:
         doctor = f"{doctor_info[0]['User_FName']} {doctor_info[0]['User_MName']} {doctor_info[0]['User_LName']}"
@@ -547,6 +565,19 @@ def get_deceasedDischargeInfo(request, patient_id, createdAt, doctor_id):
         patient_info = None
 
     discharge_datetime = datetime.fromisoformat(createdAt)
+
+    # Fetch discharge information
+    response4 = requests.get(
+        f'{ngrok}/DocuCare/update_dischargedPatient.php',
+        params={'patient_id': patient_id}
+    )
+
+    # Check the response from the API
+    if response4.status_code == 200:
+        print("Success:", response4.json())
+    else:
+        print("Error:", response4.json())
+
 
     if doctor_info:
         doctor = f"{doctor_info[0]['User_FName']} {doctor_info[0]['User_MName']} {doctor_info[0]['User_LName']}"
