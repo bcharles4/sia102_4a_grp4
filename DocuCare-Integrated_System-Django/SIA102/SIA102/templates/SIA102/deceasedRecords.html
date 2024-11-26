@@ -1,0 +1,51 @@
+{% extends "SIA102/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <title>Deceased Records</title>
+    <link rel="stylesheet" href="{% static 'SIA102/dischargeRecords.css' %}">
+
+    <div class="main-content">
+        <span class="headerDiv">
+            <h1 style="background-color:#2fe7ce; color: white; padding: 20px; font-size: 50px; text-transform: uppercase; text-align: center;
+            border-top-left-radius: 10px; border-top-right-radius: 10px;">Deceased Records</h1>
+            &ensp;&ensp;&ensp;
+            <br>
+        </span>
+        
+        <table class="patient-table" >
+            <table>
+                <thead>
+                    <tr>
+                        <th>Record Number</th>
+                        <th>Patient ID</th>
+                        <th>Patient Fullname</th>
+                        <th>Patient Type</th>
+                        <th>Discharge Approved By</th>
+                        <th>Discharge Date</th>
+                        <th>Discharge Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                    <tr>
+                        <td>{{ patient.id }}</td>
+                        <td>{{ patient.patientID }}</td> 
+                        <td>{{ patient.name }}</td> 
+                        <td>{{ patient.patient_type }}</td> 
+                        <td>{{ patient.approved_by }}</td> 
+                        <td>{{ patient.discharge_date }}</td> 
+                        <td>
+                            <button onclick="window.location.href='{% url 'dischargeSummary' patient.patientID %}'">
+                                View Summary
+                            </button>
+                        </td>
+                    </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </table>
+    </div>
+
+{% endblock %}

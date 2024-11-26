@@ -96,7 +96,7 @@
                     </button>
                     <button 
                         style="padding: 10px 20px; border: 2px solid #ccc;" 
-                        onclick="dischargePatient('${patient.patientID}', '${patient.createdAt}', '${patient.doctorsID}')">
+                        onclick="deceasedDischargePatient('${patient.patientID}', '${patient.createdAt}', '${patient.doctorsID}')">
                         DECEASED DISCHARGE
                     </button>
 
@@ -197,7 +197,61 @@
 
             // Optional: Display the information to the user (if applicable)
             //if (!confirm(`Discharge Info:\n${JSON.stringify(infoResult)}\nProceed to discharge?`)) return;
-            if (!confirm(`This action will also delete the notification record. Proceed to discharge?`)) return;
+            //if (!confirm(`This action will also delete the notification record. Proceed to discharge?`)) return;
+
+            // Step 2: Proceed to delete the patient record
+            const deleteUrl = `https://patient-discharge-notification-c1545bff9ae9.herokuapp.com/api/patients/${patientID}`;
+            const deleteResponse = await fetch(deleteUrl, { method: 'DELETE' });
+
+            if (!deleteResponse.ok) {
+                const errorData = await deleteResponse.json();
+                throw new Error(errorData.message || 'Failed to discharge the patient');
+            }
+
+            const deleteResult = await deleteResponse.json();
+            alert(deleteResult.message || 'Patient discharged successfully!');
+            location.reload();
+
+            // Remove the patient element from the DOM
+            const patientDiv = document.querySelector(`[data-patient-id="${patientID}"]`);
+            if (patientDiv) {
+                patientDiv.remove();
+            } else {
+                console.warn(`No DOM element found for patientID: ${patientID}`);
+            }
+        } catch (error) {
+            // Log and show errors
+            console.error('Error discharging patient:', error);
+            alert(`Error: ${error.message}`);
+        }
+    }
+</script>
+
+<script>
+    async function deceasedDischargePatient(patientID, dischargeDate, doctorID) {
+        // Confirm the action with the user
+        const confirmed = confirm('Are you sure you want announce this patient Deceased?');
+        if (!confirmed) return; // Exit if the user cancels the action
+
+        const formattedDischargeDate = new Date(dischargeDate).toISOString();
+
+        // Step 1: Call the `get_dischargeInfo` view function
+        const url = `/deceasedDischarge/${patientID}/${encodeURIComponent(formattedDischargeDate)}/${doctorID}/`;
+
+        try {
+            const infoResponse = await fetch(url, { method: 'GET' });
+
+            if (!infoResponse.ok) {
+                const errorData = await infoResponse.json();
+                throw new Error(errorData.message || 'Failed to fetch discharge info');
+            }
+
+            const infoResult = await infoResponse.json();
+            console.log('Discharge Info:', infoResult); // Log or use the info as needed
+
+            // Optional: Display the information to the user (if applicable)
+            //if (!confirm(`Discharge Info:\n${JSON.stringify(infoResult)}\nProceed to discharge?`)) return;
+            //if (!confirm(`This action will also delete the notification record. Proceed to discharge?`)) return;
 
             // Step 2: Proceed to delete the patient record
             const deleteUrl = `https://patient-discharge-notification-c1545bff9ae9.herokuapp.com/api/patients/${patientID}`;

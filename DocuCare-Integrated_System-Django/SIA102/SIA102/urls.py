@@ -31,11 +31,14 @@ urlpatterns = [
     path('illness_deaths_data/', views.illness_deaths_data, name='illness_deaths_data'),
     path('mortality_data/', views.mortality_data_by_month_and_year, name='mortality_data'),
     path("dischargeRecords/", views.dischargeRecords, name="dischargeRecords"),
+    path("deceasedRecords/", views.deceasedRecords, name="deceasedRecords"),
     path("patientList/", views.patientList, name="patientList"),
     path('patient/<str:patient_id>', views.patient_detail, name='patient'),
     path("roomStatus/", views.roomStatus, name="roomStatus"),
     path('get_rooms_info/', views.get_rooms_info, name='get_rooms_info'),
     path('get_patients_info/', views.get_patients_info, name='get_patients_info'),
     path('discharge/<int:patient_id>/<str:createdAt>/<int:doctor_id>/', views.get_dischargeInfo, name='discharge'),
-    path('dischargeSummary/<int:patient_id>/', views.dischargeSummary, name='dischargeSummary')
+    path('dischargeSummary/<int:patient_id>/', views.dischargeSummary, name='dischargeSummary'),
+    path('deceasedDischarge/<int:patient_id>/<str:createdAt>/<int:doctor_id>/', views.get_deceasedDischargeInfo, name='deceasedDischarge'),
+    path('deceasedDischargeSummary/<int:patient_id>/', views.deceasedDischargeSummary, name='deceasedDischargeSummary')
 ]
