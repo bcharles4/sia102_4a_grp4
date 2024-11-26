@@ -15,7 +15,7 @@
         </span>
         
         <table class="patient-table" >
-            <table>
+            
                 <thead>
                     <tr>
                         <th>Record Number</th>
@@ -38,7 +38,7 @@
                         <td>{{ patient.discharge_date }}</td> 
                         <td>
                             <button 
-                            style="padding: 12px;
+                            style="padding: 2px;
                             border-radius: 12px;
                             background-color: #333;
                             color: white;
@@ -51,9 +51,11 @@
                     </tr> 
                     {% endfor %}
                 </tbody>
-            </table>
             
         </table>
+        <div class="print-button" style="text-align: center; margin-top: 20px;">
+            <button onclick="window.print()"><ion-icon name="print" style="font-size: 40px;"> </ion-icon></button>
+        </div>
     </div>
 
     <div class="notif" onclick="showNotification()">
