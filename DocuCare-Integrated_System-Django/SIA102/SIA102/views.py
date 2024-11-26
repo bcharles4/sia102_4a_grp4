@@ -134,20 +134,16 @@ def monthly_illness_distribution(request):
 
 def illness_deaths_data(request):
     try:
-        response = requests.get(f'{ngrok}/DocuCare/get_patientsInfo.php')
-        if response.status_code == 200:
-            patients_info = response.json()
-            # Filter for deceased patients
-            deceased_patients = [p for p in patients_info if p.get('Status') == "DEC"]
+        # Query for deceased patients
+        deceased_patients = DeceasedDischargeArchive.objects.all()
 
-            # Categorize by Admitting_Diagnosis
-            diagnosis_count = {}
-            for patient in deceased_patients:
-                diagnosis = patient.get('Admitting_Diagnosis', 'Unknown')
-                diagnosis_count[diagnosis] = diagnosis_count.get(diagnosis, 0) + 1
-        else:
-            diagnosis_count = {}
-    except requests.exceptions.RequestException as e:
+        # Categorize by diagnosis
+        diagnosis_count = {}
+        for patient in deceased_patients:
+            diagnosis = patient.diagnosis or 'Unknown'
+            diagnosis_count[diagnosis] = diagnosis_count.get(diagnosis, 0) + 1
+        
+    except Exception as e:
         print(f"An error occurred: {e}")
         diagnosis_count = {}
 
@@ -156,28 +152,23 @@ def illness_deaths_data(request):
 
 def mortality_data_by_month_and_year(request):
     try:
-        response = requests.get(f'{ngrok}/DocuCare/get_patientsInfo.php')
-        if response.status_code == 200:
-            patients_info = response.json()
-            
-            # Filter for deceased patients
-            deceased_patients = [p for p in patients_info if p.get('Status') == "DEC"]
-            
-            # Categorize deaths by month and year
-            mortality_data = {}
-            for patient in deceased_patients:
-                death_date = patient.get('Admission_Date')  # Assuming discharge date is when death is recorded
-                if death_date:
-                    date_obj = datetime.strptime(death_date, '%Y-%m-%d %H:%M:%S')
-                    year = date_obj.year
-                    month = date_obj.month - 1  # Zero-based for JavaScript compatibility
-                    
-                    if year not in mortality_data:
-                        mortality_data[year] = [0] * 12
-                    mortality_data[year][month] += 1
-        else:
-            mortality_data = {}
-    except requests.exceptions.RequestException as e:
+        # Query for deceased patients
+        deceased_patients = DeceasedDischargeArchive.objects.all()
+
+        # Categorize deaths by month and year
+        mortality_data = {}
+        for patient in deceased_patients:
+            death_date = patient.discharge_date  # Assuming discharge date is when death is recorded
+            if death_date:
+                date_obj = death_date
+                year = date_obj.year
+                month = date_obj.month - 1  # Zero-based for JavaScript compatibility
+                
+                if year not in mortality_data:
+                    mortality_data[year] = [0] * 12
+                mortality_data[year][month] += 1
+
+    except Exception as e:
         print(f"An error occurred: {e}")
         mortality_data = {}
 
