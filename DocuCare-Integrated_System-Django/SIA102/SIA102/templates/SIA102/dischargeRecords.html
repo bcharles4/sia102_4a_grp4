@@ -21,7 +21,7 @@
                         <th>Patient ID</th>
                         <th>Patient Fullname</th>
                         <th>Patient Type</th>
-                        <th>Attending Physician</th>
+                        <th>Discharge Approved By</th>
                         <th>Discharge Date</th>
                         <th>Discharge Summary</th>
                     </tr>
@@ -33,7 +33,7 @@
                         <td>{{ patient.patientID }}</td> 
                         <td>{{ patient.name }}</td> 
                         <td>{{ patient.patient_type }}</td> 
-                        <td>{{ patient.attending_physician }}</td> 
+                        <td>{{ patient.approved_by }}</td> 
                         <td>{{ patient.discharge_date }}</td> 
                         <td>
                             <button onclick="window.location.href='{% url 'dischargeSummary' patient.patientID %}'">

@@ -91,12 +91,12 @@
                 <div style="display: flex; gap: 60px; justify-content: center;">
                    <button 
                         style="padding: 10px 20px; border: 2px solid #ccc;" 
-                        onclick="dischargePatient('${patient.patientID}')">
+                        onclick="dischargePatient('${patient.patientID}', '${patient.createdAt}', '${patient.doctorsID}')">
                         DISCHARGE PATIENT
                     </button>
                     <button 
                         style="padding: 10px 20px; border: 2px solid #ccc;" 
-                        onclick="dischargePatient('${patient.patientID}')">
+                        onclick="dischargePatient('${patient.patientID}', '${patient.createdAt}', '${patient.doctorsID}')">
                         DECEASED DISCHARGE
                     </button>
 
@@ -174,27 +174,42 @@
 </script>
 
 <script>
-    async function dischargePatient(patientID) {
+    async function dischargePatient(patientID, dischargeDate, doctorID) {
         // Confirm the action with the user
         const confirmed = confirm('Are you sure you want to discharge this patient?');
         if (!confirmed) return; // Exit if the user cancels the action
 
-        // Define the API endpoint
-        const deleteUrl = `https://patient-discharge-notification-c1545bff9ae9.herokuapp.com/api/patients/${patientID}`;
+        const formattedDischargeDate = new Date(dischargeDate).toISOString();
+
+        // Step 1: Call the `get_dischargeInfo` view function
+        const url = `/discharge/${patientID}/${encodeURIComponent(formattedDischargeDate)}/${doctorID}/`;
 
         try {
-            // Send the DELETE request
-            const response = await fetch(deleteUrl, { method: 'DELETE' });
+            const infoResponse = await fetch(url, { method: 'GET' });
 
-            // Handle response
-            if (!response.ok) {
-                const errorData = await response.json();
+            if (!infoResponse.ok) {
+                const errorData = await infoResponse.json();
+                throw new Error(errorData.message || 'Failed to fetch discharge info');
+            }
+
+            const infoResult = await infoResponse.json();
+            console.log('Discharge Info:', infoResult); // Log or use the info as needed
+
+            // Optional: Display the information to the user (if applicable)
+            //if (!confirm(`Discharge Info:\n${JSON.stringify(infoResult)}\nProceed to discharge?`)) return;
+            if (!confirm(`This action will also delete the notification record. Proceed to discharge?`)) return;
+
+            // Step 2: Proceed to delete the patient record
+            const deleteUrl = `https://patient-discharge-notification-c1545bff9ae9.herokuapp.com/api/patients/${patientID}`;
+            const deleteResponse = await fetch(deleteUrl, { method: 'DELETE' });
+
+            if (!deleteResponse.ok) {
+                const errorData = await deleteResponse.json();
                 throw new Error(errorData.message || 'Failed to discharge the patient');
             }
 
-            // Parse successful response
-            const result = await response.json();
-            alert(result.message || 'Patient discharged successfully!');
+            const deleteResult = await deleteResponse.json();
+            alert(deleteResult.message || 'Patient discharged successfully!');
             location.reload();
 
             // Remove the patient element from the DOM
@@ -211,6 +226,7 @@
         }
     }
 </script>
+
 
 
 

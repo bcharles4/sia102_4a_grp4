@@ -24,7 +24,7 @@ from .models import (
     Medication,
 )
 
-ngrok = "https://bb55-136-158-66-78.ngrok-free.app/docu_care-copy-main"
+ngrok = "https://a606-136-158-66-78.ngrok-free.app/docu_care-copy-main"
 
 def login_view(request):
     if request.method == "POST":
@@ -307,7 +307,7 @@ def dischargeSummary(request, patient_id):
     })
 
 #add doctor_id later for "approved by: Doctor"
-def get_dischargeInfo(request, patient_id):
+def get_dischargeInfo(request, patient_id, createdAt, doctor_id):
     try:
         # Fetch discharge information
         response1 = requests.get(
@@ -339,11 +339,29 @@ def get_dischargeInfo(request, patient_id):
         else:
             patient_info = None
 
+        # Fetch specific patient information
+        response4 = requests.get(
+            f'{ngrok}/DocuCare/get_users.php',
+            params={'user_id': doctor_id}
+        )
+        if response4.status_code == 200:
+            doctor_info = response4.json()
+        else:
+            doctor_info = None
+
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
         patient_dischargeInfo = {"IV_Fluids": [], "Side_Drips": [], "Fast_Drips": [], "Medications": []}
         patient_vitals = {"vital_signs": [], "vital_signs_output": [], "initial_vitals": []}
         patient_info = None
+
+    
+    discharge_datetime = datetime.fromisoformat(createdAt)
+
+    if doctor_info:
+        doctor = f"{doctor_info[0]['User_FName']} {doctor_info[0]['User_MName']} {doctor_info[0]['User_LName']}"
+    else:
+        doctor = None
 
     # Save data to SQLite
     if patient_info:
@@ -364,10 +382,10 @@ def get_dischargeInfo(request, patient_id):
                 'room_number': patient_data['Room_Num'],
                 'address': address,
                 'admission_date': patient_data['Admission_Date'],
-                'discharge_date': patient_data.get('Deletion_Date'),
+                'discharge_date': discharge_datetime,
                 'attending_physician': patient_data['Attending_Physician'],
                 'diagnosis': patient_data['Admitting_Diagnosis'],
-                'approved_by': "test",
+                'approved_by': doctor if doctor else 'N/A',
                 'discharged_by': request.session['fullname']
             }
         )
@@ -444,4 +462,7 @@ def get_dischargeInfo(request, patient_id):
             )
 
     # Redirect to get_dischargeSummary after saving data
-    return redirect('dischargeSummary', patient_id=patient_id)
+    #return redirect('dischargeSummary', patient_id=patient_id)
+
+    # Return success response
+        return JsonResponse({ 'message': 'Patient discharge info processed succ' })
