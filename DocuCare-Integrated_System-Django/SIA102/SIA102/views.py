@@ -33,7 +33,7 @@ from .models import (
     DeceasedMedication
 )
 
-ngrok = "https://a606-136-158-66-78.ngrok-free.app/docu_care-copy-main"
+ngrok = "https://9c65-136-158-66-78.ngrok-free.app/docu_care-copy-main"
 
 def login_view(request):
     if request.method == "POST":
@@ -504,7 +504,7 @@ def deceasedDischargeSummary(request, patient_id):
     medications = DeceasedMedication.objects.filter(patient=patient)
 
     # Render the template
-    return render(request, 'SIA102/deceasedDischargeSummary.html', {
+    return render(request, 'SIA102/dischargeSummary.html', {
         'patientInfo': patient,  # Pass the patient object directly
         'vitalSigns': vital_signs,
         'vitalSignsOutput': vital_sign_outputs,
