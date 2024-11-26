@@ -24,7 +24,7 @@ from .models import (
     Medication,
 )
 
-ngrok = "https://d168-136-158-66-138.ngrok-free.app/docu_care-copy-main"
+ngrok = "https://bb55-136-158-66-78.ngrok-free.app/docu_care-copy-main"
 
 def login_view(request):
     if request.method == "POST":
@@ -249,12 +249,6 @@ def get_rooms_info(request):
 
 def roomStatus(request):
     return render(request, "SIA102/roomStatus.html")
-
-def dischargeSummary(request, userName):
-    return render(request, "SIA102/dischargeSummary.html",
-    {
-        "patientName": userName
-    })
 
 def patient_detail(request, patient_id):
     try:
