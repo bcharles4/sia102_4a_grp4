@@ -33,58 +33,86 @@
 
                     if (data.success && data.data && data.data.length > 0) {
                         data.data.forEach(patient => {
-                            // Create a new div for each patient
-                            const patientDiv = document.createElement('div');
-                            patientDiv.classList.add('notif'); // Add the 'notif' class to the div
-                            
-                            // Create the content for each patient's notification
-                            const patientContent = `
-                                <div class="head-name">
-                                    <h1 style="font-size: 40px;">${patient.firstName} ${patient.lastName}</h1>
-                                    <p style="color: lightgray;">${new Date().toLocaleString()}</p> <!-- You can customize the timestamp here -->
-                                    
-                                    <div class="notif-patient">
-                                        <div class="patient-details1">
-                                            <p>Patient ID</p>
-                                            <p>Gender</p>
-                                            <p>Contact</p>
-                                            <p>Status</p>
-                                        </div>
+    // Create a new div for each patient
+    const patientDiv = document.createElement('div');
+    patientDiv.classList.add('notif'); // Add the 'notif' class to the div
+    
+    // Convert and format the patient's createdAt timestamp
+    const createdAt = new Date(patient.createdAt);
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit', 
+        timeZone: 'Asia/Manila',
+        timeZoneName: 'short'
+    };
+    const formattedDate = new Intl.DateTimeFormat('en-PH', options).format(createdAt);
 
-                                        <div class="dot">
-                                            <p>:</p>
-                                            <p>:</p>
-                                            <p>:</p>
-                                            <p>:</p>
-                                        </div>
+    // Create the content for each patient's notification
+    const patientContent = `
+        <div class="head-name">
+            <h1 style="font-size: 40px;">${patient.firstName} ${patient.lastName}</h1>
+            <p style="color: lightgray;">${formattedDate}</p> <!-- Display the formatted createdAt -->
+            
+            <div class="notif-patient">
+                <div class="patient-details1">
+                    <p>Patient ID</p>
+                    <p>Gender</p>
+                    <p>Contact</p>
+                    <p>Status</p>
+                    <p>Requested by Doctor: ID</p>
+                    <p>Date Requested</p>
+                </div>
 
-                                        <div class="patient-details">
-                                            <p><span>${patient.patientID}</span></p>
-                                            <p><span>${patient.gender}</span></p>
-                                            <p><span>${patient.contact || 'Not Provided'}</span></p>
-                                            <p><span>${patient.status || 'Ready for Discharge'}</span></p>
-                                        </div>
-                                    </div>
+                <div class="dot">
+                    <p>:</p>
+                    <p>:</p>
+                    <p>:</p>
+                    <p>:</p>
+                    <p>:</p>
+                    <p>:</p>
+                    <p>:</p>
+                </div>
 
-                                    <center>
-                                        <div style="display: flex; gap: 60px; justify-content: center;">
-                                            <button style="padding: 10px 20px; border: 2px solid #ccc;" onclick="window.location.href='/discharge/${patient.patientID}'">
-                                                DISCHARGE PATIENT
-                                            </button>
-                                            <button style="padding: 10px 20px; border: 2px solid #ccc;" onclick="window.location.href='/discharge/${patient.patientID}'">
-                                                DECEASED DISCHARGE
-                                            </button>
-                                        </div>
-                                </center>
-                                </div>
-                            `;
+                <div class="patient-details">
+                    <p><span>${patient.patientID}</span></p>
+                    <p><span>${patient.gender}</span></p>
+                    <p><span>${patient.contact || 'Not Provided'}</span></p>
+                    <p><span>${patient.status || 'Ready for Discharge'}</span></p>
+                    <p><span>${patient.doctorsID}</span></p>
+                    <p><span>${formattedDate}</span></p> <!-- Display formatted date here -->
+                </div>
+            </div>
 
-                            // Insert the patient content into the patient div
-                            patientDiv.innerHTML = patientContent;
-                            
-                            // Append the patient div to the patients container
-                            patientsContainer.appendChild(patientDiv);
-                        });
+            <center>
+                <div style="display: flex; gap: 60px; justify-content: center;">
+                   <button 
+                        style="padding: 10px 20px; border: 2px solid #ccc;" 
+                        onclick="dischargePatient('${patient.patientID}')">
+                        DISCHARGE PATIENT
+                    </button>
+                    <button 
+                        style="padding: 10px 20px; border: 2px solid #ccc;" 
+                        onclick="dischargePatient('${patient.patientID}')">
+                        DECEASED DISCHARGE
+                    </button>
+
+                    
+                </div>
+            </center>
+        </div>
+    `;
+
+    // Insert the patient content into the patient div
+    patientDiv.innerHTML = patientContent;
+    
+    // Append the patient div to the patients container
+    patientsContainer.appendChild(patientDiv);
+});
+
                     } else {
                         const noPatientsMessage = document.createElement('div');
                         noPatientsMessage.classList.add('notif');
@@ -117,6 +145,74 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 </script>
+
+
+<script>
+    // Assuming patient.createdAt is an ISO string (e.g., "2024-11-26T10:00:00Z")
+    const createdAt = patient.createdAt;
+    
+    // Convert to a Date object
+    const date = new Date(createdAt);
+
+    // Format the date to Philippine time
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit', 
+        timeZone: 'Asia/Manila',
+        timeZoneName: 'short'
+    };
+
+    // Format the date using the options
+    const formattedDate = new Intl.DateTimeFormat('en-PH', options).format(date);
+
+    // Insert the formatted date into the DOM
+    document.getElementById('created-at').textContent = formattedDate;
+</script>
+
+<script>
+    async function dischargePatient(patientID) {
+        // Confirm the action with the user
+        const confirmed = confirm('Are you sure you want to discharge this patient?');
+        if (!confirmed) return; // Exit if the user cancels the action
+
+        // Define the API endpoint
+        const deleteUrl = `https://patient-discharge-notification-c1545bff9ae9.herokuapp.com/api/patients/${patientID}`;
+
+        try {
+            // Send the DELETE request
+            const response = await fetch(deleteUrl, { method: 'DELETE' });
+
+            // Handle response
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to discharge the patient');
+            }
+
+            // Parse successful response
+            const result = await response.json();
+            alert(result.message || 'Patient discharged successfully!');
+            location.reload();
+
+            // Remove the patient element from the DOM
+            const patientDiv = document.querySelector(`[data-patient-id="${patientID}"]`);
+            if (patientDiv) {
+                patientDiv.remove();
+            } else {
+                console.warn(`No DOM element found for patientID: ${patientID}`);
+            }
+        } catch (error) {
+            // Log and show errors
+            console.error('Error discharging patient:', error);
+            alert(`Error: ${error.message}`);
+        }
+    }
+</script>
+
+
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
