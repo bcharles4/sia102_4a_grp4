@@ -140,56 +140,83 @@ table tr:hover {
 
 /* General print settings */
 @media print {
-    body {
+    /* Hide everything by default */
+    body * {
+        visibility: hidden;
+    }
+    
+    /* Remove shadow, blur, and ensure text is black */
+    * {
+        box-shadow: none !important;
+        filter: none !important;
+        color: black !important;
+    }
+
+    /* Remove shadow and blur specifically for .dischargeSummary-main */
+    .dischargeSummary-main * {
+        box-shadow: none !important;
+        filter: none !important;
+        color: black !important;
+    }
+
+    /* Show only tables inside .dischargeSummary-main */
+    .dischargeSummary-main, .dischargeSummary-main table, .dischargeSummary-main h2, .dischargeSummary-main th, .dischargeSummary-main td, .dischargeSummary-main p, .dischargeSummary-main strong {
+        visibility: visible;
+        color: black !important; /* Ensure text inside dischargeSummary-main is black */
+    }
+
+    /* Ensure alignment and layout for printing */
+    .dischargeSummary-main {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
         margin: 0;
         padding: 0;
-        font-size: 12px;
     }
 
-    .dis-con {
-        margin: 0;
-        padding: 20px;
-        width: 100%;
-    }
-
-    /* Ensure tables fit within the page */
+    /* Table styling to retain design */
     table {
         width: 100%;
         border-collapse: collapse;
-        page-break-inside: avoid;
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
     }
 
-    table th, table td {
-        border: 1px solid #000; /* Add visible borders for print */
+    /* Style table headers */
+    th {
+        background-color: #0292b7;
+        color: black !important; /* Ensure header text is black */
         padding: 8px;
-        text-align: left;
-        word-wrap: break-word; /* Handle long text */
+        text-align: center;
+        font-weight: bold; /* Keep headers bold */
+        border: 1px solid #dddddd;
     }
 
-    table thead {
-        display: table-header-group; /* Keep table headers on each page */
+    /* Style table cells */
+    td {
+        border: 1px solid #dddddd;
+        padding: 8px;
+        text-align: center;
+        color: black !important; /* Ensure cell text is black */
+        font-weight: normal; /* Ensure cell text is not bold */
     }
 
-    table tbody tr {
-        page-break-inside: avoid; /* Avoid splitting rows between pages */
+    /* Zebra striping for even rows */
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
     }
 
-    /* Remove unnecessary print elements */
-    .print-button, .no-print {
-        display: none !important;
-    }
-
-    /* Fix header and footer display */
-    h2, .section h2 {
-        font-size: 14px;
+    /* Header styling */
+    h2 {
+        font-size: 18px;
+        color: black !important; /* Ensure header text is black */
         margin: 10px 0;
+        text-align: center;
     }
 
-    p {
-        margin: 5px 0;
-    }
-
-        .print-button {
+    /* Hide print button */
+    .print-button {
         display: none;
     }
 
