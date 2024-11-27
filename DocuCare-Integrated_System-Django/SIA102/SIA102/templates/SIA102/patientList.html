@@ -4,6 +4,7 @@
 {% block body %}
     <title>Patient List</title>
     <link rel="stylesheet" href="{% static 'SIA102/patientList.css' %}">
+    <link rel="stylesheet" href="{% static 'SIA102/dashboardCharts.css' %}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
      <!-- Main Content - Patient List -->
@@ -87,5 +88,16 @@
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     </div>
+
+    <div class="notif" onclick="showNotification()">
+        <div class="notif-icon"><ion-icon name="notifications"></ion-icon></div>
+    </div>
+    
+    
+    <script>
+        function showNotification() {
+            window.location.href = "/notifications";
+        }
+    </script>
 
 {% endblock %}

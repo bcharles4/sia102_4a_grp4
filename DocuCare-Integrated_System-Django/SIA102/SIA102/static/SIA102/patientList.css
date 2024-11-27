@@ -83,9 +83,11 @@ h2 {
 }
 
 @media print {
-    /* Hide non-printable elements */
-    body * {
-        visibility: hidden;
+    /* Remove margins and padding to avoid page cuts */
+    body, .main-content {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Remove any scrollbars */
     }
 
     /* Make only the main content visible */
@@ -93,32 +95,33 @@ h2 {
         visibility: visible;
     }
 
-    /* Display table headers and make sure they are visible in print */
+    /* Ensure the table fills the page width */
     .patient-table {
         width: 100%;
         border-collapse: collapse;
-    }
-
-    .main-content {
-        width: 100%;
-        margin: 0 auto;  /* Centers the content horizontally */
-        padding: 20px;
-        text-align: center;  /* Centers the text */
+        table-layout: fixed;  /* Ensure all columns fit */
     }
 
     .patient-table th, .patient-table td {
         border: 1px solid #000;
-        padding: 8px;
+        padding: 5px;  /* Adjust padding for fit */
         text-align: left;
-        font-size: 14px;
+        font-size: 10px;  /* Adjust font size to fit */
         color: black;
+        word-wrap: break-word;  /* Handle long words in cells */
     }
 
-    /* Center the content in print */
+    /* Make sure headers are printed */
+    .patient-table th {
+        font-weight: bold;
+    }
+
+    /* Center the content */
     .main-content {
         width: 100%;
         margin: auto;
         padding: 20px;
+        text-align: center;
     }
 
     /* Apply a different color background only on the screen, not in print */
@@ -129,13 +132,7 @@ h2 {
         font-size: 30px;
     }
 
-    /* Ensure the table fills the page width */
-    body {
-        margin: 0;
-        padding: 0;
-        color: black;
-    }
-
+    /* Hide print button and sidebar */
     .print-button {
         display: none;
     }
@@ -144,10 +141,18 @@ h2 {
         display: none;
     }
 
-    /* Hide "Patient Details" column */
+    /* Remove the "Patient Details" column */
     .patient-table th:nth-child(11), /* Target 11th header cell */
     .patient-table td:nth-child(11) { /* Target 11th column cells */
         display: none;
         visibility: hidden;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .menu{
+        display: none;
     }
 }

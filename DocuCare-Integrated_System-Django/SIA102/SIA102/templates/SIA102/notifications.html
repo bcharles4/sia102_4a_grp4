@@ -23,7 +23,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             fetch('https://patient-discharge-notification-c1545bff9ae9.herokuapp.com/api/patients')
                 .then(response => {
-                    console.log('Response Status:', response.status); // Log status code
+                    console.log('Response Status:', response.status); // Log status code 
                     return response.json(); // Parse JSON response
                 })
                 .then(data => {

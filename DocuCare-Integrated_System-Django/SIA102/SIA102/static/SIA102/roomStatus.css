@@ -278,4 +278,86 @@ h1 {
     margin-bottom: 20px;
 }
 
+.print-button {
+    margin-top: 20px;
+
+}
+
+.print-button button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.print-button button:hover {
+    background-color: #333;
+}
+
+@media print {
+    /* Remove margins and padding to avoid page cuts */
+    body, .main-content {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Remove any scrollbars */
+    }
+
+    /* Make only the main content visible */
+    .main-content, .main-content * {
+        visibility: visible;
+    }
+
+    /* Ensure the table fills the page width */
+    .room-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;  /* Ensure all columns fit */
+    }
+
+    .room-table th, .room-table td {
+        border: 1px solid #000;
+        padding: 5px;  /* Adjust padding for fit */
+        text-align: left;
+        font-size: 10px;  /* Adjust font size to fit */
+        color: black;
+        word-wrap: break-word;  /* Handle long words in cells */
+    }
+
+    /* Make sure headers are printed */
+    .room-table th {
+        font-weight: bold;
+    }
+
+    /* Center the content */
+    .main-content {
+        width: 100%;
+        margin: auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    /* Apply a different color background only on the screen, not in print */
+    .head {
+        color: black;
+        background-color: #fff !important;
+        padding: 20px;
+        font-size: 30px;
+    }
+
+    /* Hide print button and sidebar */
+    .print-button {
+        display: none;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .menu{
+        display: none;
+    }
+}
 

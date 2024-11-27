@@ -4,6 +4,7 @@
 {% block body %}
     <title>Room Status</title>
     <link rel="stylesheet" href="{% static 'SIA102/roomStatus.css' %}">
+    <link rel="stylesheet" href="{% static 'SIA102/dashboardCharts.css' %}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <div class="main-content">
@@ -23,6 +24,11 @@
 
                     </tbody>
                 </table>
+
+                <div class="print-button" style="text-align: center; margin-top: 20px;">
+                    <button onclick="window.print()"><ion-icon name="print" style="font-size: 40px;"> </ion-icon></button>
+                </div>
+
             <script>
                 // use AJAX
                 function fetchRoomsInfo() {
@@ -57,6 +63,20 @@
                 setInterval(fetchRoomsInfo, 5000);  //5 seconds
                 fetchRoomsInfo();
             </script>
+
+
         </div>
+
+
+        <div class="notif" onclick="showNotification()">
+            <div class="notif-icon"><ion-icon name="notifications"></ion-icon></div>
+        </div>
+        
+        
+        <script>
+            function showNotification() {
+                window.location.href = "/notifications";
+            }
+        </script>
 
 {% endblock %}

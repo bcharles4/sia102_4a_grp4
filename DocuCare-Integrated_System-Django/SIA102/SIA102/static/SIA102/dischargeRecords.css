@@ -2,6 +2,7 @@
     overflow-y: hidden;
 }
 
+
 .main-content {
     flex-grow: 1;
     padding: 20px;
@@ -119,9 +120,7 @@ table tr:hover {
 }
 
 .print-button button {
-    background-color: #111;
-    text-transform: uppercase;
-    font-weight: bold;
+    background-color: #333;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -139,83 +138,59 @@ table tr:hover {
 }
 
 @media print {
-    /* Hide everything by default */
-    body * {
-        visibility: hidden;
-    }
-    
-    /* Remove shadow, blur, and ensure text is black */
-    * {
-        box-shadow: none !important;
-        filter: none !important;
-        color: black !important;
-    }
-
-    /* Remove shadow and blur specifically for .dischargeSummary-main */
-    .dischargeSummary-main * {
-        box-shadow: none !important;
-        filter: none !important;
-        color: black !important;
-    }
-
-    /* Show only tables inside .dischargeSummary-main */
-    .dischargeSummary-main, .dischargeSummary-main table, .dischargeSummary-main h2, .dischargeSummary-main th, .dischargeSummary-main td, .dischargeSummary-main p, .dischargeSummary-main strong {
-        visibility: visible;
-        color: black !important; /* Ensure text inside dischargeSummary-main is black */
-    }
-
-    /* Ensure alignment and layout for printing */
-    .dischargeSummary-main {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
+    /* Remove margins and padding to avoid page cuts */
+    body, .main-content {
         margin: 0;
         padding: 0;
+        overflow: visible; /* Make sure content overflows are visible */
     }
 
-    /* Table styling to retain design */
-    table {
+    /* Make only the main content visible */
+    .main-content, .main-content * {
+        visibility: visible;
+    }
+
+    /* Ensure the table fills the page width */
+    .patient-table {
         width: 100%;
         border-collapse: collapse;
-        background-color: #ffffff;
-        border: 1px solid #dddddd;
+        table-layout: auto;  /* Allow table columns to adjust based on content */
     }
 
-    /* Style table headers */
-    th {
-        background-color: #0292b7;
-        color: black !important; /* Ensure header text is black */
-        padding: 8px;
-        text-align: center;
-        font-weight: bold; /* Keep headers bold */
-        border: 1px solid #dddddd;
+    .patient-table th, .patient-table td {
+        border: 1px solid #000;
+        padding: 5px;  /* Adjust padding for fit */
+        text-align: left;
+        font-size: 10px;  /* Adjust font size to fit */
+        color: black;
+        word-wrap: break-word;  /* Handle long words in cells */
     }
 
-    /* Style table cells */
-    td {
-        border: 1px solid #dddddd;
-        padding: 8px;
-        text-align: center;
-        color: black !important; /* Ensure cell text is black */
-        font-weight: normal; /* Ensure cell text is not bold */
+    /* Make sure headers are printed */
+    .patient-table th {
+        font-weight: bold;
     }
 
-    /* Zebra striping for even rows */
-    table tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    /* Header styling */
-    h2 {
-        font-size: 18px;
-        color: black !important; /* Ensure header text is black */
-        margin: 10px 0;
+    /* Center the content */
+    .main-content {
+        width: 100%;
+        margin: auto;
+        padding: 20px;
         text-align: center;
     }
 
-    /* Hide print button */
+    /* Hide print button and sidebar */
     .print-button {
         display: none;
+    }
+
+    .sidebar, .menu {
+        display: none;
+    }
+
+    .patient-table th:nth-child(7), /* Target 11th header cell */
+    .patient-table td:nth-child(7) { /* Target 11th column cells */
+        display: none;
+        visibility: hidden;
     }
 }
