@@ -8,9 +8,12 @@ There are two versions of the system in this repository:
 
 **Live Deployment URL**: [jmt.pythonanywhere.com](http://jmt.pythonanywhere.com)
 
-*For practice use, please use this login credentials:
-**Username: 1111
-**Password: password123
+*For practice use, please use this login credentials:*
+
+**Username: 1111**
+
+**Password: password123**
+
 
 ## Features
 
