@@ -7,9 +7,10 @@ There are two versions of the system in this repository:
 - **Hosted Version**: The version optimized and slightly edited for live hosting. It has been deployed on **PythonAnywhere** for production use.
 
 **Live Deployment URL**: [jmt.pythonanywhere.com](http://jmt.pythonanywhere.com)
-#For practice use, please use this login credentials:
-##Username: 1111
-##Password: password123
+
+*For practice use, please use this login credentials:
+**Username: 1111
+**Password: password123
 
 ## Features
 
