@@ -1,0 +1,245 @@
+
+.content {
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.patient-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.patient-info p {
+    width: 48%;
+    margin: 10px 0;
+    font-size: 16px;
+    color: black;
+}
+
+.patient-info p strong {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+    color: black;
+}
+
+.patient-info p span {
+    color: #333;
+    font-weight: normal;
+}
+
+.patient-info p:nth-child(odd) {
+    clear: both;
+}
+
+.patient-info {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: white;
+    filter: drop-shadow(8px 8px 1px #999);
+}
+
+/* Form appearance */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form label {
+    font-weight: bold;
+    color: #333;
+}
+
+form input[type="text"],
+form input[type="date"],
+form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+form button {
+    background-color: #0292b7;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #333;
+}
+
+@media screen and (max-width: 768px) {
+    .patient-info p {
+        width: 100%;
+    }
+}
+
+.back-button {
+    margin-top: 20px;
+
+}
+
+.back-button button {
+    background-color: #0292b7;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.back-button button:hover {
+    background-color: #333;
+}
+
+.print-button {
+    margin-top: 20px;
+
+}
+
+.print-button button {
+    background-color: #0292b7;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.print-button button:hover {
+    background-color: #333;
+}
+
+
+/* Header styling for print */
+.content h1 {
+    font-size: 28px;
+    background-color: #2fe7ce;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+/* Main container styling */
+.resume-container {
+    border: 2px solid #2fe7ce;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 600px; /* Set a max width for better centering */
+    background-color: #f9f9f9;
+}
+
+
+/* Section styling */
+.resume-section {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.resume-section h2 {
+    font-size: 18px;
+    color: #2fe7ce;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #2fe7ce;
+    padding-bottom: 5px;
+}
+
+.resume-section p {
+    font-size: 14px;
+    margin: 4px 0;
+}
+
+@media print {
+    /* Hide all elements except the .content div and its contents */
+    body * {
+        visibility: hidden;
+    }
+
+    .content, .content * {
+        visibility: visible;
+    }
+
+    /* Header styling for print */
+    .content h1 {
+        font-size: 28px;
+        background-color: #2fe7ce;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+
+    /* Main container styling */
+    .resume-container {
+        border: 2px solid #2fe7ce;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 0 auto;
+        width: 80%;
+        max-width: 600px; /* Set a max width for better centering */
+        background-color: #f9f9f9;
+    }
+
+
+    /* Section styling */
+    .resume-section {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+    
+    .resume-section h2 {
+        font-size: 18px;
+        color: #2fe7ce;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #2fe7ce;
+        padding-bottom: 5px;
+    }
+
+    .resume-section p {
+        font-size: 14px;
+        margin: 4px 0;
+    }
+
+
+    /* Remove page margins for print */
+    @page {
+        margin: 0;
+    }
+
+    /* Hide print and back buttons in print view */
+    .print-button, .back-button {
+        display: none;
+    }
+}

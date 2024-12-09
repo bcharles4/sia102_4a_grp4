@@ -1,0 +1,103 @@
+{% extends "SIA102/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <title>Patient List</title>
+    <link rel="stylesheet" href="{% static 'SIA102/patientList.css' %}">
+    <link rel="stylesheet" href="{% static 'SIA102/dashboardCharts.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+     <!-- Main Content - Patient List -->
+
+     <div class="main-content" style="width: 70%;">
+        
+        <div class="head">
+            <h1 style="background-color:#2fe7ce; color: white; padding: 20px; font-size: 50px; border-top-left-radius: 10px; border-top-right-radius: 10px; text-align: center;
+            margin-bottom: 20px;">PATIENT LIST</h1>
+        </div>
+        <table class="patient-table">
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Patient First Name</th>
+                    <th>Patient Middle Name</th>
+                    <th>Patient Last Name</th>
+                    <th>Admission Date</th>
+                    <th>Patient Type</th>
+                    <th>Room Number</th>
+                    <th>Attending Physician</th>
+                    <th>Diagnosis</th>
+                    <th>Patient Status</th>
+                    <th>Patient Details</th>
+                </tr>
+            </thead>
+            <tbody id="patients-list">
+            </tbody>
+        </table>
+
+        <div class="print-button" style="text-align: center; margin-top: 20px;">
+            <button onclick="window.print()"><ion-icon name="print" style="font-size: 40px;"> </ion-icon></button>
+        </div>
+        
+        <script>
+            
+            // use AJAX
+            function fetchPatientsInfo() {
+                $.ajax({
+                    url: "{% url 'get_patients_info' %}", // get the data by calling this
+                    method: 'GET',
+                    success: function(response) {
+                        console.log('Fetched patients info:', response);
+                        const patients = response.patients; 
+                        let patientsHtml = '';
+                        if (patients.length > 0) {
+                            patients.forEach(function(patient) {
+                                patientsHtml += `<tr>
+                                    <td>${patient.Patient_ID}</td>
+                                    <td>${patient.Patient_FName}</td>
+                                    <td>${patient.Patient_MName}</td>
+                                    <td>${patient.Patient_LName}</td>
+                                    <td>${patient.Admission_Date}</td>
+                                    <td>${patient.Patient_Type}</td>
+                                    <td>${patient.Room_Num}</td>
+                                    <td>${patient.Attending_Physician}</td>
+                                    <td>${patient.Admitting_Diagnosis}</td>
+                                    <td>${patient.Status}</td>
+                                    <td>
+                                        <button onclick="window.location.href='/patient/${patient.Patient_ID}'">
+                                            View Details
+                                        </button>
+                                    </td> 
+                                </tr>`;
+                            });
+                        } else {
+                            patientsHtml = `<tr><td colspan="11">No patients found.</td></tr>`;
+                        }
+                        console.log('Generated HTML:', patientsHtml);
+                        $('#patients-list').html(patientsHtml); 
+                    },
+                    error: function() {
+                        console.log('Error fetching users data');
+                    }
+                });
+            }
+            setInterval(fetchPatientsInfo, 5000);  //5 seconds
+            fetchPatientsInfo();
+        </script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </div>
+
+    <div class="notif" onclick="showNotification()">
+        <div class="notif-icon"><ion-icon name="notifications"></ion-icon></div>
+    </div>
+    
+    
+    <script>
+        function showNotification() {
+            window.location.href = "/notifications";
+        }
+    </script>
+
+{% endblock %}

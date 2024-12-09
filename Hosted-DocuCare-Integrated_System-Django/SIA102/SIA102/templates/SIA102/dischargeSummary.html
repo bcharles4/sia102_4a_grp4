@@ -1,0 +1,277 @@
+{% extends "SIA102/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <title>Patient Discharge Summary</title>
+    <link rel="stylesheet" href="{% static 'SIA102/dischargeSummary.css' %}">
+
+    <!-- Main Content - Patient List -->
+     <div class="dis-con">
+    <div class="dischargeSummary-main">
+        <span class="headerDiv">
+            <h2>Patient Discharge Summary</h2>
+        </span>
+        <!-- Patient Information Section -->
+        <div class="section">
+            <h2>Patient Information</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ patientInfo.name }} </td>
+                </tr>
+                <tr>
+                    <th>Patient_Type</th>
+                    <td>{{ patientInfo.patient_type }} </td>
+                </tr>
+                <tr>
+                    <th>Age</th>
+                    <td>{{ patientInfo.age }}</td>
+                </tr>
+                <tr>
+                    <th>Sex</th>
+                    <td>{{ patientInfo.sex }}</td>
+                </tr>
+                <tr>
+                    <th>Date_of_Birth</th>
+                    <td>{{ patientInfo.date_of_birth }}</td>
+                </tr>
+                <tr>
+                    <th>Room Number</th>
+                    <td>{{ patientInfo.room_number }}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{ patientInfo.address }}</td>
+                </tr>
+                <tr>
+                    <th>Admission_Date</th>
+                    <td>{{ patientInfo.admission_date }}</td>
+                </tr>
+                <tr>
+                    <th>Attending_Physician</th>
+                    <td>{{ patientInfo.attending_physician }}</td>
+                </tr>
+                <tr>
+                    <th>Diagnosis</th>
+                    <td>{{ patientInfo.diagnosis }}</td>
+                </tr>
+                <tr>
+                    <th>Discharge_Date</th>
+                    <td>{{ patientInfo.discharge_date }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Vital Signs Section -->
+        <div class="section">
+            <h2>Vital Signs at Discharge</h2>
+            <!-- Vital Signs Table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Temperature</th>
+                        <th>Pulse</th>
+                        <th>Respiration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vital in vitalSigns %}
+                        <tr>
+                            <td>{{ vital.date}}</td>
+                            <td>{{ vital.temperature }}</td>
+                            <td>{{ vital.pulse }}</td>
+                            <td>{{ vital.respiration }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">No data available</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Vital Signs Output Table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Blood Pressure</th>
+                        <th>Urine</th>
+                        <th>Stool</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for output in vitalSignsOutput %}
+                        <tr>
+                            <td>{{ output.date }}</td>
+                            <td>{{ output.blood_pressure }}</td>
+                            <td>{{ output.urine }}</td>
+                            <td>{{ output.stool }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">No data available</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Initial Vitals Table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Weight</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for initial in initialVitals %}
+                        <tr>
+                            <td>{{ initial.date }}</td>
+                            <td>{{ initial.weight }} kg</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3">No data available</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- IV Treatments Section -->
+        <h2>IV Treatments</h2>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Bottle No</th>
+                <th>IV Solution</th>
+                <th>Volume</th>
+                <th>Incorporation</th>
+                <th>Regulation</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Remarks</th>
+            </tr>
+            {% for discharge in IV_Fluids %}
+                <tr>
+                    <td>{{ discharge.date }}</td>
+                    <td>{{ discharge.bottle_no }}</td>
+                    <td>{{ discharge.iv_solution }}</td>
+                    <td>{{ discharge.volume }}</td>
+                    <td>{{ discharge.incorporation }}</td>
+                    <td>{{ discharge.regulation }}</td>
+                    <td>{{ discharge.start_time }}</td>
+                    <td>{{ discharge.end_time}}</td>
+                    <td>{{ discharge.remarks }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="9">No data available</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Side Drips Section -->
+        <h2>IV Side Drip</h2>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Bottle No</th>
+                <th>IV Solution</th>
+                <th>Volume</th>
+                <th>Incorporation</th>
+                <th>Regulation</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Remarks</th>
+            </tr>
+            {% for discharge in Side_drips %}
+                <tr>
+                    <td>{{ discharge.date }}</td>
+                    <td>{{ discharge.bottle_no }}</td>
+                    <td>{{ discharge.iv_solution }}</td>
+                    <td>{{ discharge.volume }}</td>
+                    <td>{{ discharge.incorporation }}</td>
+                    <td>{{ discharge.regulation }}</td>
+                    <td>{{ discharge.start_time }}</td>
+                    <td>{{ discharge.end_time}}</td>
+                    <td>{{ discharge.remarks }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="9">No data available</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Fast Drips Section -->
+        <h2>IV Fast Drip</h2>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>IVF</th>
+                <th>Volume</th>
+                <th>Incorporation</th>
+                <th>Time Taken</th>
+                <th>Remarks</th>
+            </tr>
+            {% for discharge in Fast_drips %}
+                <tr>
+                    <td>{{ discharge.date }}</td>
+                    <td>{{ discharge.ivf }}</td>
+                    <td>{{ discharge.volume }}</td>
+                    <td>{{ discharge.incorporation }}</td>
+                    <td>{{ discharge.time_taken }}</td>
+                    <td>{{ discharge.remarks }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">No data available</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Medications Section -->
+        <h2>Medications</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Medication Name</th>
+                    <th>Medication Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for discharge in Medications %}
+                    <tr>
+                        <td>{{ discharge.date }}</td>
+                        <td>{{ discharge.medication_name }}</td>
+                        <td>{{ discharge.medication_remarks }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">No data available</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+        <!-- Footer -->
+        <div class="section">
+            <p><strong>Approved by:</strong> {{ patientInfo.approved_by }} </p>
+            <p><strong>Discharged by:</strong> {{ patientInfo.discharged_by}} </p>
+        </div>
+
+            <div class="print-button" style="text-align: center; margin-top: 20px;">
+        <button onclick="window.print()">Patient Discharge Summary</button>
+    </div>
+    </div>
+
+</div>
+
+{% endblock %}

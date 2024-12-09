@@ -1,0 +1,60 @@
+{% extends "SIA102/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<title>Patient Details</title>
+<link rel="stylesheet" href="{% static 'SIA102/patientDetail.css' %}">
+
+<div class="content">
+    <h1 style="background-color:#2fe7ce; color: white; padding: 20px; font-size: 50px; border-top-left-radius: 10px; border-top-right-radius: 10px; text-align: center;
+        margin-bottom: 20px;">PATIENT DETAILS</h1>
+    
+    <div class="resume-container">
+        <!-- Personal Information Section -->
+        <div class="resume-section">
+            <h2>Personal Information</h2>
+            <p><strong>Full Name:</strong> {{ patient.Patient_FName }} {{ patient.Patient_MName }} {{ patient.Patient_LName }}</p>
+            <p><strong>Birth Date:</strong> {{ patient.DoB}}</p>
+            <p><strong>Birthplace:</strong> {{ patient.Birthplace }}</p>
+            <p><strong>Age:</strong> {{ patient.Age }}</p>
+            <p><strong>Sex:</strong> {{ patient.Sex }}</p>
+        </div>
+
+        <!-- Address Section -->
+        <div class="resume-section">
+            <h2>Address</h2>
+            <p><strong>House Number:</strong> {{ patient.House_Num }}</p>
+            <p><strong>Barangay:</strong> {{ patient.Barangay }}</p>
+            <p><strong>Street:</strong> {{ patient.Street }}</p>
+            <p><strong>Subdivision:</strong> {{ patient.Subdivision }}</p>
+            <p><strong>City:</strong> {{ patient.City }}</p>
+            <p><strong>Province:</strong> {{ patient.Province }}</p>
+        </div>
+
+        <!-- Patient Details Section -->
+        <div class="resume-section">
+            <h2>Patient Details</h2>
+            <p><strong>Patient ID:</strong> {{ patient.Patient_ID }}</p>
+            <p><strong>Admission Date:</strong> {{ patient.Admission_Date }}</p>
+            <p><strong>Room Number:</strong> {{ patient.Room_Num }}</p>
+            <p><strong>Attending Physician:</strong> {{ patient.Attending_Physician }}</p>
+            <p><strong>Patient Status:</strong> {{ patient.Status }}</p>
+            <p><strong>Diagnosis:</strong> {{ patient.Admitting_Diagnosis }}</p>
+        </div>
+    </div>
+
+    <!-- Print Button -->
+    <div class="print-button" style="text-align: center; margin-top: 20px;">
+        <button onclick="window.print()">Print Patient Details</button>
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-button" style="text-align: center; margin-top: 10px;">
+        <button onclick="window.location.href='{% url 'patientList' %}';">Back to Patient List</button>
+    </div>
+</div>
+
+<script src="{% static 'SIA102/dashboard.js' %}"></script>
+
+{% endblock %}

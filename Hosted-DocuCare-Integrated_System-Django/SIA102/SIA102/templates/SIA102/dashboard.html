@@ -1,0 +1,109 @@
+{% extends "SIA102/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'SIA102/dashboardCharts.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<body>
+    <div class="parent-db-con">
+    <div class="dashboard-container">
+        <h1 style="background-color: #2fe7ce; filter: drop-shadow(7px 7px 2px #999); padding: 20px; color: white; border-radius: 20px;"> DASHBOARD</h1>
+
+        <!-- Dashboard info cards -->
+        <div class="info-cards">
+            <div class="info-card">
+                <h3>Number of Current Patients Admitted</h3>
+                <p id="patientsAdmitted"><span>{{ patientsAdmitted }}</span></p>
+            </div>
+            <div class="info-card">
+                <h3>Number of Rooms Occupied</h3><br>
+                <p id="roomsOccupied"><span>{{roomsOccupied}}</span></p>
+            </div>
+        </div>
+
+        <!-- Chart selection dropdown -->
+        
+
+        <!-- Mortality Rate Chart -->
+        <div class="chart-container" id="mortality-rate">
+            <h3 style="background-color: #2fe7ce; text-align: center; color: white; padding: 5px; text-transform: uppercase;
+             filter: drop-shadow(7px 7px 2px #999); border-radius: 10px; margin: 7px;"  >Monthly Mortality Rate</h3>
+            <canvas id="mortalityBarChart"></canvas>
+            <select id="mortalityYearDropdown"></select>
+        </div>
+
+        <!-- Illness Distribution Pie Chart -->
+        <div class="chart-container" id="illness-chart">
+            <h3 style="background-color: #2fe7ce; text-align: center; color: white; padding: 5px; text-transform: uppercase;
+             filter: drop-shadow(7px 7px 2px #999); border-radius: 10px; margin: 7px;">Overall Illness Distribution</h3>
+            <canvas id="illnessPieChart"></canvas>
+        </div>
+
+        <!-- Monthly Illness Distribution Line Chart -->
+        <div class="chart-container" id="monthly-illness-distribution">
+            <h3 style="background-color: #2fe7ce; text-align: center; color: white; padding: 5px; text-transform: uppercase;
+             filter: drop-shadow(7px 7px 2px #999); border-radius: 10px; margin: 7px;">Monthly Illness Distribution</h3>
+            <canvas id="monthlyIllnessLineChart"></canvas>
+            <select id="illnessYearDropdown"></select>
+        </div>
+
+        <!-- Illness vs. Deaths Chart -->
+        <div class="chart-container" id="illness-vs-deaths">
+            <h3 style="background-color: #2fe7ce; text-align: center; color: white; padding: 5px; text-transform: uppercase;
+             filter: drop-shadow(7px 7px 2px #999); border-radius: 10px; margin: 7px;">Overall Illness vs. Deaths Analytics</h3>
+            <canvas id="illnessDeathsChart"></canvas>
+        </div>
+
+        <select id="chartSelectionDropdown">
+            <option value="illness-chart">Overall Illness Distribution</option>
+            <option value="monthly-illness-distribution">Monthly Illness Distribution</option>
+            <option value="mortality-rate">Monthly Mortality Rate</option>
+            <option value="illness-vs-deaths">Overall Illness vs. Deaths Analytics</option>
+        </select>
+    </div>
+    
+
+</div>
+
+    <div class="notif" onclick="showNotification()">
+        <div class="notif-icon"><ion-icon name="notifications"></ion-icon></div>
+    </div>
+
+    <script>
+        // Function to check for new notifications
+        function checkForNewNotifications() {
+            fetch('http://localhost:5000/api/patients')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.new_notifications) {
+                        document.getElementById('notificationDot').style.display = 'block';
+                    } else {
+                        document.getElementById('notificationDot').style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error checking notifications:', error));
+        }
+
+        // Check for new notifications on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            checkForNewNotifications();
+        });
+    </script>
+    
+    <script src="{% static 'SIA102/dashboardCharts.js' %}"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script>
+        function showNotification() {
+            window.location.href = "/notifications";
+        }
+    </script>
+    
+</body>
+
+{% endblock %}
+

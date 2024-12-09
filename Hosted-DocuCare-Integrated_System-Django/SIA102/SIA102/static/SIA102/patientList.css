@@ -1,0 +1,158 @@
+* {
+    overflow-y: hidden;
+}
+
+.main-content {
+    width: 90%;
+    flex-grow: 1;
+    padding: 20px;
+    max-height: 820px;
+    background-color: #fff;
+    border-radius: 10px;
+    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.1));
+    overflow-y: scroll;
+}
+
+h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.patient-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.patient-table thead {
+    background-color: #2fe7ce;
+    color: white;
+}
+
+.patient-table th,
+.patient-table td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.patient-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.patient-table tr:hover {
+    background-color: #ddd;
+}
+
+
+.patient-table button {
+    height: 5vh;
+    width: 80%;
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.patient-table button:hover {
+    background-color: #111;
+    border: none;
+}
+
+.print-button {
+    margin-top: 20px;
+
+}
+
+.print-button button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.print-button button:hover {
+    background-color: #333;
+}
+
+@media print {
+    /* Remove margins and padding to avoid page cuts */
+    body, .main-content {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Remove any scrollbars */
+    }
+
+    /* Make only the main content visible */
+    .main-content, .main-content * {
+        visibility: visible;
+    }
+
+    /* Ensure the table fills the page width */
+    .patient-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;  /* Ensure all columns fit */
+    }
+
+    .patient-table th, .patient-table td {
+        border: 1px solid #000;
+        padding: 5px;  /* Adjust padding for fit */
+        text-align: left;
+        font-size: 10px;  /* Adjust font size to fit */
+        color: black;
+        word-wrap: break-word;  /* Handle long words in cells */
+    }
+
+    /* Make sure headers are printed */
+    .patient-table th {
+        font-weight: bold;
+    }
+
+    /* Center the content */
+    .main-content {
+        width: 100%;
+        margin: auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    /* Apply a different color background only on the screen, not in print */
+    .head {
+        color: black;
+        background-color: #fff !important;
+        padding: 20px;
+        font-size: 30px;
+    }
+
+    /* Hide print button and sidebar */
+    .print-button {
+        display: none;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    /* Remove the "Patient Details" column */
+    .patient-table th:nth-child(11), /* Target 11th header cell */
+    .patient-table td:nth-child(11) { /* Target 11th column cells */
+        display: none;
+        visibility: hidden;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .menu{
+        display: none;
+    }
+}

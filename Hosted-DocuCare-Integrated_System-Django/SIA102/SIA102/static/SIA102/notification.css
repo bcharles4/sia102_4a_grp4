@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    justify-content: flex-start;
+    background-color: #2fe7ce;
+}
+
+.notif-con {
+    width: 50%;
+    height: auto;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #2fe7ce;
+    border-radius: 5px;
+}
+
+.notif {
+    width: 90%;
+    height: auto;
+    background-color: white;
+    margin: 10px auto;
+    border-radius: 10px;
+    filter: drop-shadow(8px 8px 3px #999);
+}
+
+.head-name {
+   width: 100%;
+   padding: 20px;
+   text-align: justify;
+   margin-top: 30px ;
+
+   
+}
+
+.head-name button{
+    height: 50px;
+    width: 15pc;
+    margin-top: 20px;
+    margin-left: -40px;
+    border-radius: 20px;
+    border: none;
+    font-weight: bold ;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+}
+
+.head-name button:hover {
+    background-color: #2fe7ce;
+    border: none;
+}
+
+.head-name h1 {
+    font-size: 40px;
+    font-weight: bold;
+    
+}
+
+.head-name p {
+  text-transform: uppercase;
+  margin: 7px;
+  font-weight: bold;
+  
+  
+
+}
+
+.notif-patient {
+    width: 94%;
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid #999;
+}
+
+.patient-details1 {
+    width: 60%;
+    margin: 20px;
+}
+
+.patient-details {
+    width: 90%;
+    margin: 20px;
+
+}
+
+.patient-details span {
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: justify;
+}
+
+#back {
+    font-size: 70px;
+    color: white;
+    margin-top: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+#up {
+    font-size: 70px;
+    color: white;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+}

@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing and Payments</title>
+    <link rel="stylesheet" href="{% static 'SIA102/index.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <img src="{% static 'SIA102/img/logo.png' %}" alt="">
+            <button id="login-btn">LOGIN</button>
+        </ul>
+    </div>
+   
+    <div class="vid-bg">
+        <video autoplay muted loop>
+            <source src="{% static 'SIA102/img/bg.mp4' %}" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+
+    <!-- Dim background, initially hidden -->
+    <div class="dim-bg" id="dim-bg"></div>
+
+    <!-- Login form, initially hidden -->
+    <div class="login" id="login-form" style="display: none;">
+        <div class="head">
+          <center><img src="{% static 'SIA102/img/logo.png' %}" alt=""></center>
+        </div>
+
+        <div class="form">
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="userID" id="userID" placeholder="User ID:"><br>
+                <input type="password" name="uPassword" id="uPassword" placeholder="Password"><br>
+                <center><button type="submit">LOGIN</button></center>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
+
+    <script src="{% static 'SIA102/index.js' %}"></script>
+</body>
+</html>

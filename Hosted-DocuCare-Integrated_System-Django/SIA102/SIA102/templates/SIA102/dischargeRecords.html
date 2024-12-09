@@ -1,0 +1,74 @@
+{% extends "SIA102/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <title>Discharge Records</title>
+    <link rel="stylesheet" href="{% static 'SIA102/dischargeRecords.css' %}">
+    <link rel="stylesheet" href="{% static 'SIA102/dashboardCharts.css' %}">
+    
+
+    <div class="main-content">
+        <span class="headerDiv">
+            <h1 style="background-color:#2fe7ce; color: white; padding: 20px; font-size: 50px; text-transform: uppercase; text-align: center;
+            border-top-left-radius: 10px; border-top-right-radius: 10px;">Discharge Records</h1>
+            &ensp;&ensp;&ensp;
+            <br>
+        </span>
+        
+        <table class="patient-table" >
+            
+                <thead>
+                    <tr>
+                        <th>Record Number</th>
+                        <th>Patient ID</th>
+                        <th>Patient Fullname</th>
+                        <th>Patient Type</th>
+                        <th>Discharge Approved By</th>
+                        <th>Discharge Date</th>
+                        <th>Discharge Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                    <tr>
+                        <td>{{ patient.id }}</td>
+                        <td>{{ patient.patientID }}</td> 
+                        <td>{{ patient.name }}</td> 
+                        <td>{{ patient.patient_type }}</td> 
+                        <td>{{ patient.approved_by }}</td> 
+                        <td>{{ patient.discharge_date }}</td> 
+                        <td>
+                            <button style="padding: 2px;
+                            border-radius: 12px;
+                            background-color: #333;
+                            color: white;
+                            cursor: pointer;
+                            font-weight: bold;"
+                            
+                            onclick="window.location.href='{% url 'dischargeSummary' patient.patientID %}'">
+                                View Summary
+                            </button>
+                        </td>
+                    </tr> 
+                    {% endfor %}
+                </tbody>
+            
+            
+        </table>
+        <div class="print-button" style="text-align: center; margin-top: 20px;">
+            <button onclick="window.print()"><ion-icon name="print" style="font-size: 40px;"> </ion-icon></button>
+        </div>
+    </div>
+
+    <div class="notif" onclick="showNotification()">
+        <div class="notif-icon"><ion-icon name="notifications"></ion-icon></div>
+    </div>
+    
+    
+    <script>
+        function showNotification() {
+            window.location.href = "/notifications";
+        }
+    </script>
+
+{% endblock %}

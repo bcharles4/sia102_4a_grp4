@@ -1,0 +1,82 @@
+{% extends "SIA102/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <title>Room Status</title>
+    <link rel="stylesheet" href="{% static 'SIA102/roomStatus.css' %}">
+    <link rel="stylesheet" href="{% static 'SIA102/dashboardCharts.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <div class="main-content">
+            <h1 style="background-color:#2fe7ce; color: white; padding: 20px; font-size: 50px; border-top-left-radius: 10px; border-top-right-radius: 10px;"
+            >ROOM STATUS</h1>
+            <table id="room-table">
+                     <thead>
+                        <tr>
+                            <th>Room Number</th>
+                            <th>Room Type</th>
+                            <th>Bed Capacity</th>
+                            <th>Available Beds</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="room-table-body">
+
+                    </tbody>
+                </table>
+
+                <div class="print-button" style="text-align: center; margin-top: 20px;">
+                    <button onclick="window.print()"><ion-icon name="print" style="font-size: 40px;"> </ion-icon></button>
+                </div>
+
+            <script>
+                // use AJAX
+                function fetchRoomsInfo() {
+                    $.ajax({
+                        url: "{% url 'get_rooms_info' %}", // get the data by calling this
+                        method: 'GET',
+                        success: function(response) {
+                            console.log('Fetched patients info:', response);
+                            const rooms = response.rooms; 
+                            let roomsHtml = '';
+                            if (rooms.length > 0) {
+                                rooms.forEach(function(room) {
+                                    roomsHtml += `<tr>
+                                        <td>${room.Room_Number}</td>
+                                        <th>${room.Room_Type}</th>
+                                        <th>${room.Bed_Capacity}</th>
+                                        <th>${room.Available_Beds}</th>
+                                        <th>${room.Room_Status}</th>
+                                    </tr>`;
+                                });
+                            } else {
+                                roomsHtml = `<tr><td colspan="11">No rooms found.</td></tr>`;
+                            }
+                            console.log('Generated HTML:', roomsHtml);
+                            $('#room-table-body').html(roomsHtml); 
+                        },
+                        error: function() {
+                            console.log('Error fetching users data');
+                        }
+                    });
+                }
+                setInterval(fetchRoomsInfo, 5000);  //5 seconds
+                fetchRoomsInfo();
+            </script>
+
+
+        </div>
+
+
+        <div class="notif" onclick="showNotification()">
+            <div class="notif-icon"><ion-icon name="notifications"></ion-icon></div>
+        </div>
+        
+        
+        <script>
+            function showNotification() {
+                window.location.href = "/notifications";
+            }
+        </script>
+
+{% endblock %}
